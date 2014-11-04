@@ -1,0 +1,7 @@
+name: autowgk
+version: ${project.build.version}
+description: rank plugin for pp
+website: fly4lol.de
+author: fly4lol
+main: de.fly4lol.autowgk.Main
+depend: [SQLApi]
