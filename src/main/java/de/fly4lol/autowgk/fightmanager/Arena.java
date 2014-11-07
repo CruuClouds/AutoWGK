@@ -1,4 +1,4 @@
-package de.fly4lol.autowgk.util;
+package de.fly4lol.autowgk.fightmanager;
 
 import org.bukkit.Location;
 
