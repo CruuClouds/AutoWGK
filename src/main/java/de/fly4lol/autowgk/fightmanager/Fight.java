@@ -6,7 +6,7 @@ public class Fight {
 	private Team team2;
 	private boolean isRunnig;
 	
-	public void Fight(Arena arena, Team team1, Team team2, boolean isRunning){
+	public Fight(Arena arena, Team team1, Team team2, boolean isRunning){
 		this.arena = arena;
 		this.team1 = team1;
 		this.team2 = team2;
@@ -44,6 +44,5 @@ public class Fight {
 	public void setRunnig(boolean isRunnig) {
 		this.isRunnig = isRunnig;
 	}
-	
 
 }
