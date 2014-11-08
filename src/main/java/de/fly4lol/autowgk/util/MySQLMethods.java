@@ -18,6 +18,12 @@ import de.pro_crafting.sql.api.Connection;
 public class MySQLMethods {
 	
 	static Connection conn = Main.conn;
+	private Main plugin;
+	public MySQLMethods(Main plugin){
+		this.plugin = plugin;
+		
+	plugin.MySQL( this);
+	}
 	
 	/*
 	 * 
@@ -26,9 +32,9 @@ public class MySQLMethods {
 	 */
 	
 	
-	public void addSign(Player player, Location location, String Arenam, String Type){
+	public void addSign(Player player, Location location,  String Type){
 		try {
-			PreparedStatement prep = conn.prepare("Insert Into signs.signs (uuid, World, X, Y, Z , Type) Values (?, ?, ?, ?, ?, uuid)");
+			PreparedStatement prep = conn.prepare("Insert Into signs.signs (uuid, World, X, Y, Z , Type) Values (?, ?, ?, ?, ?, ,?)");
 			prep.setString(1, player.getUniqueId().toString());
 			prep.setString(2, location.getWorld().getName());
 			prep.setInt(3, location.getBlockX());
@@ -41,9 +47,22 @@ public class MySQLMethods {
 		}
 	}
 	
+	public void removeSign(Location location){
+		try {
+			PreparedStatement prep = conn.prepare("Delte from signs.signs Where World=? AND X=? AND Y=? AND Z=?");
+			prep.setString(1, location.getWorld().getName());
+			prep.setInt(2, location.getBlockX());
+			prep.setInt(3, location.getBlockY());
+			prep.setInt(4, location.getBlockZ());
+			prep.execute();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public boolean existSignAtLocation(Location location){
 		try {
-			PreparedStatement prep = conn.prepare("Select * From signs.signs Where world=? AND X=? AND Y=? AND Z=?");
+			PreparedStatement prep = conn.prepare("Select * From signs.signs Where World=? AND X=? AND Y=? AND Z=?");
 			String world = location.getWorld().getName();
 			int X = location.getBlockX();
 			int Y = location.getBlockY();
@@ -103,7 +122,7 @@ public class MySQLMethods {
 	public List<Location> getSignsByWorld(String worldname){
 		List<Location> signs = new ArrayList <Location>();
 		try {
-			PreparedStatement prep = conn.prepare("Select * From signs.signs Where world=?");
+			PreparedStatement prep = conn.prepare("Select * From signs.signs Where World=?");
 			prep.setString(1, worldname);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
