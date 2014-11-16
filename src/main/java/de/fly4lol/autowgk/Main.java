@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.pro_crafting.commandframework.CommandFramework;
@@ -61,6 +62,7 @@ public class Main extends JavaPlugin{
 	
 	private void registerListener(){
 		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this , sql), this);
+		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this , sql), this);
 	}
 
 }

@@ -27,6 +27,12 @@ public class Commands {
 		
 	}
 	
+	/*
+	 * 
+	 * Command for Sign Zeugs
+	 * 
+	 */
+	
 	@Command(name = "AutoWGK.sign", usage = "/AutoWGK", permission = "autowgk.sign" , aliases = {"awgk sign"})
 	public void autowgkSign(CommandArgs args) {
 		CommandSender sender = args.getSender();
