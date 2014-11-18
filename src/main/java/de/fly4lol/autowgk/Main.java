@@ -33,7 +33,6 @@ public class Main extends JavaPlugin{
 
 	@Override
 	public void onEnable(){
-		this.registerListener();
 		mysql = new MySQLMethods(this);
 		this.load();
 		this.framework = new CommandFramework(this);
@@ -41,6 +40,7 @@ public class Main extends JavaPlugin{
 		this.framework.registerCommands(commands);
 		this.framework.registerHelp();
 		wg = WarGear.getPlugin(WarGear.class);
+		this.registerListener();
 	}
 
 	@Override
