@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
@@ -27,6 +28,7 @@ public class PlayerInteractListener implements Listener{
 	public void playerInteractHandler(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		Material type = event.getClickedBlock().getType();
+		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 		if(type.equals(Material.SIGN ) || type.equals(Material.SIGN_POST)){
 			Location signLoc = event.getClickedBlock().getLocation();
 				if(plugin.addSign.contains(player)){
@@ -61,5 +63,6 @@ public class PlayerInteractListener implements Listener{
 				}
 			}
 		}
+	}
 	}
 }
