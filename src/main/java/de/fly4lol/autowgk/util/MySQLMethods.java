@@ -35,7 +35,7 @@ public class MySQLMethods {
 	
 	public void addSign(Player player, Location location,  String Type){
 		try {
-			PreparedStatement prep = conn.prepare("Insert Into signs.signs (uuid, World, X, Y, Z , Type) Values (?, ?, ?, ?, ?, ,?)");
+			PreparedStatement prep = conn.prepare("Insert Into signs.signs (uuid, World, X, Y, Z , Type) Values (?, ?, ?, ?, ?, ?)");
 			prep.setString(1, player.getUniqueId().toString());
 			prep.setString(2, location.getWorld().getName());
 			prep.setInt(3, location.getBlockX());
@@ -50,7 +50,7 @@ public class MySQLMethods {
 	
 	public void removeSign(Location location){
 		try {
-			PreparedStatement prep = conn.prepare("Delte from signs.signs Where World=? AND X=? AND Y=? AND Z=?");
+			PreparedStatement prep = conn.prepare("Delete from signs.signs Where World=? AND X=? AND Y=? AND Z=?");
 			prep.setString(1, location.getWorld().getName());
 			prep.setInt(2, location.getBlockX());
 			prep.setInt(3, location.getBlockY());

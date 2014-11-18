@@ -37,8 +37,8 @@ public class PlayerInteractListener implements Listener{
 						Sign sign = (Sign) state;
 						if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaInfo]")){
 							sign.setLine( 0 , "§6Arena Info§6");
-							sign.setLine( 1, "&9" + sign.getLine( 1) + "§9");
-							sign.setLine( 2, "§2 Loading... §2");
+							sign.setLine( 1, "§9" + sign.getLine( 1) + "§9");
+							sign.setLine( 2, "§2 Loading... ");
 							sign.update();
 							sql.addSign(player, signLoc, "ArenaInfo");
 							plugin.addSign.remove(player);
