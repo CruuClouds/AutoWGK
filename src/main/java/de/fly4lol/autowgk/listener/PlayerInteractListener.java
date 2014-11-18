@@ -27,10 +27,10 @@ public class PlayerInteractListener implements Listener{
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void playerInteractHandler(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		Material type = event.getClickedBlock().getType();
 		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-		if(type.equals(Material.SIGN ) || type.equals(Material.SIGN_POST)){
-			Location signLoc = event.getClickedBlock().getLocation();
+			Material type = event.getClickedBlock().getType();
+			if(type.equals(Material.SIGN ) || type.equals(Material.SIGN_POST)){
+				Location signLoc = event.getClickedBlock().getLocation();
 				if(plugin.addSign.contains(player)){
 					if(!sql.existSignAtLocation(signLoc)){
 						BlockState state = signLoc.getBlock().getState();
@@ -51,18 +51,18 @@ public class PlayerInteractListener implements Listener{
 						player.sendMessage(plugin.prefix + "Dieses Schilt ist bereits Eingetragen!");
 						plugin.addSign.remove(player);
 					}
-			} else if(plugin.removeSign.contains(player)){
-				if(sql.existSignAtLocation(signLoc)){
-				sql.removeSign(signLoc);
-				signLoc.getBlock().setType(Material.AIR);
-				plugin.removeSign.remove(player);
-				player.sendMessage(plugin.prefix + "Du hast das Schilt Entfernt!");
-				} else {
-					player.sendMessage(plugin.prefix + "Dieses Schilt ist nicht Eingetragen!");
-					plugin.removeSign.remove(player);
+				} else if(plugin.removeSign.contains(player)){
+					if(sql.existSignAtLocation(signLoc)){
+						sql.removeSign(signLoc);
+						signLoc.getBlock().setType(Material.AIR);
+						plugin.removeSign.remove(player);
+						player.sendMessage(plugin.prefix + "Du hast das Schilt Entfernt!");
+					} else {
+						player.sendMessage(plugin.prefix + "Dieses Schilt ist nicht Eingetragen!");
+						plugin.removeSign.remove(player);
+					}
 				}
 			}
 		}
-	}
 	}
 }
