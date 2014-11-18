@@ -18,6 +18,7 @@ import de.pro_crafting.sql.api.Connection;
 public class MySQLMethods {
 	
 	static Connection conn = Main.conn;
+	@SuppressWarnings("unused")
 	private Main plugin;
 	public MySQLMethods(Main plugin){
 		this.plugin = plugin;

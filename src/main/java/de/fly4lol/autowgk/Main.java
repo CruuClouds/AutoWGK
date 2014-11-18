@@ -33,8 +33,8 @@ public class Main extends JavaPlugin{
 
 	@Override
 	public void onEnable(){
-		mysql = new MySQLMethods(this);
 		this.load();
+		mysql = new MySQLMethods(this);
 		this.framework = new CommandFramework(this);
 		commands = new Commands(this, sql);
 		this.framework.registerCommands(commands);
