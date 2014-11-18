@@ -12,10 +12,11 @@ import org.bukkit.event.Listener;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.util.MySQLMethods;
-import de.pro_crafting.wg.event.ArenaStateChangedEvent;
+import de.pro_crafting.wg.event.ArenaStateChangeEvent;
 
 
 public class ArenaStateChangedListener implements Listener{
+	@SuppressWarnings("unused")
 	private Main plugin;
 	private MySQLMethods sql;
 	
@@ -25,7 +26,7 @@ public class ArenaStateChangedListener implements Listener{
 	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
-	public void ArenaStateChangedHandler(ArenaStateChangedEvent event) {
+	public void ArenaStateChangedHandler(ArenaStateChangeEvent event) {
 		
 		
 		List<Location> signs = sql.getSignsByType("ArenaInfo");
@@ -36,7 +37,7 @@ public class ArenaStateChangedListener implements Listener{
 				Sign s = (Sign) state;
 				String arenaName = s.getLine( 1).replaceAll("§9", "");
 				if(event.getArena().getName().equalsIgnoreCase( arenaName )){
-					s.setLine(2, "§2" + event.getTo().toString());
+					s.setLine(2, "§2" + event.getTo().toString() );
 					s.update();
 				}
 			} else {

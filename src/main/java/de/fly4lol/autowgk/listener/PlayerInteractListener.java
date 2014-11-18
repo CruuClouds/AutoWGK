@@ -40,9 +40,9 @@ public class PlayerInteractListener implements Listener{
 							sign.update();
 							sql.addSign(player, signLoc, "ArenaInfo");
 							plugin.addSign.remove(player);
-							player.sendMessage(plugin.prefix + "Du hast das Schilt Hinzugefügt!");
+							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else {
-							player.sendMessage( plugin.prefix + "Dies ist kein Gültiges Schild!");
+							player.sendMessage( plugin.prefix + "Dies ist kein gültiges Schild!");
 							plugin.addSign.remove(player);
 						}
 					} else {
