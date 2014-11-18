@@ -68,9 +68,8 @@
 		
 		<dependency>
 			<groupId>de.pro_crafting</groupId>
-			<artifactId>ban</artifactId>
-			<version>0.1.2-SNAPSHOT</version>
-			<type>jar</type>
+			<artifactId>WarGear</artifactId>
+			<version>0.9-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		
