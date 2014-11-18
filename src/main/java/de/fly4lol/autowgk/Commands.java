@@ -15,45 +15,45 @@ import de.pro_crafting.commandframework.CommandArgs;
 public class Commands {
 	private Main plugin;
 	private MySQLMethods sql;
-	
+
 	public Commands(Main plugin ,MySQLMethods sql) {
 		this.plugin = plugin;
 	}
-	
+
 	@Command(name = "AutoWGK", usage = "/AutoWGK", permission = "autowgk.use" , aliases = {"awgk"})
 	public void autowgk(CommandArgs args) {
 		CommandSender sender = args.getSender();
 		sender.sendMessage(plugin.prefix + "/AutoWGK sign");
-		
+
 	}
-	
+
 	/*
 	 * 
 	 * Command for Sign Zeugs
 	 * 
 	 */
-	
+
 	@Command(name = "AutoWGK.sign", usage = "/AutoWGK", permission = "autowgk.sign" , aliases = {"awgk sign"})
 	public void autowgkSign(CommandArgs args) {
 		CommandSender sender = args.getSender();
 		sender.sendMessage(plugin.prefix + "/AutoWGK sign add");
 		sender.sendMessage(plugin.prefix + "/AutoWGK sign remove");
 	}
-	
+
 	@Command(name = "AutoWGK.sign.add", usage = "/AutoWGK", permission = "autowgk.sign.add" , aliases = {"awgk sign add"})
 	public void autowgkSignAdd(CommandArgs args) {
 		Player player = args.getPlayer();
 		plugin.addSign.add(player);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu adden.");
 	}
-	
+
 	@Command(name = "AutoWGK.sign.remove", usage = "/AutoWGK", permission = "autowgk.sign.remove" , aliases = {"awgk sign remove"})
 	public void autowgkSignRemove(CommandArgs args) {
 		Player player = args.getPlayer();
 		plugin.removeSign.add(player);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu removen.");
 	}
-	
+
 	@Command(name = "AutoWGK.sign.remove.world", usage = "/AutoWGK", permission = "autowgk.sign.remove.world" , aliases = {"awgk sign remove world"})
 	public void autowgkSignRemoveWorld(CommandArgs args) {
 		Player player = args.getPlayer();
@@ -71,10 +71,10 @@ public class Commands {
 		} else {
 			player.sendMessage(plugin.prefix + "Nutze: /AutoWGK sign remove world <worldname>");
 		}
-	
+
 	}
-	
-	
-	
+
+
+
 
 }
