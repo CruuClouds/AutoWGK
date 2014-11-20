@@ -20,9 +20,9 @@ public class ArenaStateChangedListener implements Listener{
 	private Main plugin;
 	private MySQLMethods sql;
 	
-	public ArenaStateChangedListener(Main plugin, MySQLMethods sql) {
+	public ArenaStateChangedListener(Main plugin) {
 		this.plugin = plugin;
-		this.sql = sql;
+		this.sql = plugin.getSQL();
 	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)

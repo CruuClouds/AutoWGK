@@ -19,9 +19,9 @@ public class PlayerInteractListener implements Listener{
 	private Main plugin;
 	private MySQLMethods sql;
 	
-	public PlayerInteractListener(Main plugin, MySQLMethods sql) {
+	public PlayerInteractListener(Main plugin) {
 		this.plugin = plugin;
-		this.sql = sql;
+		this.sql = plugin.getSQL();
 	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)

@@ -5,12 +5,16 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.fightmanager.ArenaMode;
 
 public class Config {
 	
-	public static Main plugin;
+	private Main plugin;
 	
-	
+	public Config(Main plugin) {
+		this.plugin = plugin;
+	}
+ 	
 	public void creatArena(String Arena){
 		plugin.getConfig().set("Arenen." + Arena, "");
 	}
@@ -25,7 +29,7 @@ public class Config {
 			location = "north";
 		}
 		plugin.getConfig().set("Arenen." + Arena + "."+ team, location);
-		plugin.getConfig().set("Arenen." + Arena + ".Enabled" , true);
+		plugin.getConfig().set("Arenen." + Arena + ".Mode" , ArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
 		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".World", World);
 		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".X", X);
@@ -34,17 +38,15 @@ public class Config {
 		plugin.saveConfig();
 	}
 	
-	public void setEnabled(String Arena, boolean isEnabled){
-		String Enabled = "false";
-		if(isEnabled){
-			Enabled = "true";
-		}
-		plugin.getConfig().set("Arenen." + Arena + ".Enabled" , Enabled);
+	public void setMode(String Arena, Enum Mode){
+		
+		plugin.getConfig().set("Arenen." + Arena + ".Mode" , Mode.toString());
 		plugin.saveConfig();
 	}
 	
-	public boolean isEnabled(String Arena){
-		return plugin.getConfig().getBoolean("Arenen." + Arena + ".Enabled");
+	public ArenaMode getMode(String Arena){
+		return ArenaMode.values()[ plugin.getConfig().getInt("Arenen." + Arena + ".Mode") ];
+		
 	}
 	
 	public Location getPastingLocation(String Arena, boolean Team1){

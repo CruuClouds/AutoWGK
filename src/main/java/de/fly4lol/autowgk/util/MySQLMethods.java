@@ -22,8 +22,6 @@ public class MySQLMethods {
 	private Main plugin;
 	public MySQLMethods(Main plugin){
 		this.plugin = plugin;
-		
-	plugin.MySQL( this);
 	}
 	
 	/*

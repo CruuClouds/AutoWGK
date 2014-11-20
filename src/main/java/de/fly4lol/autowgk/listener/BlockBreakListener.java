@@ -16,9 +16,9 @@ public class BlockBreakListener implements Listener{
 	private Main plugin;
 	private MySQLMethods sql;
 	
-	public BlockBreakListener(Main plugin, MySQLMethods sql) {
+	public BlockBreakListener(Main plugin) {
 		this.plugin = plugin;
-		this.sql = sql;
+		this.sql = plugin.getSQL();
 	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)

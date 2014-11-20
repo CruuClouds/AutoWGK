@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
+import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.pro_crafting.commandframework.CommandFramework;
 import de.pro_crafting.sql.api.Connection;
@@ -27,29 +28,26 @@ public class Main extends JavaPlugin{
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
 	private Commands commands;
-	private MySQLMethods mysql;
 	public static Connection conn;
 	public WarGear wg;
-
+	private Config config;
+	
 	@Override
 	public void onEnable(){
 		this.load();
-		mysql = new MySQLMethods(this);
+		this.sql = new MySQLMethods(this);
 		this.framework = new CommandFramework(this);
 		commands = new Commands(this, sql);
 		this.framework.registerCommands(commands);
 		this.framework.registerHelp();
 		wg = WarGear.getPlugin(WarGear.class);
 		this.registerListener();
+		this.config = new Config(this);
 	}
 
 	@Override
 	public void onDisable(){
 
-	}
-
-	public void MySQL(MySQLMethods sql) {
-		this.sql = sql;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
@@ -70,9 +68,17 @@ public class Main extends JavaPlugin{
 	}
 
 	private void registerListener(){
-		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this , sql), this);
-		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this , sql), this);
-		Bukkit.getPluginManager().registerEvents(new ArenaStateChangedListener(this , sql), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new ArenaStateChangedListener(this), this);
 	}
 
+	
+	public Config getAutoWGKConfig() {
+		return config;
+	}
+	
+	public MySQLMethods getSQL() {
+		return this.sql;
+	}
 }
