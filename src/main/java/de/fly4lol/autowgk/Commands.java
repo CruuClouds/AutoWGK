@@ -21,9 +21,10 @@ public class Commands {
 	private MySQLMethods sql;
 	private Config config;
 
-	public Commands(Main plugin ,MySQLMethods sql) {
+	public Commands(Main plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getAutoWGKConfig();
+		this.sql = plugin.getSQL();
 	}
 
 	@Command(name = "AutoWGK", usage = "/AutoWGK", permission = "autowgk.use" , aliases = {"awgk"})
@@ -97,7 +98,7 @@ public class Commands {
 	@Command(name = "AutoWGK.arena.create", usage = "/AutoWGK", permission = "autowgk.arena.create" , aliases = {"awgk.arena.create"})
 	public void autowgkArenaCreate(CommandArgs args) {
 		CommandSender sender = args.getSender();
-		Player player = (Player) sender;
+		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
 		if(arena != null){
 			 config.creatArena( arena.getName());
@@ -110,7 +111,7 @@ public class Commands {
 	@Command(name = "AutoWGK.arena.addteam", usage = "/AutoWGK", permission = "autowgk.arena.addteam" , aliases = {"awgk.arena.addteam"})
 	public void autowgkArenaAddteam(CommandArgs args) {
 		CommandSender sender = args.getSender();
-		Player player = (Player) sender;
+		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
 		String team = args.getArgs()[0];
 		String direction = args.getArgs()[1];
@@ -135,7 +136,7 @@ public class Commands {
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"})
 	public void autowgkArenaSetmode(CommandArgs args) {
 		CommandSender sender = args.getSender();
-		Player player = (Player) sender;
+		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
 		String stringMode = args.getArgs()[0];
 		if(arena != null){

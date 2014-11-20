@@ -36,13 +36,15 @@ public class Main extends JavaPlugin{
 	public void onEnable(){
 		this.load();
 		this.sql = new MySQLMethods(this);
+		this.config = new Config(this);
+		wg = WarGear.getPlugin(WarGear.class);
+		
+		this.registerListener();
+		
 		this.framework = new CommandFramework(this);
-		commands = new Commands(this, sql);
+		commands = new Commands(this);
 		this.framework.registerCommands(commands);
 		this.framework.registerHelp();
-		wg = WarGear.getPlugin(WarGear.class);
-		this.registerListener();
-		this.config = new Config(this);
 	}
 
 	@Override

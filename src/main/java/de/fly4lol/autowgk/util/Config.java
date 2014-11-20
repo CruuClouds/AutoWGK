@@ -31,10 +31,10 @@ public class Config {
 		plugin.getConfig().set("Arenen." + Arena + "."+ team, location);
 		plugin.getConfig().set("Arenen." + Arena + ".Mode" , ArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
-		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".World", World);
-		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".X", X);
-		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".Y", Y);
-		plugin.getConfig().set("Arenen." + "Arena" + "." + team + ".Z", Z);
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".World", World);
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".X", X);
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Y", Y);
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Z", Z);
 		plugin.saveConfig();
 	}
 	
