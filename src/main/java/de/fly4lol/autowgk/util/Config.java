@@ -21,16 +21,17 @@ public class Config {
 	
 	public void addTeam(String Arena, boolean team1, boolean north, int X, int Y, int Z, String World){
 		String team = "Team2";
-		String location = "south";
+		String direction = "south";
 		if(team1){
 			team = "Team1";
 		}
 		if(north){
-			location = "north";
+			direction = "north";
 		}
-		plugin.getConfig().set("Arenen." + Arena + "."+ team, location);
+		plugin.getConfig().set("Arenen." + Arena + "."+ team, "");
 		plugin.getConfig().set("Arenen." + Arena + ".Mode" , ArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Direction", direction );
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".World", World);
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".X", X);
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Y", Y);
@@ -69,7 +70,7 @@ public class Config {
 		if(team1){
 			team = "Team1";
 		}
-		String location = plugin.getConfig().getString("Arenen." + Arena + "." + team);
+		String location = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".direction");
 		return location.equalsIgnoreCase("north");
 	}
 
