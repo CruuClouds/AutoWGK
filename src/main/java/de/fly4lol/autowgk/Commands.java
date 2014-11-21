@@ -92,7 +92,8 @@ public class Commands {
 	public void autowgkArena(CommandArgs args) {
 		CommandSender sender = args.getSender();
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena Create");
-		sender.sendMessage(plugin.prefix + "/AutoWGK Arena remove");
+		sender.sendMessage(plugin.prefix + "/AutoWGK Arena addTeam");
+		sender.sendMessage(plugin.prefix + "/AutoWGK Arena setMode");
 	}
 	
 	@Command(name = "AutoWGK.arena.create", usage = "/AutoWGK", permission = "autowgk.arena.create" , aliases = {"awgk.arena.create"})
@@ -118,19 +119,24 @@ public class Commands {
 		Block block = player.getLocation().getBlock();
 		boolean team1 = false;
 		boolean north = false;
-		if(( team.equalsIgnoreCase("team1") || team.equalsIgnoreCase("team2")) && (direction.equalsIgnoreCase("north") || direction.equalsIgnoreCase("south"))){
-			if(team.equalsIgnoreCase("team1")){
-				team1 = true;
+		if(args.getArgs().length == 2){
+			if(( team.equalsIgnoreCase("team1") || team.equalsIgnoreCase("team2")) && (direction.equalsIgnoreCase("north") || direction.equalsIgnoreCase("south"))){
+				if(team.equalsIgnoreCase("team1")){
+					team1 = true;
+				}
+				if(direction.equalsIgnoreCase("norht")){
+					north = true;
+				}
+				config.addTeam( arena.getName() , team1, north, block.getX(), block.getY(), block.getZ(), block.getWorld().getName());
+				player.sendMessage(plugin.prefix + "Du hast das §6" + team + " §2Hinzugefügt");
+			
+			} else {
+				player.sendMessage(plugin.prefix + "Nutze: /autowgk arena addteam team1/team2 nort/south");
 			}
-			if(direction.equalsIgnoreCase("norht")){
-				north = true;
-			}
-			config.addTeam( arena.getName() , team1, north, block.getX(), block.getY(), block.getZ(), block.getWorld().getName());
-			player.sendMessage(plugin.prefix + "Du hast das §6" + team + " §2Hinzugefügt");
-		
 		} else {
 			player.sendMessage(plugin.prefix + "Nutze: /autowgk arena addteam team1/team2 nort/south");
 		}
+		
 	}
 	
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"})
@@ -139,18 +145,22 @@ public class Commands {
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
 		String stringMode = args.getArgs()[0];
-		if(arena != null){
-			if(stringMode.equalsIgnoreCase("normal") || stringMode.equalsIgnoreCase("disabled")){
-				Enum mode = ArenaMode.valueOf(stringMode);
-				config.setMode( arena.getName(), mode);
-				player.sendMessage(plugin.prefix + "Du hast den Mode der arena zu §6" + mode.toString() + " §2Geändert");
+		if(args.getArgs().length ==  1){
+			if(arena != null){
+				if(stringMode.equalsIgnoreCase("normal") || stringMode.equalsIgnoreCase("disabled")){
+					Enum mode = ArenaMode.valueOf(stringMode);
+					config.setMode( arena.getName(), mode);
+					player.sendMessage(plugin.prefix + "Du hast den Mode der arena zu §6" + mode.toString() + " §2Geändert");
+				} else {
+					player.sendMessage(plugin.prefix + "Nutze: /AutoWGK Arena setmode normal/disabled ");
+				}
 			} else {
-				player.sendMessage(plugin.prefix + "Nurtze: /AutoWGK Arena setmode normal/disabled ");
+				player.sendMessage(plugin.prefix + "Du stehst in keiner Arena ");
 			}
-			player.sendMessage(plugin.prefix + "Du hast die Arena §6" + arena.getName()+ " §2Erstellt!");
 		} else {
-			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena ");
+			player.sendMessage(plugin.prefix + "Nutze: /AutoWGK Arena setmode normal/disabled ");
 		}
+		
 	}
 	
 

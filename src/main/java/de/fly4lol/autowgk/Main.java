@@ -9,6 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.avaje.ebean.LogLevel;
+
+import de.fly4lol.autowgk.fightmanager.Arena;
 import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
@@ -21,7 +24,7 @@ import de.pro_crafting.sql.api.Credentials;
 import de.pro_crafting.wg.WarGear;
 
 public class Main extends JavaPlugin{
-
+	public List<Arena> loadedArenen = new ArrayList<Arena>();
 	public String prefix = "§8[§9AutoWGK§8] §2";
 	private MySQLMethods sql;
 	public List<Player> addSign = new ArrayList<Player>();
@@ -40,6 +43,8 @@ public class Main extends JavaPlugin{
 		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
+		
+		this.loadAutoArenas();
 		
 		this.framework = new CommandFramework(this);
 		commands = new Commands(this);
@@ -82,5 +87,13 @@ public class Main extends JavaPlugin{
 	
 	public MySQLMethods getSQL() {
 		return this.sql;
+	}
+	
+	public void loadAutoArenas(){
+		List<Arena> arenen = config.getAutoArenen();
+		for(Arena arena : arenen){
+			this.loadedArenen.add( arena );
+			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");
+		}
 	}
 }
