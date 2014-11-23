@@ -43,6 +43,14 @@ public class PlayerInteractListener implements Listener{
 							sql.addSign(player, signLoc, "ArenaInfo");
 							plugin.addSign.remove(player);
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
+						} else if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaJoin]")) {
+							sign.setLine( 0 , "§6Arena Join§6" );
+							sign.setLine( 1, "§9Klicke hier um");
+							sign.setLine( 2, "§9zu Joinen");
+							sign.update();
+							sql.addSign( player , signLoc, "ArenaJoin");
+							plugin.addSign.remove( player );
+							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else {
 							player.sendMessage( plugin.prefix + "Dies ist kein gültiges Schild!");
 							plugin.addSign.remove(player);
@@ -62,6 +70,7 @@ public class PlayerInteractListener implements Listener{
 						plugin.removeSign.remove(player);
 					}
 				}
+				event.setCancelled( true );
 			}
 		}
 	}
