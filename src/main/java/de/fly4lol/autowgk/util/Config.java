@@ -9,8 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.fightmanager.Arena;
-import de.fly4lol.autowgk.fightmanager.ArenaMode;
+import de.fly4lol.autowgk.fightmanager.AutoArena;
+import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 
 public class Config {
 	
@@ -34,7 +34,7 @@ public class Config {
 			direction = "north";
 		}
 		plugin.getConfig().set("Arenen." + Arena + "."+ team, "");
-		plugin.getConfig().set("Arenen." + Arena + ".Mode" , ArenaMode.NORMAL.ordinal());
+		plugin.getConfig().set("Arenen." + Arena + ".Mode" , AutoArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Direction", direction );
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".World", World);
@@ -50,8 +50,8 @@ public class Config {
 		plugin.saveConfig();
 	}
 	
-	public ArenaMode getMode(String Arena){
-		return ArenaMode.values()[ plugin.getConfig().getInt("Arenen." + Arena + ".Mode") ];
+	public AutoArenaMode getMode(String Arena){
+		return AutoArenaMode.values()[ plugin.getConfig().getInt("Arenen." + Arena + ".Mode") ];
 		
 	}
 	
@@ -83,13 +83,13 @@ public class Config {
 		}
 	}
 	
-	public List<Arena> getAutoArenen(){
-		List<Arena> liste = new ArrayList<Arena>();
+	public List<AutoArena> getAutoArenen(){
+		List<AutoArena> liste = new ArrayList<AutoArena>();
 		Set<String> arenen= plugin.getConfig().getConfigurationSection("Arenen").getKeys(false);
 		
 		for(String arena1 : arenen){
 			
-			Arena arena = new Arena();
+			AutoArena arena = new AutoArena();
 			String directionTeam1 = "south";
 			String directionTeam2 = "south";
 			

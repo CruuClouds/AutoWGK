@@ -9,7 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.fly4lol.autowgk.fightmanager.ArenaMode;
+import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.pro_crafting.commandframework.Command;
@@ -148,7 +148,7 @@ public class Commands {
 		if(args.getArgs().length ==  1){
 			if(arena != null){
 				if(stringMode.equalsIgnoreCase("normal") || stringMode.equalsIgnoreCase("disabled")){
-					Enum mode = ArenaMode.valueOf(stringMode);
+					Enum mode = AutoArenaMode.valueOf(stringMode);
 					config.setMode( arena.getName(), mode);
 					player.sendMessage(plugin.prefix + "Du hast den Mode der arena zu §6" + mode.toString() + " §2Geändert");
 				} else {

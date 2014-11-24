@@ -1,6 +1,7 @@
 package de.fly4lol.autowgk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -11,7 +12,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.avaje.ebean.LogLevel;
 
-import de.fly4lol.autowgk.fightmanager.Arena;
+import de.fly4lol.autowgk.fightmanager.AutoArena;
+import de.fly4lol.autowgk.fightmanager.FightMethods;
+import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
@@ -24,7 +27,7 @@ import de.pro_crafting.sql.api.Credentials;
 import de.pro_crafting.wg.WarGear;
 
 public class Main extends JavaPlugin{
-	public List<Arena> loadedArenen = new ArrayList<Arena>();
+	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();
 	public String prefix = "§8[§9AutoWGK§8] §2";
 	private MySQLMethods sql;
 	public List<Player> addSign = new ArrayList<Player>();
@@ -34,12 +37,16 @@ public class Main extends JavaPlugin{
 	public static Connection conn;
 	public WarGear wg;
 	private Config config;
+	private Util util;
+	private FightMethods fightMethods;
 	
 	@Override
 	public void onEnable(){
 		this.load();
 		this.sql = new MySQLMethods(this);
 		this.config = new Config(this);
+		this.util = new Util(this);
+		this.fightMethods = new FightMethods(this);
 		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
@@ -89,10 +96,14 @@ public class Main extends JavaPlugin{
 		return this.sql;
 	}
 	
+	public Util getUtil(){
+		return this.util;
+	}
+	
 	public void loadAutoArenas(){
-		List<Arena> arenen = config.getAutoArenen();
-		for(Arena arena : arenen){
-			this.loadedArenen.add( arena );
+		List<AutoArena> arenen = config.getAutoArenen();
+		for(AutoArena arena : arenen){
+			this.loadedArenen.put( arena.getName() , arena);
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");
 		}
 	}
