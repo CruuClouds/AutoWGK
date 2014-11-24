@@ -1,6 +1,6 @@
 package de.fly4lol.autowgk.fightmanager;
 
-public enum ArenaMode {
+public enum AutoArenaMode {
 	NORMAL,
 	DISABLED,
 

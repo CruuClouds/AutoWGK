@@ -2,15 +2,15 @@ package de.fly4lol.autowgk.fightmanager;
 
 import org.bukkit.Location;
 
-public class Arena {
+public class AutoArena {
 	private String name;
 	private Location team1Loc;
 	private Location team2Loc;
-	private ArenaMode mode;
+	private AutoArenaMode mode;
 	private String team1Direction;
 	private String team2Direction;
 	
-	public Arena(String name, Location team1Loc, Location team2Loc, ArenaMode mode, String team1Direction, String team2Direction){
+	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, String team1Direction, String team2Direction){
 		this.team1Loc = team1Loc;
 		this.team2Loc = team2Loc;
 		this.mode = mode;
@@ -18,7 +18,7 @@ public class Arena {
 		this.team2Direction = team2Direction;
 	}
 	
-	public Arena(){
+	public AutoArena(){
 	}
 
 	public String getName() {
@@ -61,11 +61,11 @@ public class Arena {
 		this.team2Direction = team2Location;
 	}
 
-	public ArenaMode getMode() {
+	public AutoArenaMode getMode() {
 		return mode;
 	}
 
-	public void setMode(ArenaMode mode) {
+	public void setMode(AutoArenaMode mode) {
 		this.mode = mode;
 	}
 	
