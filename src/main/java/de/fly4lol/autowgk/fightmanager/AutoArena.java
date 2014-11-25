@@ -1,8 +1,13 @@
 package de.fly4lol.autowgk.fightmanager;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
+import de.fly4lol.autowgk.Main;
 
 public class AutoArena {
+	private Main plugin;
+	private Util util;
 	private String name;
 	private Location team1Loc;
 	private Location team2Loc;
@@ -16,6 +21,11 @@ public class AutoArena {
 		this.mode = mode;
 		this.team1Direction = team1Direction;
 		this.team2Direction = team2Direction;
+	}
+	
+	public AutoArena(Main plugin) {
+		this.plugin = plugin;
+		plugin.getUtil();
 	}
 	
 	public AutoArena(){
@@ -69,6 +79,16 @@ public class AutoArena {
 		this.mode = mode;
 	}
 	
+	public void joinArena(Player player){
+			
+			if(this.getMode() != AutoArenaMode.DISABLED){
+				
+				
+			} else {
+				player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
+			}
+			
+	}
 	
 	
 }

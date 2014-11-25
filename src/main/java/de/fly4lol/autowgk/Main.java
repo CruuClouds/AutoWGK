@@ -10,10 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.avaje.ebean.LogLevel;
-
 import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.FightMethods;
 import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
@@ -38,7 +35,7 @@ public class Main extends JavaPlugin{
 	public WarGear wg;
 	private Config config;
 	private Util util;
-	private FightMethods fightMethods;
+	private AutoArena autoArena;
 	
 	@Override
 	public void onEnable(){
@@ -46,7 +43,7 @@ public class Main extends JavaPlugin{
 		this.sql = new MySQLMethods(this);
 		this.config = new Config(this);
 		this.util = new Util(this);
-		this.fightMethods = new FightMethods(this);
+		this.autoArena = new AutoArena(this);
 		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
