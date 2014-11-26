@@ -38,6 +38,7 @@ public class Main extends JavaPlugin{
 	private Config config;
 	private Util util;
 	private Messages messages;
+	private Messenger messenger;
 
 	
 	@Override
@@ -47,8 +48,8 @@ public class Main extends JavaPlugin{
 		this.config = new Config(this);
 		this.util = new Util(this);
 		new AutoArena(this);
-		new Messenger( this);
-		messages = new Messages( this );
+		this.messenger = new Messenger( this);
+		this.messages = new Messages( this );
 		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
@@ -104,6 +105,10 @@ public class Main extends JavaPlugin{
 	
 	public Messages getMessages(){
 		return this.messages;
+	}
+	
+	public Messenger getMessenger(){
+		return this.messenger;
 	}
 	
 	public void loadAutoArenas(){

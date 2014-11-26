@@ -1,14 +1,15 @@
 package de.fly4lol.autowgk.fightmanager;
 
-import mkremins.fanciful.FancyMessage;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.messagemanager.Message;
+import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.pro_crafting.wg.arena.State;
 
 public class AutoArena {
+	private Messenger messager;
 	private Main plugin;
 	private Util util;
 	private String name;
@@ -31,6 +32,7 @@ public class AutoArena {
 	public AutoArena(Main plugin) {
 		this.plugin = plugin;
 		plugin.getUtil();
+		
 	}
 	
 	public AutoArena(){
@@ -119,7 +121,7 @@ public class AutoArena {
 				if(this.isJoinable()){
 					Team team = new Team();
 					team.setLeader( player );
-						new FancyMessage()
+					new Messenger().setMessage( Message.AUTOWGKJOIN ).setPlayer( player ).send();
 					if(this.getTeam1() == null){
 						this.setTeam1( team);
 					} else {
