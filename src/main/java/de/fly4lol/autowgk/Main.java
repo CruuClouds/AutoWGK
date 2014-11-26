@@ -15,6 +15,8 @@ import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
+import de.fly4lol.autowgk.messagemanager.Messages;
+import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.pro_crafting.commandframework.CommandFramework;
@@ -35,7 +37,8 @@ public class Main extends JavaPlugin{
 	public WarGear wg;
 	private Config config;
 	private Util util;
-	private AutoArena autoArena;
+	private Messages messages;
+
 	
 	@Override
 	public void onEnable(){
@@ -43,7 +46,9 @@ public class Main extends JavaPlugin{
 		this.sql = new MySQLMethods(this);
 		this.config = new Config(this);
 		this.util = new Util(this);
-		this.autoArena = new AutoArena(this);
+		new AutoArena(this);
+		new Messenger( this);
+		messages = new Messages( this );
 		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
@@ -95,6 +100,10 @@ public class Main extends JavaPlugin{
 	
 	public Util getUtil(){
 		return this.util;
+	}
+	
+	public Messages getMessages(){
+		return this.messages;
 	}
 	
 	public void loadAutoArenas(){

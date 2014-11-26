@@ -8,10 +8,14 @@ public class Team {
 	private boolean isFinish;
 	
 	
-	public Team(Player leader, String schematic, boolean isFinish){
+	public Team(Player leader, String schematic, boolean isReady){
 		this.leader = leader;
 		this.schematic = schematic;
 		this.isFinish = isFinish;
+	}
+	
+	public Team(){
+		
 	}
 
 
@@ -40,7 +44,7 @@ public class Team {
 	}
 
 
-	public void setFinish(boolean isFinish) {
+	public void setReady(boolean isFinish) {
 		this.isFinish = isFinish;
 	}
 	

@@ -1,9 +1,12 @@
 package de.fly4lol.autowgk.fightmanager;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.pro_crafting.wg.arena.State;
 
 public class AutoArena {
 	private Main plugin;
@@ -14,8 +17,10 @@ public class AutoArena {
 	private AutoArenaMode mode;
 	private String team1Direction;
 	private String team2Direction;
+	private Team team1;
+	private Team team2;
 	
-	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, String team1Direction, String team2Direction){
+	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, String team1Direction, String team2Direction , Team team1 , Team team2){
 		this.team1Loc = team1Loc;
 		this.team2Loc = team2Loc;
 		this.mode = mode;
@@ -79,10 +84,50 @@ public class AutoArena {
 		this.mode = mode;
 	}
 	
+	
+	public Team getTeam1() {
+		return team1;
+	}
+
+	public void setTeam1(Team team1) {
+		this.team1 = team1;
+	}
+
+	public Team getTeam2() {
+		return team2;
+	}
+
+	public void setTeam2(Team team2) {
+		this.team2 = team2;
+	}
+
+	public boolean isJoinable(){
+		State state = plugin.wg.getArenaManager().getArena( this.getName()).getState();
+		if(state == State.Idle || state == State.Resetting || state == State.Resetting.Spectate ){
+			if(this.getTeam1() == null || this.getTeam2() == null){
+			} 
+		}
+		return false;
+	
+	}
+	
+	
+	
 	public void joinArena(Player player){
 			
 			if(this.getMode() != AutoArenaMode.DISABLED){
-				
+				if(this.isJoinable()){
+					Team team = new Team();
+					team.setLeader( player );
+						new FancyMessage()
+					if(this.getTeam1() == null){
+						this.setTeam1( team);
+					} else {
+						this.setTeam2( team);
+					}
+				} else {
+					player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen!");
+				}
 				
 			} else {
 				player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
