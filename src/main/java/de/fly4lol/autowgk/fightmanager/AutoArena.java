@@ -113,28 +113,24 @@ public class AutoArena {
 	
 	}
 	
-	
-	
 	public void joinArena(Player player){
-			
-			if(this.getMode() != AutoArenaMode.DISABLED){
-				if(this.isJoinable()){
-					Team team = new Team();
-					team.setLeader( player );
-					new Messenger().setMessage( Message.AUTOWGKJOIN ).setPlayer( player ).send();
-					if(this.getTeam1() == null){
-						this.setTeam1( team);
-					} else {
-						this.setTeam2( team);
-					}
+		if(this.getMode() != AutoArenaMode.DISABLED){
+			if(this.isJoinable()){
+				Team team = new Team();
+				team.setLeader( player );
+				new Messenger().setMessage( Message.AUTOWGKJOIN ).setPlayer( player ).send();
+				if(this.getTeam1() == null){
+					this.setTeam1( team);
 				} else {
-					player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen!");
+					this.setTeam2( team);
 				}
-				
 			} else {
-				player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
+				player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen!");
 			}
-			
+				
+		} else {
+			player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
+		}	
 	}
 	
 	
