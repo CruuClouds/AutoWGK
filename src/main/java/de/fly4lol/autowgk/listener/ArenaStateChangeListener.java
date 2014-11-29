@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.autowgk.util.SignType;
 import de.pro_crafting.wg.event.ArenaStateChangeEvent;
 
 
@@ -29,7 +30,7 @@ public class ArenaStateChangeListener implements Listener{
 	public void ArenaStateChangedHandler(ArenaStateChangeEvent event) {
 		
 		
-		List<Location> signs = sql.getSignsByType("ArenaInfo");
+		List<Location> signs = sql.getSignsByType(SignType.ARENAINFO);
 		for(Location sign : signs){
 			Material Type = sign.getBlock().getType();
 			if(Type.equals( Material.SIGN_POST) ||Type.equals( Material.SIGN)){

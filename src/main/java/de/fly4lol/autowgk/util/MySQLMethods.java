@@ -31,7 +31,7 @@ public class MySQLMethods {
 	 */
 	
 	
-	public void addSign(Player player, Location location,  String Type){
+	public void addSign(Player player, Location location,  SignType Type){
 		try {
 			PreparedStatement prep = conn.prepare("Insert Into signs.signs (uuid, World, X, Y, Z , Type) Values (?, ?, ?, ?, ?, ?)");
 			prep.setString(1, player.getUniqueId().toString());
@@ -39,7 +39,7 @@ public class MySQLMethods {
 			prep.setInt(3, location.getBlockX());
 			prep.setInt(4, location.getBlockY());
 			prep.setInt(5, location.getBlockZ());
-			prep.setString(6, Type);
+			prep.setInt(6, Type.ordinal());
 			prep.execute();	
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,11 +78,11 @@ public class MySQLMethods {
 		return false;
 	}
 	
-	public List<Location> getSignsByType(String Type){
+	public List<Location> getSignsByType(SignType Type){
 		List<Location> signs = new ArrayList <Location>();
 		try {
 			PreparedStatement prep = conn.prepare("Select * From signs.signs Where Type=?");
-			prep.setString(1, Type);
+			prep.setInt(1, Type.ordinal());
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
 				World world = Bukkit.getWorld(res.getString("world"));
@@ -96,6 +96,29 @@ public class MySQLMethods {
 			e.printStackTrace();
 		}
 		return signs;
+	}
+	
+	public SignType getSignType(Location location){
+		try {
+			PreparedStatement prep = conn.prepare("Select * From signs.signs Where World=? AND X=? AND Y=? AND Z=?");
+			String world = location.getWorld().getName();
+			int X = location.getBlockX();
+			int Y = location.getBlockY();
+			int Z = location.getBlockZ();
+			prep.setString(1, world);
+			prep.setInt(2, X);
+			prep.setInt(3, Y);
+			prep.setInt(4, Z);
+			ResultSet res = prep.executeQuery();
+			int typeOrdinal = res.getInt("Type");
+			SignType type = SignType.values()[typeOrdinal];
+			return type;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public List<Location> getSignsByOwner(OfflinePlayer player){

@@ -44,7 +44,7 @@ public class Config {
 		plugin.saveConfig();
 	}
 	
-	public void setMode(String Arena, Enum Mode){
+	public void setMode(String Arena, AutoArenaMode Mode){
 		
 		plugin.getConfig().set("Arenen." + Arena + ".Mode" , Mode.toString());
 		plugin.saveConfig();

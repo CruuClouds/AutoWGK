@@ -12,7 +12,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.autowgk.util.SignType;
 
 
 public class PlayerInteractListener implements Listener{
@@ -40,7 +42,7 @@ public class PlayerInteractListener implements Listener{
 							sign.setLine( 1, "§9" + sign.getLine( 1) + "§9");
 							sign.setLine( 2, "§2 Loading... ");
 							sign.update();
-							sql.addSign(player, signLoc, "ArenaInfo");
+							sql.addSign(player, signLoc, SignType.ARENAINFO);
 							plugin.addSign.remove(player);
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaJoin]")) {
@@ -48,7 +50,7 @@ public class PlayerInteractListener implements Listener{
 							sign.setLine( 1, "§9Klicke hier um");
 							sign.setLine( 2, "§9zu Joinen");
 							sign.update();
-							sql.addSign( player , signLoc, "ArenaJoin");
+							sql.addSign( player , signLoc, SignType.ARENAINFO);
 							plugin.addSign.remove( player );
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else {
@@ -68,6 +70,12 @@ public class PlayerInteractListener implements Listener{
 					} else {
 						player.sendMessage(plugin.prefix + "Dieses Schilt ist nicht Eingetragen!");
 						plugin.removeSign.remove(player);
+					}
+				} else if(sql.existSignAtLocation( signLoc )){
+					if(sql.getSignType( signLoc).equals( SignType.ARENAJOIN)){
+						String ArenaName = plugin.wg.getArenaManager().getArenaAt( signLoc).getName();
+						AutoArena autoArena = plugin.loadedArenen.get( ArenaName);
+						autoArena.joinArena( player );
 					}
 				}
 				event.setCancelled( true );

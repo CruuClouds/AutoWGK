@@ -148,7 +148,7 @@ public class Commands {
 		if(args.getArgs().length ==  1){
 			if(arena != null){
 				if(stringMode.equalsIgnoreCase("normal") || stringMode.equalsIgnoreCase("disabled")){
-					Enum mode = AutoArenaMode.valueOf(stringMode);
+					AutoArenaMode mode = AutoArenaMode.valueOf(stringMode);
 					config.setMode( arena.getName(), mode);
 					player.sendMessage(plugin.prefix + "Du hast den Mode der arena zu §6" + mode.toString() + " §2Geändert");
 				} else {
