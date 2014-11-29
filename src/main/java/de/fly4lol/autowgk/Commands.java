@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.pro_crafting.commandframework.Command;
@@ -163,6 +164,17 @@ public class Commands {
 		
 	}
 	
+	/*
+	 * 
+	 * Show Last command
+	 * 
+	 */
+	
+	@Command(name = "AutoWGK.showlast", usage = "/AutoWGK", permission = "autowgk.showlast" , aliases = {"awgk.last" , "AutoWGK.last" })
+	public void autowgkShowlast(CommandArgs args) {
+		Player player = args.getPlayer();
+		new Messenger().setPlayer( player ).sendLast();
+	}
 
 
 
