@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.Util;
-import de.fly4lol.autowgk.listener.ArenaStateChangedListener;
+import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
 import de.fly4lol.autowgk.messagemanager.Messages;
@@ -87,7 +87,7 @@ public class Main extends JavaPlugin{
 	private void registerListener(){
 		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new ArenaStateChangedListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
 	}
 
 	
