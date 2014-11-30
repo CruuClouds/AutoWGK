@@ -99,6 +99,7 @@ public class MySQLMethods {
 	}
 	
 	public SignType getSignType(Location location){
+		SignType type = SignType.SIGN;
 		try {
 			PreparedStatement prep = conn.prepare("Select * From signs.signs Where World=? AND X=? AND Y=? AND Z=?");
 			String world = location.getWorld().getName();
@@ -110,15 +111,14 @@ public class MySQLMethods {
 			prep.setInt(3, Y);
 			prep.setInt(4, Z);
 			ResultSet res = prep.executeQuery();
-			int typeOrdinal = res.getInt("Type");
-			SignType type = SignType.values()[typeOrdinal];
-			return type;
+			if(res.next()){
+				int typeOrdinal = res.getInt("Type");
+				type = SignType.values()[typeOrdinal];
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return null;
+		return type;
 	}
 	
 	public List<Location> getSignsByOwner(OfflinePlayer player){

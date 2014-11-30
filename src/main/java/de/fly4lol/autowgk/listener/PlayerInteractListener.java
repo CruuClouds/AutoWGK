@@ -1,5 +1,6 @@
 package de.fly4lol.autowgk.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
@@ -50,7 +51,7 @@ public class PlayerInteractListener implements Listener{
 							sign.setLine( 1, "§9Klicke hier um");
 							sign.setLine( 2, "§9zu Joinen");
 							sign.update();
-							sql.addSign( player , signLoc, SignType.ARENAINFO);
+							sql.addSign( player , signLoc, SignType.ARENAJOIN);
 							plugin.addSign.remove( player );
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else {

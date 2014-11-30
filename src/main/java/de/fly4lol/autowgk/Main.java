@@ -39,6 +39,7 @@ public class Main extends JavaPlugin{
 	private Util util;
 	private Messages messages;
 	private Messenger messenger;
+	private AutoArena autoArena;
 
 	
 	@Override
@@ -47,10 +48,8 @@ public class Main extends JavaPlugin{
 		this.sql = new MySQLMethods(this);
 		this.config = new Config(this);
 		this.util = new Util(this);
-		new AutoArena(this);
-		this.messenger = new Messenger( this);
+		this.wg = WarGear.getPlugin(WarGear.class);
 		this.messages = new Messages( this );
-		wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
 		
@@ -89,7 +88,10 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
 	}
-
+	
+	public AutoArena getAutoArena(){
+		return autoArena;
+	}
 	
 	public Config getAutoWGKConfig() {
 		return config;
@@ -114,7 +116,9 @@ public class Main extends JavaPlugin{
 	public void loadAutoArenas(){
 		List<AutoArena> arenen = config.getAutoArenen();
 		for(AutoArena arena : arenen){
-			this.loadedArenen.put( arena.getName() , arena);
+			arena.setPlugin( this );
+			this.loadedArenen.put( arena.getName() , arena );
+			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");
 		}
 	}

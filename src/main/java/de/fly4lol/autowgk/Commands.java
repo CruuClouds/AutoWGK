@@ -33,7 +33,7 @@ public class Commands {
 		CommandSender sender = args.getSender();
 		sender.sendMessage(plugin.prefix + "/AutoWGK Sign");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena");
-
+		sender.sendMessage(plugin.prefix + "/AutoWGK ShowLast");
 	}
 
 	/*

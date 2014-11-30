@@ -1,11 +1,13 @@
 package de.fly4lol.autowgk.fightmanager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.messagemanager.Message;
 import de.fly4lol.autowgk.messagemanager.Messenger;
+import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 
 public class AutoArena {
@@ -27,12 +29,6 @@ public class AutoArena {
 		this.mode = mode;
 		this.team1Direction = team1Direction;
 		this.team2Direction = team2Direction;
-	}
-	
-	public AutoArena(Main plugin) {
-		this.plugin = plugin;
-		plugin.getUtil();
-		
 	}
 	
 	public AutoArena(){
@@ -102,15 +98,26 @@ public class AutoArena {
 	public void setTeam2(Team team2) {
 		this.team2 = team2;
 	}
+	
+	public void setPlugin(Main plugin) {
+		this.plugin = plugin;
+	}
 
 	public boolean isJoinable(){
-		State state = plugin.wg.getArenaManager().getArena( this.getName()).getState();
-		if(state == State.Idle || state == State.Resetting || state == State.Resetting.Spectate ){
-			if(this.getTeam1() == null || this.getTeam2() == null){
+		plugin.getAutoWGKConfig();
+		plugin.wg.getInviteManager();
+		Arena arena = plugin.wg.getArenaManager().getArena( this.getName());
+		Bukkit.broadcastMessage( arena.getName());
+		Bukkit.broadcastMessage( arena.getState().toString());
+		State state = arena.getState();
+		if(arena != null){
+			if(state == State.Idle || state == State.Resetting || state == State.Spectate ){
+				if(this.getTeam1() == null || this.getTeam2() == null){
+					return true;
+				} 
 			} 
-		}
+		} 
 		return false;
-	
 	}
 	
 	public void joinArena(Player player){
@@ -118,6 +125,7 @@ public class AutoArena {
 			if(this.isJoinable()){
 				Team team = new Team();
 				team.setLeader( player );
+				Bukkit.broadcastMessage( player.getName() );
 				new Messenger().setMessage( Message.AUTOWGKJOIN ).setPlayer( player ).send();
 				if(this.getTeam1() == null){
 					this.setTeam1( team);

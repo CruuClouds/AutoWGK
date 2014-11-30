@@ -4,14 +4,11 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
-import de.fly4lol.autowgk.Main;
-
 public class Messenger {
 	private HashMap<Player, Message> lastMessage = new HashMap<Player, Message>();
 	private Message message;
 	@SuppressWarnings("unused")
 	private Player player;
-	private Main plugin;
 	private Messages messages;
 
 	Messenger(Message message, Player player){
@@ -19,10 +16,7 @@ public class Messenger {
 		this.player = player;
 	}
 	
-	public Messenger(Main plugin) {
-		this.plugin = plugin;
-		messages = plugin.getMessages();
-	}
+	
 	
 	public Messenger(){
 		
