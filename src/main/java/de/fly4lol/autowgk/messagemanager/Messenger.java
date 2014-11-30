@@ -2,24 +2,23 @@ package de.fly4lol.autowgk.messagemanager;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import de.fly4lol.autowgk.Main;
 
 public class Messenger {
 	private HashMap<Player, Message> lastMessage = new HashMap<Player, Message>();
 	private Message message;
 	@SuppressWarnings("unused")
 	private Player player;
-	private Messages messages;
 
 	Messenger(Message message, Player player){
 		this.message = message;
 		this.player = player;
 	}
 	
-	
-	
 	public Messenger(){
-		
 	}
 	
 	public Messenger setMessage(Message message) {
@@ -34,7 +33,9 @@ public class Messenger {
 
 	public void send(){
 		if(this.message.equals( Message.AUTOWGKJOIN )){
-			messages.sendAutoJoinMessage( this.player );
+			Bukkit.broadcastMessage( player.getName() );
+			
+			Messages.sendAutoJoinMessage( player );
 			this.lastMessage.put( this.player , Message.AUTOWGKJOIN);
 		}
 	}

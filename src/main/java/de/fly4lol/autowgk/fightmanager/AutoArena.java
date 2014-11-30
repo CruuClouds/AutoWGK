@@ -3,6 +3,7 @@ package de.fly4lol.autowgk.fightmanager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.messagemanager.Message;
@@ -107,8 +108,6 @@ public class AutoArena {
 		plugin.getAutoWGKConfig();
 		plugin.wg.getInviteManager();
 		Arena arena = plugin.wg.getArenaManager().getArena( this.getName());
-		Bukkit.broadcastMessage( arena.getName());
-		Bukkit.broadcastMessage( arena.getState().toString());
 		State state = arena.getState();
 		if(arena != null){
 			if(state == State.Idle || state == State.Resetting || state == State.Spectate ){
