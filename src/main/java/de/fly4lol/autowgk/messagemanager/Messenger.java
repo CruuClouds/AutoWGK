@@ -1,6 +1,7 @@
 package de.fly4lol.autowgk.messagemanager;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,7 +9,6 @@ import org.bukkit.entity.Player;
 import de.fly4lol.autowgk.Main;
 
 public class Messenger {
-	private HashMap<Player, Message> lastMessage = new HashMap<Player, Message>();
 	private Message message;
 	@SuppressWarnings("unused")
 	private Player player;
@@ -32,20 +32,32 @@ public class Messenger {
 	}
 
 	public void send(){
-		if(this.message.equals( Message.AUTOWGKJOIN )){
-			Bukkit.broadcastMessage( player.getName() );
-			
-			Messages.sendAutoJoinMessage( player );
-			this.lastMessage.put( this.player , Message.AUTOWGKJOIN);
+		List<MyMessage> messages = this.message.getMessage();
+		Messages.lastMessage.put( this.player , this.message);
+		for(MyMessage message : messages){
+			if(message.getFancyMessage() == null){
+				player.sendMessage(message.getMessage());
+			} else {
+				message.getFancyMessage().send( this.player );
+			}
 		}
 	}
 	
 	public void sendLast(){
-		if(this.lastMessage.get( this.player ) != null){
-			Message message = this.lastMessage.get(player);
-			this.setMessage( message );
-			this.send();
+		Message lastMessage = Messages.lastMessage.get( player );
+		List<MyMessage> messages = lastMessage.getMessage();
+		if(messages.isEmpty()){
+			player.sendMessage("§8[§9AutoWGK§8] §2Du hast noch keine Nachrichten bekommen!");
+			
+		} else {
+			for(MyMessage message : messages){
+				if(message.getFancyMessage() == null){
+					player.sendMessage(message.getMessage());
+				} else {
+					message.getFancyMessage().send( this.player );
+				}
+			}
 		}
-		
+			
 	}
 }
