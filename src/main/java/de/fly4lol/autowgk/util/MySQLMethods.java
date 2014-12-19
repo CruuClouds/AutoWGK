@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import net.minecraft.server.v1_7_R2.UtilUUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -160,6 +163,83 @@ public class MySQLMethods {
 		}
 		return signs;
 	}
+	
+	/*
+	 * 
+	 *  Schematics 
+	 * 
+	 */
+	
+	public Schematic getSchematicByID(int id){
+		try {
+			PreparedStatement prep = conn.prepare("Select * From ? Where id=?");
+			prep.setString( 1 , "schematics");
+			prep.setInt( 2, id);
+			ResultSet res = prep.executeQuery();
+			if(res.next()){
+				Schematic schematic = new Schematic();
+				schematic.setId( id);
+				schematic.setName( res.getString("schematic"));
+				schematic.setOwner( UUID.fromString( res.getString("uuid")));
+				schematic.setWarGear( res.getBoolean("isWarGear"));
+				schematic.setPublic( res.getBoolean("isPublic"));
+				return schematic;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<Schematic> getSchematisByOwner(OfflinePlayer player){
+		try {
+			List<Schematic> schematics = new ArrayList<Schematic>();
+			PreparedStatement prep = conn.prepare("Select * From schematics Where uuid=?");
+			prep.setString( 1, player.getUniqueId().toString());
+			ResultSet res = prep.executeQuery();
+			while(res.next()){
+				Bukkit.broadcastMessage("test2");
+				Schematic schematic = new Schematic();
+				schematic.setId( res.getInt("id"));
+				schematic.setName( res.getString("schematic"));
+				schematic.setOwner( UUID.fromString( res.getString("uuid")));
+				schematic.setWarGear( res.getBoolean("isWarGear"));
+				schematic.setPublic( res.getBoolean("isPublic"));
+				schematics.add(schematic);
+			}
+			return schematics;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<Schematic> getPublicSchematics(){
+		try {
+			List<Schematic> schematics = new ArrayList<Schematic>();
+			PreparedStatement prep = conn.prepare("Select * From ? Where isPublic=?");
+			prep.setString( 1, "schematics");
+			prep.setInt( 2 , 1);
+			ResultSet res = prep.executeQuery();
+			while(res.next()){
+				
+				Schematic schematic = new Schematic();
+				schematic.setId( res.getInt("id"));
+				schematic.setName( res.getString("schematic"));
+				schematic.setOwner( UUID.fromString( res.getString("uuid")));
+				schematic.setWarGear( res.getBoolean("isWarGear"));
+				schematic.setPublic( res.getBoolean("isPublic"));
+				schematics.add(schematic);
+			}
+			return schematics;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 
 }

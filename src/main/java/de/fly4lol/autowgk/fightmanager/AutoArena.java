@@ -130,12 +130,12 @@ public class AutoArena {
 				FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
 				.then("§9§nPrivate")
 				.tooltip("§5Klicke")
-				.command("/AutoWGK schematic private");
+				.command("/AutoWGK schematic list");
 				
 				FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
 				.then("§9§nPublic")
 				.tooltip("§5Klicke")
-				.command("/AutoWGK schematic private");
+				.command("/AutoWGK schematic public");
 				
 				Message message = new Message();
 				message

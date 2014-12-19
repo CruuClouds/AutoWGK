@@ -39,6 +39,7 @@ public class PlayerInteractListener implements Listener{
 						BlockState state = signLoc.getBlock().getState();
 						Sign sign = (Sign) state;
 						if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaInfo]")){
+							event.setCancelled( true );
 							sign.setLine( 0 , "§6Arena Info§6");
 							sign.setLine( 1, "§9" + sign.getLine( 1) + "§9");
 							sign.setLine( 2, "§2 Loading... ");
@@ -47,9 +48,10 @@ public class PlayerInteractListener implements Listener{
 							plugin.addSign.remove(player);
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaJoin]")) {
+							event.setCancelled( true  );
 							sign.setLine( 0 , "§6Arena Join§6" );
-							sign.setLine( 1, "§9Klicke hier um");
-							sign.setLine( 2, "§9zu Joinen");
+							sign.setLine( 1, "§9Klicke hier ");
+							sign.setLine( 2, "§9um zu Joinen");
 							sign.update();
 							sql.addSign( player , signLoc, SignType.ARENAJOIN);
 							plugin.addSign.remove( player );

@@ -3,6 +3,8 @@ package de.fly4lol.autowgk;
 import java.util.ArrayList;
 import java.util.List;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -10,9 +12,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.messagemanager.Message;
 import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.autowgk.util.Schematic;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.Arena;
@@ -31,9 +35,11 @@ public class Commands {
 	@Command(name = "AutoWGK", usage = "/AutoWGK", permission = "autowgk.use" , aliases = {"awgk"})
 	public void autowgk(CommandArgs args) {
 		CommandSender sender = args.getSender();
+		sender.sendMessage("§2Nutze einen der folgenden Commands.");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Sign");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena");
 		sender.sendMessage(plugin.prefix + "/AutoWGK ShowLast");
+		sender.sendMessage(plugin.prefix + "/AutoWGK Schematic");
 	}
 
 	/*
@@ -92,6 +98,7 @@ public class Commands {
 	@Command(name = "AutoWGK.arena", usage = "/AutoWGK", permission = "autowgk.arena" , aliases = {"awgk.arena"})
 	public void autowgkArena(CommandArgs args) {
 		CommandSender sender = args.getSender();
+		sender.sendMessage("§2Nutze einen der folgenden Commands.");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena Create");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena addTeam");
 		sender.sendMessage(plugin.prefix + "/AutoWGK Arena setMode");
@@ -175,6 +182,49 @@ public class Commands {
 		Player player = args.getPlayer();
 		new Messenger().setPlayer( player ).sendLast();
 	}
+	
+	/*
+	 * 
+	 * Schematic commands
+	 * 
+	 */
+	
+	@Command(name = "AutoWGK.schematic", usage = "/AutoWGK", permission = "autowgk.schematic" , aliases = {"awgk.schem"  , "AutoWGK.schem" })
+	public void autowgkSchematic(CommandArgs args) {
+		Player player = args.getPlayer();
+		player.sendMessage("§2Nutze einen der folgenden Commands.");
+		player.sendMessage(this.plugin.prefix + "Nutze: /AutoWgk Schematic load");
+		player.sendMessage(this.plugin.prefix + "Nutze: /AutoWgk Schematic list");
+		player.sendMessage(this.plugin.prefix + "Nutze: /AutoWgk Schematic public");
+	}
+	
+	@Command(name = "AutoWGK.schematic.list", usage = "/AutoWGK", permission = "autowgk.schematic.list" , aliases = {"awgk.schem.list" , "awgk.schematic.list" , "Autowgk.schem.list"})
+	public void autowgkSchematicList(CommandArgs args) {
+		Player player = args.getPlayer();
+		if(args.getArgs().length == 0 ){
+			List<Schematic> schematics = this.sql.getSchematisByOwner( player );
+			Message message = new Message();
+			message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+			Bukkit.broadcastMessage(schematics.size() + "");
+			
+			for(Schematic schematic : schematics ){
+				String prefix = "§8[§6Private§8] §b";
+				if(schematic.isPublic()){
+					prefix = "§8[§6Public§8] §b";
+				}
+				FancyMessage wargearMessage = new FancyMessage("")
+				.then("§9# " + schematic.getId() + " " + prefix + schematic.getName() )
+				.tooltip("§5Klicke")
+				.command("/AutoWGK schematic load " + schematic.getId());
+				message.addLine(wargearMessage);
+			}
+			new Messenger().setPlayer( player ).setMessage( message).send();
+		}
+	}
+	
+	
+	
+	
 
 
 
