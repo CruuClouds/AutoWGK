@@ -198,13 +198,13 @@ public class MySQLMethods {
 			prep.setString( 1, player.getUniqueId().toString());
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				Bukkit.broadcastMessage("test2");
 				Schematic schematic = new Schematic();
 				schematic.setId( res.getInt("id"));
 				schematic.setName( res.getString("schematic"));
 				schematic.setOwner( UUID.fromString( res.getString("uuid")));
 				schematic.setWarGear( res.getBoolean("isWarGear"));
 				schematic.setPublic( res.getBoolean("isPublic"));
+				schematic.setState( SchematicState.values()[ res.getInt("state")]);
 				schematics.add(schematic);
 			}
 			return schematics;
@@ -218,18 +218,17 @@ public class MySQLMethods {
 	public List<Schematic> getPublicSchematics(){
 		try {
 			List<Schematic> schematics = new ArrayList<Schematic>();
-			PreparedStatement prep = conn.prepare("Select * From ? Where isPublic=?");
-			prep.setString( 1, "schematics");
-			prep.setInt( 2 , 1);
+			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=?");
+			prep.setInt( 1 , 1);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				
 				Schematic schematic = new Schematic();
 				schematic.setId( res.getInt("id"));
 				schematic.setName( res.getString("schematic"));
 				schematic.setOwner( UUID.fromString( res.getString("uuid")));
 				schematic.setWarGear( res.getBoolean("isWarGear"));
 				schematic.setPublic( res.getBoolean("isPublic"));
+				schematic.setState( SchematicState.values()[ res.getInt("state")]);
 				schematics.add(schematic);
 			}
 			return schematics;

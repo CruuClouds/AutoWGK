@@ -7,6 +7,7 @@ import mkremins.fanciful.FancyMessage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.fly4lol.autowgk.util.Schematic;
+import de.fly4lol.autowgk.util.SchematicState;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.Arena;
@@ -205,21 +207,64 @@ public class Commands {
 			List<Schematic> schematics = this.sql.getSchematisByOwner( player );
 			Message message = new Message();
 			message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
-			Bukkit.broadcastMessage(schematics.size() + "");
-			
 			for(Schematic schematic : schematics ){
-				String prefix = "§8[§6Private§8] §b";
-				if(schematic.isPublic()){
-					prefix = "§8[§6Public§8] §b";
+				if(schematic.isWarGear()){
+					String prefix = "§8[§6Private§8] §b";
+					if(schematic.isPublic()){
+						prefix = "§8[§6Public§8] §b";
+					}
+					FancyMessage wargearMessage = new FancyMessage("")
+					.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
+					.tooltip("§5Klicke")
+					.command("/AutoWGK schematic load " + schematic.getId());
+					message.addLine(wargearMessage);
 				}
-				FancyMessage wargearMessage = new FancyMessage("")
-				.then("§9# " + schematic.getId() + " " + prefix + schematic.getName() )
-				.tooltip("§5Klicke")
-				.command("/AutoWGK schematic load " + schematic.getId());
-				message.addLine(wargearMessage);
+			}
+			new Messenger().setPlayer( player ).setMessage( message).send();
+		} else if(args.getArgs().length == 1){
+			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs()[0]);
+			List<Schematic> schematics = this.sql.getSchematisByOwner( offlinePlayer );
+			Message message = new Message();
+			message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+			for(Schematic schematic : schematics ){
+				if(schematic.isWarGear()){
+					if(schematic.getState().equals(SchematicState.Checked)){
+						String prefix = "§8[§6Private§8] §b";
+						if(schematic.isPublic()){
+							prefix = "§8[§6Public§8] §b";
+						}
+						FancyMessage wargearMessage = new FancyMessage("")
+						.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
+						.tooltip("§5Klicke")
+						.command("/AutoWGK schematic load " + schematic.getId());
+						message.addLine(wargearMessage);
+					}
+				}
 			}
 			new Messenger().setPlayer( player ).setMessage( message).send();
 		}
+	}
+	
+	@Command(name = "AutoWGK.schematic.public", usage = "/AutoWGK", permission = "autowgk.schematic.public" , aliases = {"awgk.schem.public" , "awgk.schematic.public" , "Autowgk.schem.public"})
+	public void autowgkSchematicPublic(CommandArgs args) {
+		Player player = args.getPlayer();
+		List<Schematic> schematics = this.sql.getPublicSchematics();
+		Message message = new Message();
+		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+		for(Schematic schematic : schematics ){
+			if(schematic.isWarGear()){
+				if(schematic.getState().equals(SchematicState.Checked)){
+					String prefix = "§8[§6" + Bukkit.getOfflinePlayer( schematic.getOwner()).getName()+ "§8] §b";
+					FancyMessage wargearMessage = new FancyMessage("")
+					.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
+					.tooltip("§5Klicke")
+					.command("/AutoWGK schematic load " + schematic.getId());
+					message.addLine(wargearMessage);
+				}
+			}
+		}
+		new Messenger().setPlayer( player ).setMessage( message).send();
+	
 	}
 	
 	
