@@ -49,7 +49,6 @@ public class Main extends JavaPlugin{
 		this.config = new Config(this);
 		this.util = new Util(this);
 		this.wg = WarGear.getPlugin(WarGear.class);
-		this.messages = new Messages( this );
 		
 		this.registerListener();
 		

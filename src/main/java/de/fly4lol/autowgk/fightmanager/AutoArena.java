@@ -1,5 +1,7 @@
 package de.fly4lol.autowgk.fightmanager;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -125,7 +127,28 @@ public class AutoArena {
 				Team team = new Team();
 				team.setLeader( player );
 				Bukkit.broadcastMessage( player.getName() );
-				new Messenger().setMessage( Message.AUTOWGKJOIN ).setPlayer( player ).send();
+				FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
+				.then("§9§nPrivate")
+				.tooltip("§5Klicke")
+				.command("/AutoWGK schematic private");
+				
+				FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
+				.then("§9§nPublic")
+				.tooltip("§5Klicke")
+				.command("/AutoWGK schematic private");
+				
+				Message message = new Message();
+				message
+				.addLine("")
+				.addLine("")
+				.addLine("            §2Wähle Zwischen Public und Private ")
+				.addLine("")
+				.addLine(publicMessage)
+				.addLine("")
+				.addLine(privateMessage)
+				.addLine("");
+				
+				new Messenger().setMessage(message).setPlayer( player ).send();
 				if(this.getTeam1() == null){
 					this.setTeam1( team);
 				} else {

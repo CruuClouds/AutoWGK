@@ -1,16 +1,11 @@
 package de.fly4lol.autowgk.messagemanager;
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import de.fly4lol.autowgk.Main;
 
 public class Messenger {
 	private Message message;
-	@SuppressWarnings("unused")
 	private Player player;
 
 	Messenger(Message message, Player player){

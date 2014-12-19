@@ -1,25 +1,27 @@
 package de.fly4lol.autowgk.messagemanager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mkremins.fanciful.FancyMessage;
 
 public class Message {
-	public List<MyMessage> message;
+	public List<MyMessage> message = new ArrayList<MyMessage>();
 	
 	public Message(){
+		
 		
 	}
 	
 	public Message addLine(String string){
-		MyMessage message = new MyMessage().setMessage( string );
-		this.message.add( message );
+		MyMessage myMessage =  new MyMessage().setMessage( string );
+		message.add( myMessage );
 		return this;
 	}
 	
 	public Message addLine(FancyMessage fancyMessage){
-		MyMessage message = new MyMessage().setFancyMessage( fancyMessage);
-		this.message.add( message);
+		MyMessage mymessage = new MyMessage().setFancyMessage( fancyMessage);
+		message.add( mymessage);
 		return this;
 	}
 	
