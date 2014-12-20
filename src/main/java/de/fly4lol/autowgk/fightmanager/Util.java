@@ -32,8 +32,8 @@ public class Util {
 	public Team getTeamByPlayer(Player player){
 		List<AutoArena> autoArenen = plugin.getAutoWGKConfig().getAutoArenen();
 		for(AutoArena arena : autoArenen){
-			Team team1 = plugin.loadedArenen.get(arena).getTeam1();
-			Team team2 = plugin.loadedArenen.get(arena).getTeam2();
+			Team team1 = plugin.loadedArenen.get(arena.getName()).getTeam1();
+			Team team2 = plugin.loadedArenen.get(arena.getName()).getTeam2();
 			if(team1.getLeader().equals( player)){
 				return team1;
 			}
