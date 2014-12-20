@@ -116,6 +116,7 @@ public class Main extends JavaPlugin{
 		List<AutoArena> arenen = config.getAutoArenen();
 		for(AutoArena arena : arenen){
 			arena.setPlugin( this );
+			arena.setArena( wg.getArenaManager().getArena( arena.getName()));
 			this.loadedArenen.put( arena.getName() , arena );
 			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");

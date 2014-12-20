@@ -172,9 +172,8 @@ public class MySQLMethods {
 	
 	public Schematic getSchematicByID(int id){
 		try {
-			PreparedStatement prep = conn.prepare("Select * From ? Where id=?");
-			prep.setString( 1 , "schematics");
-			prep.setInt( 2, id);
+			PreparedStatement prep = conn.prepare("Select * From schematics Where id=?");
+			prep.setInt( 1, id);
 			ResultSet res = prep.executeQuery();
 			if(res.next()){
 				Schematic schematic = new Schematic();
@@ -183,6 +182,7 @@ public class MySQLMethods {
 				schematic.setOwner( UUID.fromString( res.getString("uuid")));
 				schematic.setWarGear( res.getBoolean("isWarGear"));
 				schematic.setPublic( res.getBoolean("isPublic"));
+				schematic.setState( SchematicState.values()[ res.getInt("state")]);
 				return schematic;
 			}
 		} catch (SQLException e) {

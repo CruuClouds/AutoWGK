@@ -12,7 +12,9 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.fightmanager.Team;
 import de.fly4lol.autowgk.messagemanager.Message;
 import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
@@ -22,6 +24,7 @@ import de.fly4lol.autowgk.util.SchematicState;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.Arena;
+import de.pro_crafting.wg.arena.State;
 
 public class Commands {
 	private Main plugin;
@@ -222,26 +225,28 @@ public class Commands {
 			}
 			new Messenger().setPlayer( player ).setMessage( message).send();
 		} else if(args.getArgs().length == 1){
-			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs()[0]);
-			List<Schematic> schematics = this.sql.getSchematisByOwner( offlinePlayer );
-			Message message = new Message();
-			message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
-			for(Schematic schematic : schematics ){
-				if(schematic.isWarGear()){
-					if(schematic.getState().equals(SchematicState.Checked)){
-						String prefix = "§8[§6Private§8] §b";
-						if(schematic.isPublic()){
-							prefix = "§8[§6Public§8] §b";
+			if(player.hasPermission("autowgk.schematic.list.other")){
+				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs()[0]);
+				List<Schematic> schematics = this.sql.getSchematisByOwner( offlinePlayer );
+				Message message = new Message();
+				message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+				for(Schematic schematic : schematics ){
+					if(schematic.isWarGear()){
+						if(schematic.getState().equals(SchematicState.Checked)){
+							String prefix = "§8[§6Private§8] §b";
+							if(schematic.isPublic()){
+								prefix = "§8[§6Public§8] §b";
+							}
+							FancyMessage wargearMessage = new FancyMessage("")
+							.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
+							.tooltip("§5Klicke")
+							.command("/AutoWGK schematic load " + schematic.getId());
+							message.addLine(wargearMessage);
 						}
-						FancyMessage wargearMessage = new FancyMessage("")
-						.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
-						.tooltip("§5Klicke")
-						.command("/AutoWGK schematic load " + schematic.getId());
-						message.addLine(wargearMessage);
 					}
 				}
+				new Messenger().setPlayer( player ).setMessage( message).send();
 			}
-			new Messenger().setPlayer( player ).setMessage( message).send();
 		}
 	}
 	
@@ -265,6 +270,38 @@ public class Commands {
 		}
 		new Messenger().setPlayer( player ).setMessage( message).send();
 	
+	}
+	
+	@Command(name = "AutoWGK.schematic.load", usage = "/AutoWGK", permission = "autowgk.schematic.load" , aliases = {"awgk.schem.load" , "awgk.schematic.load" , "Autowgk.schem.load"})
+	public void autowgkSchematicLoad(CommandArgs args) {
+		Player player = args.getPlayer();
+		Team team = this.plugin.getUtil().getTeamByPlayer( player);
+		AutoArena arena = team.getArena();
+		Team otherTeam = null;
+		if(args.getArgs().length == 1){
+			int id = 0;
+			try {
+				 id = Integer.parseInt(args.getArgs()[0]);
+			} catch (Exception e) {
+				player.sendMessage(plugin.prefix +"Du musst eine Id angeben!");
+			}
+			if(!team.equals( null)){
+				Schematic schematic = plugin.getSQL().getSchematicByID(id);
+				team.setSchematic(schematic).setReady( true );
+				player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
+				if(arena.getTeam1().equals( team)){
+					otherTeam = arena.getTeam2();
+				} else {
+					otherTeam = arena.getTeam1();
+				}
+				if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
+					arena.startGame();
+				}
+			} else {
+				player.sendMessage(plugin.prefix + "Du bist kein Leader von einem Team!");
+			}
+		}
+		
 	}
 	
 	

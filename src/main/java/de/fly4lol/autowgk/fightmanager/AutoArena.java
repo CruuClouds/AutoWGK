@@ -25,6 +25,7 @@ public class AutoArena {
 	private String team2Direction;
 	private Team team1;
 	private Team team2;
+	private Arena arena;
 	
 	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, String team1Direction, String team2Direction , Team team1 , Team team2){
 		this.team1Loc = team1Loc;
@@ -33,8 +34,17 @@ public class AutoArena {
 		this.team1Direction = team1Direction;
 		this.team2Direction = team2Direction;
 	}
-	
+
+
 	public AutoArena(){
+	}
+	
+	public Arena getArena() {
+		return arena;
+	}
+
+	public void setArena(Arena arena) {
+		this.arena = arena;
 	}
 
 	public String getName() {
@@ -125,7 +135,7 @@ public class AutoArena {
 		if(this.getMode() != AutoArenaMode.DISABLED){
 			if(this.isJoinable()){
 				Team team = new Team();
-				team.setLeader( player );
+				team.setLeader( player ).setArena( this );
 				Bukkit.broadcastMessage( player.getName() );
 				FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
 				.then("§9§nPrivate")
@@ -161,6 +171,11 @@ public class AutoArena {
 		} else {
 			player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
 		}	
+	}
+	
+	public void startGame(){
+		
+		Bukkit.broadcastMessage("§4Starte Game!");
 	}
 	
 	
