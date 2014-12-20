@@ -77,7 +77,6 @@
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
 			<version>1.7.9-R0.2</version>
-			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -92,7 +91,6 @@
 			<groupId>de.pro_crafting</groupId>
 			<artifactId>sql</artifactId>
 			<version>0.2.1-SNAPSHOT</version>
-			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		
