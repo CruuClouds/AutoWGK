@@ -34,18 +34,13 @@ public class Util {
 		for(AutoArena arena : autoArenen){
 			Team team1 = plugin.loadedArenen.get(arena.getName()).getTeam1();
 			Team team2 = plugin.loadedArenen.get(arena.getName()).getTeam2();
-			if(team1.getLeader().equals( player)){
+			if(team1 == null || team1.getLeader() == player){
 				return team1;
 			}
-			if(team2.getLeader().equals( player)){
+			if(team2 == null || team2.getLeader() ==player ){
 				return team2;
 			}
 		}
-		return null;
-	}
-	
-	public AutoArena getArenaOfTeam(Team team){
-		
 		return null;
 	}
 

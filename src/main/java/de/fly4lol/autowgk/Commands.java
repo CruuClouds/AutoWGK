@@ -279,26 +279,30 @@ public class Commands {
 		AutoArena arena = team.getArena();
 		Team otherTeam = null;
 		if(args.getArgs().length == 1){
-			int id = 0;
-			try {
-				 id = Integer.parseInt(args.getArgs()[0]);
-			} catch (Exception e) {
-				player.sendMessage(plugin.prefix +"Du musst eine Id angeben!");
-			}
-			if(!team.equals( null)){
-				Schematic schematic = plugin.getSQL().getSchematicByID(id);
-				team.setSchematic(schematic).setReady( true );
-				player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
-				if(arena.getTeam1().equals( team)){
-					otherTeam = arena.getTeam2();
-				} else {
-					otherTeam = arena.getTeam1();
+			if(plugin.getUtil().getTeamByPlayer( player ) != null){
+				int id = 0;
+				try {
+					 id = Integer.parseInt(args.getArgs()[0]);
+				} catch (Exception e) {
+					player.sendMessage(plugin.prefix +"Du musst eine Id angeben!");
 				}
-				if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
-					arena.startGame();
+				if(!team.equals( null)){
+					Schematic schematic = plugin.getSQL().getSchematicByID(id);
+					team.setSchematic(schematic).setReady( true );
+					player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
+					if(arena.getTeam1().equals( team)){
+						otherTeam = arena.getTeam2();
+					} else {
+						otherTeam = arena.getTeam1();
+					}
+					if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
+						arena.startGame();
+					}
+				} else {
+					player.sendMessage(plugin.prefix + "Du bist kein Leader von einem Team!");
 				}
 			} else {
-				player.sendMessage(plugin.prefix + "Du bist kein Leader von einem Team!");
+				player.sendMessage(plugin.prefix + "Du bist in keinem Team!");
 			}
 		}
 		

@@ -76,9 +76,11 @@ public class PlayerInteractListener implements Listener{
 					}
 				} else if(sql.existSignAtLocation( signLoc )){
 					if(sql.getSignType( signLoc).equals( SignType.ARENAJOIN)){
-						String ArenaName = plugin.wg.getArenaManager().getArenaAt( signLoc).getName();
-						AutoArena autoArena = plugin.loadedArenen.get( ArenaName);
-						autoArena.joinArena( player );
+						if(player.hasPermission("Arena.join")){
+							String ArenaName = plugin.wg.getArenaManager().getArenaAt( signLoc).getName();
+							AutoArena autoArena = plugin.loadedArenen.get( ArenaName);
+							autoArena.joinArena( player );
+						}
 					}
 				}
 				event.setCancelled( true );

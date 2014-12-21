@@ -134,40 +134,47 @@ public class AutoArena {
 	public void joinArena(Player player){
 		if(this.getMode() != AutoArenaMode.DISABLED){
 			if(this.isJoinable()){
-				Team team = new Team();
-				team.setLeader( player ).setArena( this );
-				Bukkit.broadcastMessage( player.getName() );
-				FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
-				.then("§9§nPrivate")
-				.tooltip("§5Klicke")
-				.command("/AutoWGK schematic list");
-				
-				FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
-				.then("§9§nPublic")
-				.tooltip("§5Klicke")
-				.command("/AutoWGK schematic public");
-				
-				Message message = new Message();
-				message
-				.addLine("")
-				.addLine("")
-				.addLine("            §2Wähle Zwischen Public und Private ")
-				.addLine("")
-				.addLine(publicMessage)
-				.addLine("")
-				.addLine(privateMessage)
-				.addLine("");
-				
-				new Messenger().setMessage(message).setPlayer( player ).send();
-				if(this.getTeam1() == null){
-					this.setTeam1( team);
+				if(plugin.wg.getArenaManager().getArenaOfTeamMember( player ) ==  null){
+					if(plugin.getUtil().getTeamByPlayer( player) == null){
+						Team team = new Team();
+						team.setLeader( player ).setArena( this );
+						Bukkit.broadcastMessage( player.getName() );
+						FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
+						.then("§9§nPrivate")
+						.tooltip("§5Klicke")
+						.command("/AutoWGK schematic list");
+						
+						FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
+						.then("§9§nPublic")
+						.tooltip("§5Klicke")
+						.command("/AutoWGK schematic public");
+						
+						Message message = new Message();
+						message
+						.addLine("")
+						.addLine("")
+						.addLine("            §2Wähle Zwischen Public und Private ")
+						.addLine("")
+						.addLine(publicMessage)
+						.addLine("")
+						.addLine(privateMessage)
+						.addLine("");
+						
+						new Messenger().setMessage(message).setPlayer( player ).send();
+						if(this.getTeam1() == null){
+							this.setTeam1( team);
+						} else {
+							this.setTeam2( team);
+						}
+					} else {
+						player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
+					}
 				} else {
-					this.setTeam2( team);
+					player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
 				}
 			} else {
 				player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen!");
 			}
-				
 		} else {
 			player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
 		}	

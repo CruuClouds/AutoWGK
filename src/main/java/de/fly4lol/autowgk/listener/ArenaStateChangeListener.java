@@ -11,8 +11,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.fly4lol.autowgk.util.SignType;
+import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.event.ArenaStateChangeEvent;
 
 
@@ -50,6 +52,23 @@ public class ArenaStateChangeListener implements Listener{
 				s.setLine(3, "§4Remove");
 				s.update();
 			}
+		}
+		
+		if(event.getTo().equals(State.Idle)){
+			AutoArena arena = plugin.loadedArenen.get( event.getArena().getName());
+			if(arena.getTeam1().isFinish()){
+				if(arena.getTeam2().isFinish()){
+					arena.startGame();
+				}
+			}
+				
+			
+		}
+		
+		if(event.getTo().equals( State.Spectate)){
+			AutoArena arena = plugin.loadedArenen.get( event.getArena().getName() );
+			arena.setTeam1( null);
+			arena.setTeam2( null);
 		}
 	}
 }
