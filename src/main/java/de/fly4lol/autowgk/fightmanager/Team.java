@@ -73,7 +73,7 @@ public class Team {
 		Player player = this.getLeader();
 		Group group = wgkArena.getGroupManager().getGroup2();
 		if(isTeam1){
-			 group = wgkArena.getGroupManager().getGroup2();
+			 group = wgkArena.getGroupManager().getGroup1();
 		}
 		group.add( player , true);
 		player.teleport( wgkArena.getGroupManager().getGroupSpawn( group.getRole()));
