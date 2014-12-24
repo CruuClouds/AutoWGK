@@ -40,11 +40,11 @@ public class AutoArena {
 	public AutoArena(){
 	}
 	
-	public Arena getArena() {
+	public Arena getWgkArena() {
 		return arena;
 	}
 
-	public void setArena(Arena arena) {
+	public void setWgkArena(Arena arena) {
 		this.arena = arena;
 	}
 
@@ -141,7 +141,7 @@ public class AutoArena {
 				if(plugin.wg.getArenaManager().getArenaOfTeamMember( player ) ==  null){
 					if(plugin.getUtil().getTeamByPlayer( player) == null){
 						Team team = new Team();
-						team.setLeader( player ).setArena( this );
+						team.setLeader( player ).setAutoArena( this );
 						FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
 						.then("§9§nPrivate")
 						.tooltip("§5Klicke")
@@ -186,9 +186,11 @@ public class AutoArena {
 	public void startGame(){
 		
 		this.getTeam1().startGame( true);
+		this.team1.pasteSchematic();
 		this.getTeam2().startGame( false);
-		if(this.getArena().getState() == State.Idle ){
-			this.getArena().updateState( State.Setup);
+		this.team2.pasteSchematic();
+		if(this.getWgkArena().getState() == State.Idle ){
+			this.getWgkArena().updateState( State.Setup);
 		}
 		
 		

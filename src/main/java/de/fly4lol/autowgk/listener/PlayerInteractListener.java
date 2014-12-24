@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
+import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.util.MySQLMethods;
 import de.fly4lol.autowgk.util.SignType;
 
@@ -101,7 +102,13 @@ public class PlayerInteractListener implements Listener{
 						if(player.hasPermission("Arena.join")){
 							String ArenaName = plugin.wg.getArenaManager().getArenaAt( signLoc).getName();
 							AutoArena autoArena = plugin.loadedArenen.get( ArenaName);
-							autoArena.joinArena( player );
+							if(autoArena.getMode() == AutoArenaMode.NORMAL){
+								autoArena.joinArena( player );
+							} else {
+								player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen !");
+							}
+						} else {
+							player.sendMessage(plugin.noPerms);
 						}
 					}
 				}

@@ -14,7 +14,9 @@ import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.BlockBreakListener;
+import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
+import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.autowgk.messagemanager.Messages;
 import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
@@ -28,6 +30,7 @@ import de.pro_crafting.wg.WarGear;
 public class Main extends JavaPlugin{
 	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();
 	public String prefix = "§8[§9AutoWGK§8] §2";
+	public String noPerms = "§5Du hast keine Berechtigung um dies zu tuhen!";
 	private MySQLMethods sql;
 	public List<Player> addSign = new ArrayList<Player>();
 	public List<Player> removeSign = new ArrayList<Player>();
@@ -40,6 +43,7 @@ public class Main extends JavaPlugin{
 	private Messages messages;
 	private Messenger messenger;
 	private AutoArena autoArena;
+	
 
 	
 	@Override
@@ -86,6 +90,8 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
 	}
 	
 	public AutoArena getAutoArena(){
@@ -116,7 +122,7 @@ public class Main extends JavaPlugin{
 		List<AutoArena> arenen = config.getAutoArenen();
 		for(AutoArena arena : arenen){
 			arena.setPlugin( this );
-			arena.setArena( wg.getArenaManager().getArena( arena.getName()));
+			arena.setWgkArena( wg.getArenaManager().getArena( arena.getName()));
 			this.loadedArenen.put( arena.getName() , arena );
 			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");

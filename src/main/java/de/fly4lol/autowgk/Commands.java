@@ -277,7 +277,7 @@ public class Commands {
 	public void autowgkSchematicLoad(CommandArgs args) {
 		Player player = args.getPlayer();
 		Team team = this.plugin.getUtil().getTeamByPlayer( player);
-		AutoArena arena = team.getArena();
+		AutoArena arena = team.getAutoArena();
 		Team otherTeam = null;
 		if(args.getArgs().length == 1){
 			if(plugin.getUtil().getTeamByPlayer( player ) != null){
@@ -304,7 +304,7 @@ public class Commands {
 					
 					schematic.setDirection( northSouth );
 					team.setSchematic(schematic).setReady( true );
-					player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
+					player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + " §2Ausgewählt!");
 					
 					
 					if(arena.getTeam1().equals( team)){
@@ -314,9 +314,10 @@ public class Commands {
 					}
 					
 					
-					if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
+					if(otherTeam.isFinish() && arena.getWgkArena().getState() == State.Idle){
 						arena.startGame();
-					} else if(arena.getArena().getState() == State.Setup){
+					} else if(arena.getWgkArena().getState() == State.Setup){
+						team.pasteSchematic();
 						if(arena.getTeam1() == team){
 							team.startGame( true );
 						} else {
