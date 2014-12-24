@@ -2,6 +2,8 @@ package de.fly4lol.autowgk.util;
 
 import java.util.UUID;
 
+import de.fly4lol.autowgk.fightmanager.Direction;
+
 public class Schematic {
 	private int id;
 	private String name;
@@ -9,6 +11,7 @@ public class Schematic {
 	private boolean isWarGear;
 	private SchematicState state;
 	private boolean isPublic;
+	private Direction direction;
 	
 	public Schematic(){
 		
@@ -24,6 +27,14 @@ public class Schematic {
 	}
 	
 	
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
 
 	public void setId(int id) {
 		this.id = id;

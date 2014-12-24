@@ -34,6 +34,14 @@ public class PlayerInteractListener implements Listener{
 			Material type = event.getClickedBlock().getType();
 			if(type.equals(Material.SIGN ) || type.equals(Material.SIGN_POST)){
 				Location signLoc = event.getClickedBlock().getLocation();
+				
+				/*
+				 * 
+				 * Add Signs
+				 * 
+				 */
+				
+				
 				if(plugin.addSign.contains(player)){
 					if(!sql.existSignAtLocation(signLoc)){
 						BlockState state = signLoc.getBlock().getState();
@@ -64,6 +72,13 @@ public class PlayerInteractListener implements Listener{
 						player.sendMessage(plugin.prefix + "Dieses Schilt ist bereits Eingetragen!");
 						plugin.addSign.remove(player);
 					}
+				
+				/*
+				 * 
+				 *  Remove Signs
+				 * 
+				 */
+					
 				} else if(plugin.removeSign.contains(player)){
 					if(sql.existSignAtLocation(signLoc)){
 						sql.removeSign(signLoc);
@@ -74,6 +89,13 @@ public class PlayerInteractListener implements Listener{
 						player.sendMessage(plugin.prefix + "Dieses Schilt ist nicht Eingetragen!");
 						plugin.removeSign.remove(player);
 					}
+					
+				/*
+				 * 
+				 * Arena Join
+				 * 
+				 */		
+					
 				} else if(sql.existSignAtLocation( signLoc )){
 					if(sql.getSignType( signLoc).equals( SignType.ARENAJOIN)){
 						if(player.hasPermission("Arena.join")){

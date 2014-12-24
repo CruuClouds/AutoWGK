@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.fightmanager.Team;
 import de.fly4lol.autowgk.messagemanager.Message;
 import de.fly4lol.autowgk.messagemanager.Messenger;
@@ -288,15 +289,31 @@ public class Commands {
 				}
 				if(!team.equals( null)){
 					Schematic schematic = plugin.getSQL().getSchematicByID(id);
-					team.setSchematic(schematic).setReady( true );
-					player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
-					if(arena.getTeam1().equals( team)){
-						otherTeam = arena.getTeam2();
+					String direction = schematic.getName().substring(schematic.getName().length() -2, schematic.getName().length());
+					Bukkit.broadcastMessage( direction);
+					Direction northSouth = Direction.south;
+					if(!direction.equalsIgnoreCase("_n") || !direction.equalsIgnoreCase("_s")){
+						player.sendMessage(plugin.prefix + "Dieses WarGear konnte nicht geladen werden bitte wähle ein anderes!");
+					} else if(direction.equalsIgnoreCase("_n")){
+						northSouth = Direction.north;
 					} else {
-						otherTeam = arena.getTeam1();
-					}
-					if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
-						arena.startGame();
+						schematic.setDirection( northSouth );
+						team.setSchematic(schematic).setReady( true );
+						player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + "§2Ausgewählt!");
+						if(arena.getTeam1().equals( team)){
+							otherTeam = arena.getTeam2();
+						} else {
+							otherTeam = arena.getTeam1();
+						}
+						if(otherTeam.isFinish() && arena.getArena().getState() == State.Idle){
+							arena.startGame();
+						} else if(arena.getArena().getState() == State.Setup){
+							if(arena.getTeam1() == team){
+								team.startGame( true );
+							} else {
+								team.startGame( false );
+							}
+						}
 					}
 				} else {
 					player.sendMessage(plugin.prefix + "Du bist kein Leader von einem Team!");

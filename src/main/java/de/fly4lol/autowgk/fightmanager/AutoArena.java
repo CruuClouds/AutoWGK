@@ -12,6 +12,7 @@ import de.fly4lol.autowgk.messagemanager.Message;
 import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
+import de.pro_crafting.wg.group.Group;
 
 public class AutoArena {
 	private Messenger messager;
@@ -93,8 +94,7 @@ public class AutoArena {
 
 	public void setMode(AutoArenaMode mode) {
 		this.mode = mode;
-	}
-	
+	}	
 	
 	public Team getTeam1() {
 		return team1;
@@ -115,10 +115,12 @@ public class AutoArena {
 	public void setPlugin(Main plugin) {
 		this.plugin = plugin;
 	}
+	
+	public Main getPlugin(){
+		return this.plugin;
+	}
 
 	public boolean isJoinable(){
-		plugin.getAutoWGKConfig();
-		plugin.wg.getInviteManager();
 		Arena arena = plugin.wg.getArenaManager().getArena( this.getName());
 		State state = arena.getState();
 		if(arena != null){
@@ -126,7 +128,9 @@ public class AutoArena {
 				if(this.getTeam1() == null || this.getTeam2() == null){
 					return true;
 				} 
-			} 
+			} else if(state == State.Setup && (this.getTeam1() == null || this.getTeam2() == null)){
+				return true;
+			}
 		} 
 		return false;
 	}
@@ -138,7 +142,6 @@ public class AutoArena {
 					if(plugin.getUtil().getTeamByPlayer( player) == null){
 						Team team = new Team();
 						team.setLeader( player ).setArena( this );
-						Bukkit.broadcastMessage( player.getName() );
 						FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
 						.then("§9§nPrivate")
 						.tooltip("§5Klicke")
@@ -182,7 +185,13 @@ public class AutoArena {
 	
 	public void startGame(){
 		
-		Bukkit.broadcastMessage("§4Starte Game!");
+		this.getTeam1().startGame( true);
+		this.getTeam2().startGame( false);
+		if(this.getArena().getState() == State.Idle ){
+			this.getArena().updateState( State.Setup);
+		}
+		
+		
 	}
 	
 	

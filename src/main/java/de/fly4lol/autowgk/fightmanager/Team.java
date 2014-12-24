@@ -2,7 +2,11 @@ package de.fly4lol.autowgk.fightmanager;
 
 import org.bukkit.entity.Player;
 
+import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.util.Schematic;
+import de.pro_crafting.wg.arena.Arena;
+import de.pro_crafting.wg.arena.State;
+import de.pro_crafting.wg.group.Group;
 
 public class Team {
 	private Player leader;
@@ -61,6 +65,26 @@ public class Team {
 
 	public Team setReady(boolean isFinish) {
 		this.isFinish = isFinish;
+		return this;
+	}
+	
+	public Team startGame(boolean isTeam1){
+		Arena wgkArena = this.getArena().getArena();
+		Player player = this.getLeader();
+		Group group = wgkArena.getGroupManager().getGroup2();
+		if(isTeam1){
+			 group = wgkArena.getGroupManager().getGroup2();
+		}
+		group.add( player , true);
+		player.teleport( wgkArena.getGroupManager().getGroupSpawn( group.getRole()));
+		player.sendMessage("§7Mit §B\"/wgk team invite <spieler>\" §7lädst du Spieler zu deinem Team ein.");
+		player.sendMessage("§7Mit §B\"/wgk team remove <spieler>\" §7entfernst du Spieler aus deinem Team.");
+		player.sendMessage("§7Mit §B\"/wgk team ready\" §7schaltest du dein Team bereit.");
+		this.getArena().getPlugin().wg.getScoreboard().addTeamMember( wgkArena , group.getMember( player), group.getRole());
+		return this;
+	}
+	
+	public Team pasteSchematic(Direction direction){
 		return this;
 	}
 }
