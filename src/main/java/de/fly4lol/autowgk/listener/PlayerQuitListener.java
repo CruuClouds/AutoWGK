@@ -1,7 +1,6 @@
 package de.fly4lol.autowgk.listener;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -21,13 +20,10 @@ public class PlayerQuitListener implements Listener{
 	
 	@EventHandler
 	public void playerQuitHandler(PlayerQuitEvent event) {
-		Bukkit.broadcastMessage("1");
 		Team team = plugin.getUtil().getTeamByPlayer( event.getPlayer() );
 		Arena wgkArena = team.getAutoArena().getWgkArena();
 		if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
-			if(plugin.wg.getArenaManager().getGroup( event.getPlayer()).getGroup().getLeader() == event.getPlayer()){
-					
-				Bukkit.broadcastMessage("2");
+			if(plugin.getUtil().getTeamByPlayer( event.getPlayer() ) != null ) {	
 				GroupSide side = GroupSide.Team2;
 				if(team.getAutoArena().getTeam1() == team){
 					side = GroupSide.Team1;

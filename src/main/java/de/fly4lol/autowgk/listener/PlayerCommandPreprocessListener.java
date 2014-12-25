@@ -24,9 +24,7 @@ public class PlayerCommandPreprocessListener implements Listener{
 			Team team = plugin.getUtil().getTeamByPlayer( event.getPlayer() );
 			Arena wgkArena = team.getAutoArena().getWgkArena();
 			if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
-				if(plugin.wg.getArenaManager().getGroup( event.getPlayer()).getGroup().getLeader() == event.getPlayer()){
-						
-					Bukkit.broadcastMessage("2");
+				if(plugin.getUtil().getTeamByPlayer( event.getPlayer() ) != null ) {	
 					GroupSide side = GroupSide.Team2;
 					if(team.getAutoArena().getTeam1() == team){
 						side = GroupSide.Team1;

@@ -1,6 +1,5 @@
 package de.fly4lol.autowgk.listener;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
