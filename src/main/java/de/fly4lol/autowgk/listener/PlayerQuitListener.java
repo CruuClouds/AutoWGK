@@ -21,20 +21,33 @@ public class PlayerQuitListener implements Listener{
 	@EventHandler
 	public void playerQuitHandler(PlayerQuitEvent event) {
 		Team team = plugin.getUtil().getTeamByPlayer( event.getPlayer() );
-		Arena wgkArena = team.getAutoArena().getWgkArena();
+		Arena wgkArena = null;
+		if(team != null){
+			wgkArena = team.getAutoArena().getWgkArena();
+		}
 		if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
-			if(plugin.getUtil().getTeamByPlayer( event.getPlayer() ) != null ) {	
-				GroupSide side = GroupSide.Team2;
-				if(team.getAutoArena().getTeam1() == team){
-					side = GroupSide.Team1;
-					team.getAutoArena().setTeam1( null);
-					
-				} else {
-					team.getAutoArena().setTeam2( null );
-				}
-				team.getAutoArena().getWgkArena().getReseter().cleanSide( side );
-				this.plugin.wg.getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
-				wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );;
+			if( team != null ) {	
+				if(wgkArena.getState() == State.Idle){
+					if(team.getAutoArena().getTeam1() == team){
+						team.getAutoArena().setTeam1( team);;
+					} else if(team.getAutoArena().getTeam2() == team ){
+						team.getAutoArena().setTeam2( team );
+					}
+				} else if(wgkArena.getState() == State.Setup){
+					GroupSide side = GroupSide.Team2;
+					if(team.getAutoArena().getTeam1() == team){
+						side = GroupSide.Team1;
+						team.getAutoArena().setTeam1( null);
+						
+					} else {
+						team.getAutoArena().setTeam2( null );
+					}
+					if(wgkArena != null){
+						team.getAutoArena().getWgkArena().getReseter().cleanSide( side );
+						this.plugin.wg.getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
+						wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );;
+					}	
+				}			
 			}
 		}
 	}

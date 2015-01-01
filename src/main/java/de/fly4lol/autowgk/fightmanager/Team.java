@@ -13,8 +13,8 @@ import de.pro_crafting.wg.group.Group;
 public class Team {
 	private Player leader;
 	private Schematic schematic;
-	private AutoArena arena;
-	private boolean isFinish;
+	private AutoArena arena = null;
+	private boolean isFinish = false;
 	
 	
 	public Team(Player leader, Schematic schematic, boolean isReady){

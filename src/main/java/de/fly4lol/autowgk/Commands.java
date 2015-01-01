@@ -73,6 +73,7 @@ public class Commands {
 		Player player = args.getPlayer();
 		plugin.removeSign.add(player);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu removen.");
+		
 	}
 
 	@Command(name = "AutoWGK.sign.remove.world", usage = "/AutoWGK", permission = "autowgk.sign.remove.world" , aliases = {"awgk.sign.remove.world"})

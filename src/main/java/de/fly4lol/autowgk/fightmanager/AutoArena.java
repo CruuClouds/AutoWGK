@@ -26,7 +26,7 @@ public class AutoArena {
 	private String team2Direction;
 	private Team team1;
 	private Team team2;
-	private Arena arena;
+	private Arena arena = null;
 	
 	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, String team1Direction, String team2Direction , Team team1 , Team team2){
 		this.team1Loc = team1Loc;

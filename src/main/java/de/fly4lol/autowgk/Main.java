@@ -25,6 +25,7 @@ import de.pro_crafting.commandframework.CommandFramework;
 import de.pro_crafting.sql.api.Connection;
 import de.pro_crafting.sql.api.ConnectionManager;
 import de.pro_crafting.sql.api.Credentials;
+import de.pro_crafting.sql.bukkit.BukkitCredentials;
 import de.pro_crafting.wg.WarGear;
 
 public class Main extends JavaPlugin{
@@ -77,10 +78,10 @@ public class Main extends JavaPlugin{
 	private void load() {
 		this.saveDefaultConfig();
 		if (!this.getConfig().isSet("database")) {
-			this.getConfig().set("database", new Credentials().serialize());
+			this.getConfig().set("database", new BukkitCredentials().serialize());
 			this.saveConfig();
 		} else {
-			Credentials cred = new Credentials(this.getConfig().getConfigurationSection("database").getValues(false));
+			Credentials cred = new BukkitCredentials(this.getConfig().getConfigurationSection("database").getValues(false));
 			ConnectionManager.getInstance().addConnectionData(cred);
 			conn = ConnectionManager.getInstance().get(cred.getName());
 		}
