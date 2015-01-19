@@ -155,27 +155,34 @@ public class Commands {
 	}
 	
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"})
-	public void autowgkArenaSetmode(CommandArgs args) {
+	public boolean autowgkArenaSetmode(CommandArgs args) {
 		CommandSender sender = args.getSender();
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
-		String stringMode = args.getArgs()[0];
-		if(args.getArgs().length ==  1){
-			if(arena != null){
-				if(stringMode.equalsIgnoreCase("normal") || stringMode.equalsIgnoreCase("disabled")){
-					AutoArenaMode mode = AutoArenaMode.valueOf(stringMode);
-					config.setMode( arena.getName(), mode);
-					player.sendMessage(plugin.prefix + "Du hast den Mode der arena zu §6" + mode.toString() + " §2Geändert");
-				} else {
-					player.sendMessage(plugin.prefix + "Nutze: /AutoWGK Arena setmode normal/disabled ");
-				}
-			} else {
-				player.sendMessage(plugin.prefix + "Du stehst in keiner Arena ");
-			}
-		} else {
-			player.sendMessage(plugin.prefix + "Nutze: /AutoWGK Arena setmode normal/disabled ");
+		AutoArenaMode mode = AutoArenaMode.NORMAL;
+		if(args.getArgs().length !=  1){
+			player.sendMessage( plugin.prefix + "Nutze: /autowgk arena setMode <DISABLED/NORMAL>");
+			return false;
 		}
 		
+		String stringMode = args.getArgs()[0];
+		
+		if(stringMode.equalsIgnoreCase("normal")){
+			mode = AutoArenaMode.NORMAL;
+			plugin.loadedArenen.get( arena.getName() ).setMode( mode );
+			player.sendMessage(plugin.prefix + "Du hast den modus der Arena Geändert:§6 " + mode.toString());
+			return true;
+		}
+		
+		if(stringMode.equalsIgnoreCase("closed") || stringMode.equalsIgnoreCase("off") || stringMode.equalsIgnoreCase("Disabled")){
+			mode = AutoArenaMode.DISABLED;
+			plugin.loadedArenen.get( arena.getName() ).setMode( mode );
+			player.sendMessage(plugin.prefix + "Du hast den modus der Arena Geändert:§6 " + mode.toString());
+			return true;
+		}
+		
+		player.sendMessage( plugin.prefix + "Nutze: /autowgk arena setMode <DISABLED/NORMAL>");
+		return false;
 	}
 	
 	/*
