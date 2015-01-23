@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.fly4lol.autowgk.commands.ArenaCommands;
+import de.fly4lol.autowgk.commands.Commands;
+import de.fly4lol.autowgk.commands.SchematicCommands;
+import de.fly4lol.autowgk.commands.SignCommands;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
@@ -36,11 +38,6 @@ public class Main extends JavaPlugin{
 	public List<Player> addSign = new ArrayList<Player>();
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
-	private Commands commands;
-	private Commands newCommands;
-	private Commands ArenaCommands;
-	private Commands SchematicCommands;
-	private Commands SignCommands;
 	public static Connection conn;
 	public WarGear wg;
 	private Config config;
@@ -64,22 +61,18 @@ public class Main extends JavaPlugin{
 		this.loadAutoArenas();
 		
 		this.framework = new CommandFramework(this);
-		commands = new Commands(this);
-		this.framework.registerCommands(commands);
-		this.framework.registerCommands(newCommands);
-		this.framework.registerCommands(ArenaCommands);
-		this.framework.registerCommands(SchematicCommands);
-		this.framework.registerCommands(SignCommands);
+		this.framework.registerCommands(new OldCommands(this));
+		this.framework.registerCommands(new ArenaCommands(this));
+		this.framework.registerCommands(new SchematicCommands(this));
+		this.framework.registerCommands(new SignCommands(this));
+		this.framework.registerCommands(new Commands(this));
 		this.framework.registerHelp();
+		this.framework.setInGameOnlyMessage("Der Command muss von einem Spieler ausgeführt werden.");
 	}
 
 	@Override
 	public void onDisable(){
 
-	}
-	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-		return this.framework.handleCommand(sender, cmd, label, args);
 	}
 
 

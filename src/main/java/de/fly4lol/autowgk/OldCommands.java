@@ -21,12 +21,12 @@ import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.State;
 
-public class Commands {
+public class OldCommands {
 	private Main plugin;
 	private MySQLMethods sql;
 	private Config config;
 
-	public Commands(Main plugin) {
+	public OldCommands(Main plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getAutoWGKConfig();
 		this.sql = plugin.getSQL();
