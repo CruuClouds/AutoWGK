@@ -69,7 +69,7 @@ public class PlayerInteractListener implements Listener{
 							plugin.addSign.remove(player);
 						}
 					} else {
-						player.sendMessage(plugin.prefix + "Dieses Schilt ist bereits Eingetragen!");
+						player.sendMessage(plugin.prefix + "Dieses Schild ist bereits eingetragen!");
 						plugin.addSign.remove(player);
 					}
 				
@@ -84,9 +84,9 @@ public class PlayerInteractListener implements Listener{
 						sql.removeSign(signLoc);
 						signLoc.getBlock().setType(Material.AIR);
 						plugin.removeSign.remove(player);
-						player.sendMessage(plugin.prefix + "Du hast das Schilt Entfernt!");
+						player.sendMessage(plugin.prefix + "Du hast das Schild entfernt!");
 					} else {
-						player.sendMessage(plugin.prefix + "Dieses Schilt ist nicht Eingetragen!");
+						player.sendMessage(plugin.prefix + "Dieses Schild ist nicht eingetragen!");
 						plugin.removeSign.remove(player);
 					}
 					
@@ -104,7 +104,7 @@ public class PlayerInteractListener implements Listener{
 							if(autoArena.getMode() == AutoArenaMode.NORMAL){
 								autoArena.joinArena( player );
 							} else {
-								player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen !");
+								player.sendMessage(plugin.prefix + "Du kannst im Moment nicht joinen!");
 							}
 						} else {
 							player.sendMessage(plugin.noPerms);

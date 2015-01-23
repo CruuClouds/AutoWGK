@@ -23,8 +23,9 @@ public class SignCommands {
 	@Command(name = "AutoWGK.sign", usage = "/AutoWGK", permission = "autowgk.sign" , aliases = {"awgk.sign"})
 	public void autowgkSign(CommandArgs args) {
 		CommandSender sender = args.getSender();
-		sender.sendMessage(plugin.prefix + "/AutoWGK sign add");
-		sender.sendMessage(plugin.prefix + "/AutoWGK sign remove");
+		sender.sendMessage(plugin.prefix + "Nutze einen der folgenden Commands:");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK sign add");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK sign remove");
 	}
 	
 	@Command(name = "AutoWGK.sign.add", usage = "/AutoWGK", permission = "autowgk.sign.add" , aliases = {"awgk.sign.add"})
@@ -48,12 +49,12 @@ public class SignCommands {
 		MySQLMethods sql = plugin.getSQL();
 		
 		if(args.getArgs().length != 1){
-			player.sendMessage(plugin.prefix + "Nutze: /AutoWGK sign remove world <worldname>");
+			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove world <worldname>");
 			return false;
 		}
 		
 		if(Bukkit.getWorld(args.getArgs()[0]) == null){
-			player.sendMessage(plugin.prefix + "Diese Welt existiert nicht !");
+			player.sendMessage(plugin.prefix + "Diese Welt existiert nicht!");
 			return false;
 		}
 		

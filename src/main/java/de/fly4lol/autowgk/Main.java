@@ -31,7 +31,7 @@ import de.pro_crafting.wg.WarGear;
 public class Main extends JavaPlugin{
 	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();
 	public String prefix = "§7[§6AutoWGK§7] §3";
-	public String noPerms = "§5Du hast keine Berechtigung!";
+	public String noPerms = "§4Du hast keine Berechtigung!";
 	private MySQLMethods sql;
 	public List<Player> addSign = new ArrayList<Player>();
 	public List<Player> removeSign = new ArrayList<Player>();

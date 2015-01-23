@@ -1,19 +1,14 @@
 package de.fly4lol.autowgk;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mkremins.fanciful.FancyMessage;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.fightmanager.Team;
 import de.fly4lol.autowgk.util.Config;
@@ -24,7 +19,6 @@ import de.fly4lol.messenger.Message;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
-import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 
 public class Commands {
@@ -63,7 +57,7 @@ public class Commands {
 					}
 					FancyMessage wargearMessage = new FancyMessage("")
 					.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
-					.tooltip("§5Klicke")
+					.tooltip("§eHier klicken")
 					.command("/AutoWGK schematic load " + schematic.getId());
 					message.addLine(wargearMessage);
 				}
@@ -71,6 +65,7 @@ public class Commands {
 			new Messenger().addPlayer( player ).setMessage( message).send();
 		} else if(args.getArgs().length == 1){
 			if(player.hasPermission("autowgk.schematic.list.other")){
+				@SuppressWarnings("deprecation")
 				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs()[0]);
 				List<Schematic> schematics = this.sql.getSchematisByOwner( offlinePlayer );
 				Message message = new Message();
@@ -84,7 +79,7 @@ public class Commands {
 							}
 							FancyMessage wargearMessage = new FancyMessage("")
 							.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
-							.tooltip("§5Klicke")
+							.tooltip("§eHier klicken")
 							.command("/AutoWGK schematic load " + schematic.getId());
 							message.addLine(wargearMessage);
 						}
@@ -107,7 +102,7 @@ public class Commands {
 					String prefix = "§8[§6" + Bukkit.getOfflinePlayer( schematic.getOwner()).getName()+ "§8] §b";
 					FancyMessage wargearMessage = new FancyMessage("")
 					.then("§9#" + schematic.getId() + " " + prefix + schematic.getName() )
-					.tooltip("§5Klicke")
+					.tooltip("§e Hier klicken")
 					.command("/AutoWGK schematic load " + schematic.getId());
 					message.addLine(wargearMessage);
 				}
@@ -142,13 +137,13 @@ public class Commands {
 					} else if(direction.equalsIgnoreCase("_s")){
 						northSouth = Direction.south;
 					} else {
-						player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht Geladen werden !");
+						player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht geladen werden!");
 					}
 					
 					
 					schematic.setDirection( northSouth );
 					team.setSchematic(schematic).setReady( true );
-					player.sendMessage(plugin.prefix + "Du hast das WarGear §b" + schematic.getName() + " §2Ausgewählt!");
+					player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
 					
 					
 					if(arena.getTeam1().equals( team)){
@@ -170,7 +165,7 @@ public class Commands {
 						
 					}
 				} else {
-					player.sendMessage(plugin.prefix + "Du bist kein Leader von einem Team!");
+					player.sendMessage(plugin.prefix + "Du bist von keinem Team der Leader!");
 				}
 			} else {
 				player.sendMessage(plugin.prefix + "Du bist in keinem Team!");

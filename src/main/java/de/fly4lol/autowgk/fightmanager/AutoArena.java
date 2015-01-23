@@ -143,20 +143,20 @@ public class AutoArena {
 						Team team = new Team();
 						team.setLeader( player ).setAutoArena( this );
 						FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
-						.then("§9§nPrivate")
-						.tooltip("§5Klicke")
+						.then("§e§nPrivate")
+						.tooltip("§eHier klicken")
 						.command("/AutoWGK schematic list");
 						
 						FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
-						.then("§9§nPublic")
-						.tooltip("§5Klicke")
+						.then("§e§nPublic")
+						.tooltip("§eHier klicken")
 						.command("/AutoWGK schematic public");
 						
 						Message message = new Message();
 						message
 						.addLine("")
 						.addLine("")
-						.addLine("            §2Wähle Zwischen Public und Private ")
+						.addLine("            §eWähle Zwischen Public und Private ")
 						.addLine("")
 						.addLine(publicMessage)
 						.addLine("")
@@ -176,10 +176,10 @@ public class AutoArena {
 					player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
 				}
 			} else {
-				player.sendMessage(plugin.prefix + "Du kannst immoment nicht Joinen!");
+				player.sendMessage(plugin.prefix + "Du kannst im Moment nicht Joinen!");
 			}
 		} else {
-			player.sendMessage(plugin.prefix + "Diese Arena ist immoment nicht für AutoWGK verfügbar!");
+			player.sendMessage(plugin.prefix + "Diese Arena ist im Moment nicht für AutoWGK verfügbar!");
 		}	
 	}
 	

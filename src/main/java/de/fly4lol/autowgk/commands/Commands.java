@@ -18,11 +18,11 @@ public class Commands {
 	@Command(name = "AutoWGK", usage = "/AutoWGK", permission = "autowgk.use" , aliases = {"awgk"})
 	public void autowgk(CommandArgs args) {
 		CommandSender sender = args.getSender();
-		sender.sendMessage("§2Nutze einen der folgenden Commands.");
-		sender.sendMessage(plugin.prefix + "/AutoWGK Sign");
-		sender.sendMessage(plugin.prefix + "/AutoWGK Arena");
-		sender.sendMessage(plugin.prefix + "/AutoWGK ShowLast");
-		sender.sendMessage(plugin.prefix + "/AutoWGK Schematic");
+		sender.sendMessage(plugin.prefix + "Nutze einen der folgenden Commands:");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK sign");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK arena");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK showlast");
+		sender.sendMessage(plugin.prefix + "§e/AutoWGK schematic");
 	}
 	
 	@Command(name = "AutoWGK.showlast", usage = "/AutoWGK", permission = "autowgk.showlast" , aliases = {"awgk.last" , "AutoWGK.last" })

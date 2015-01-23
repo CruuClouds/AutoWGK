@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import net.minecraft.server.v1_7_R2.UtilUUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;

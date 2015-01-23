@@ -29,9 +29,9 @@ public class BlockBreakListener implements Listener{
 		if(Type.equals( Material.SIGN ) || Type.equals( Material.SIGN_POST )){
 			if(sql.existSignAtLocation(loc )){
 				event.setCancelled( true );
-				player.sendMessage(plugin.prefix + "Du darfst dieses Schild nicht Zerstören !");
+				player.sendMessage(plugin.prefix + "Du darfst dieses Schild nicht zerstören!");
 				if(player.hasPermission("autowgk.sign.remove")){
-					player.sendMessage(plugin.prefix + "Nutze: /AutoWGK sign remove");
+					player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove");
 				}
 			}
 		}
