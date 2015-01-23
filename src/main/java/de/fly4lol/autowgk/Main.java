@@ -17,10 +17,10 @@ import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
-import de.fly4lol.autowgk.messagemanager.Messages;
-import de.fly4lol.autowgk.messagemanager.Messenger;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.messenger.Messages;
+import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
 import de.pro_crafting.sql.api.Connection;
 import de.pro_crafting.sql.api.ConnectionManager;
@@ -37,6 +37,10 @@ public class Main extends JavaPlugin{
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
 	private Commands commands;
+	private Commands newCommands;
+	private Commands ArenaCommands;
+	private Commands SchematicCommands;
+	private Commands SignCommands;
 	public static Connection conn;
 	public WarGear wg;
 	private Config config;
@@ -62,6 +66,10 @@ public class Main extends JavaPlugin{
 		this.framework = new CommandFramework(this);
 		commands = new Commands(this);
 		this.framework.registerCommands(commands);
+		this.framework.registerCommands(newCommands);
+		this.framework.registerCommands(ArenaCommands);
+		this.framework.registerCommands(SchematicCommands);
+		this.framework.registerCommands(SignCommands);
 		this.framework.registerHelp();
 	}
 

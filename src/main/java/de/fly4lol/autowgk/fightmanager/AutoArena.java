@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.messagemanager.Message;
-import de.fly4lol.autowgk.messagemanager.Messenger;
+import de.fly4lol.messenger.Message;
+import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.Group;
@@ -163,7 +163,7 @@ public class AutoArena {
 						.addLine(privateMessage)
 						.addLine("");
 						
-						new Messenger().setMessage(message).setPlayer( player ).send();
+						new Messenger().setMessage(message).addPlayer( player ).send();
 						if(this.getTeam1() == null){
 							this.setTeam1( team);
 						} else {
