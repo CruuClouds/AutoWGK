@@ -79,7 +79,7 @@ public class Main extends JavaPlugin{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-		return this.framework.handleCommand(sender, label, cmd, args);
+		return this.framework.handleCommand(sender, cmd, label, args);
 	}
 
 
