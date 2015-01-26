@@ -45,6 +45,7 @@ public class Main extends JavaPlugin{
 	private Messages messages;
 	private Messenger messenger;
 	private AutoArena autoArena;
+	private ArenaCommands arenaCommands;
 	
 
 	
@@ -59,10 +60,10 @@ public class Main extends JavaPlugin{
 		this.registerListener();
 		
 		this.loadAutoArenas();
-		
+		this.arenaCommands = new ArenaCommands(this);
 		this.framework = new CommandFramework(this);
 		this.framework.registerCommands(new OldCommands(this));
-		this.framework.registerCommands(new ArenaCommands(this));
+		this.framework.registerCommands( this.arenaCommands);
 		this.framework.registerCommands(new SchematicCommands(this));
 		this.framework.registerCommands(new SignCommands(this));
 		this.framework.registerCommands(new Commands(this));
@@ -129,5 +130,9 @@ public class Main extends JavaPlugin{
 			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");
 		}
+	}
+	
+	public ArenaCommands getArenaCommands(){
+		return this.arenaCommands;
 	}
 }

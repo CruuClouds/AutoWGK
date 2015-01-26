@@ -1,12 +1,18 @@
 package de.fly4lol.autowgk.commands;
 
+import mkremins.fanciful.FancyMessage;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.util.Config;
+import de.fly4lol.messenger.Message;
+import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.Arena;
@@ -16,7 +22,7 @@ public class ArenaCommands {
 	private Config config;
 	public ArenaCommands(Main plugin){
 		this.plugin = plugin;
-		plugin.getAutoWGKConfig();
+		this.config = plugin.getAutoWGKConfig();
 	}
 	
 	@Command(name = "AutoWGK.arena", usage = "/AutoWGK", permission = "autowgk.arena" , aliases = {"awgk.arena"})
@@ -54,21 +60,35 @@ public class ArenaCommands {
 		
 		if(args.getArgs().length != 2){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
+			Bukkit.broadcastMessage("1");
 			return;
 		}
 		
 		String team = args.getArgs()[0];
 		String direction = args.getArgs()[1];
 		
-		if(!(team.equalsIgnoreCase("team1")) || !(team.equalsIgnoreCase("team2")) || !(team.equalsIgnoreCase( "1")) || !(team.equalsIgnoreCase("2"))){
-			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
-			return;
+		if(!team.equalsIgnoreCase("team1")){
+			if(!team.equalsIgnoreCase("team2")){
+				if(!team.equalsIgnoreCase("1")){
+					if(!team.equalsIgnoreCase("2")){
+						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
+						return;
+					}
+				}
+				
+			}
+			
 		}
 		
-
-		if(!(direction.equalsIgnoreCase("south")) || !(direction.equalsIgnoreCase("north")) || !(direction.equalsIgnoreCase("s")) || !(direction.equalsIgnoreCase("n"))){
-			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
-			return;
+		if(direction.equalsIgnoreCase("south")){
+			if(!direction.equalsIgnoreCase("north")){
+				if(!direction.equalsIgnoreCase("s")){
+					if(!direction.equalsIgnoreCase("n")){
+						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
+						return;
+					}
+				}
+			}
 		}
 		
 		boolean north = false;
@@ -120,6 +140,75 @@ public class ArenaCommands {
 		return;
 	}
 	
+	public void autowgkArenaJoin(Player player){
+		
+		if(this.plugin.getUtil().getArenaAt( player.getLocation()) == null){
+			player.sendMessage(plugin.prefix + "Die stehst in keiner Arena oder sie Existiert nicht!");
+			return;
+		}
+		AutoArena autoArena = this.plugin.getUtil().getArenaAt( player.getLocation());
+		
+		if(!player.hasPermission("autowgk.arena.join")){
+			player.sendMessage(plugin.noPerms);
+			return;
+		}
+		
+		if(autoArena.getMode() == AutoArenaMode.DISABLED){
+			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
+			Bukkit.broadcastMessage("1");
+			return;
+		}
+		
+		if(plugin.getUtil().getTeamByPlayer( player ) != null){
+			player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
+			return;
+		}
+		
+		if(plugin.wg.getArenaManager().getGroup( player ).getArena() != null){
+			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
+			Bukkit.broadcastMessage("2");
+			return;
+		}
+		
+		if(!autoArena.isJoinable()){
+			player.sendMessage(plugin.prefix + "Beide Teams haben Bereits einen Leader!");
+			return;
+		}
+		
+		autoArena.joinArena( player );
+		
+
+		FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
+		.then("§e§nPrivate")
+		.tooltip("§eHier klicken")
+		.command("/AutoWGK schematic list");
+		
+		FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
+		.then("§e§nPublic")
+		.tooltip("§eHier klicken")
+		.command("/AutoWGK schematic public");
+		
+		Message message = new Message();
+		message
+		.addLine("")
+		.addLine("")
+		.addLine("            §eWähle Zwischen Public und Private ")
+		.addLine("")
+		.addLine(publicMessage)
+		.addLine("")
+		.addLine(privateMessage)
+		.addLine("");
+		
+		new Messenger().setMessage(message).addPlayer( player ).send();
+		
+	}
+	
+	@Command(name = "test2", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"test"})
+	public void test(CommandArgs args) {
+		Player player = args.getPlayer();
+		String name = plugin.getUtil().getTeamByPlayer( player ).getAutoArena().getName();
+		Bukkit.broadcastMessage(name);
+	}
 	
 
 }

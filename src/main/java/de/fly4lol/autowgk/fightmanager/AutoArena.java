@@ -135,52 +135,15 @@ public class AutoArena {
 		return false;
 	}
 	
-	public void joinArena(Player player){
-		if(this.getMode() != AutoArenaMode.DISABLED){
-			if(this.isJoinable()){
-				if(plugin.wg.getArenaManager().getArenaOfTeamMember( player ) ==  null){
-					if(plugin.getUtil().getTeamByPlayer( player) == null){
-						Team team = new Team();
-						team.setLeader( player ).setAutoArena( this );
-						FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)
-						.then("§e§nPrivate")
-						.tooltip("§eHier klicken")
-						.command("/AutoWGK schematic list");
-						
-						FancyMessage publicMessage = new FancyMessage( this.plugin.prefix)
-						.then("§e§nPublic")
-						.tooltip("§eHier klicken")
-						.command("/AutoWGK schematic public");
-						
-						Message message = new Message();
-						message
-						.addLine("")
-						.addLine("")
-						.addLine("            §eWähle Zwischen Public und Private ")
-						.addLine("")
-						.addLine(publicMessage)
-						.addLine("")
-						.addLine(privateMessage)
-						.addLine("");
-						
-						new Messenger().setMessage(message).addPlayer( player ).send();
-						if(this.getTeam1() == null){
-							this.setTeam1( team);
-						} else {
-							this.setTeam2( team);
-						}
-					} else {
-						player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
-					}
-				} else {
-					player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
-				}
-			} else {
-				player.sendMessage(plugin.prefix + "Du kannst im Moment nicht Joinen!");
-			}
+	public Team joinArena(Player player){
+		Team team = new Team();
+		team.setLeader( player ).setAutoArena( this );
+		if(this.getTeam1() == null){
+			this.setTeam1( team);
 		} else {
-			player.sendMessage(plugin.prefix + "Diese Arena ist im Moment nicht für AutoWGK verfügbar!");
-		}	
+			this.setTeam2( team);
+		}
+		return team;
 	}
 	
 	public void startGame(){

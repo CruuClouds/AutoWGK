@@ -116,6 +116,7 @@ public class OldCommands {
 	public void autowgkSchematicLoad(CommandArgs args) {
 		Player player = args.getPlayer();
 		Team team = this.plugin.getUtil().getTeamByPlayer( player);
+		Bukkit.broadcastMessage("info3" + team.getLeader().getName());
 		AutoArena arena = team.getAutoArena();
 		Team otherTeam = null;
 		if(args.getArgs().length == 1){

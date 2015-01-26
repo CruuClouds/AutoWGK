@@ -98,17 +98,7 @@ public class PlayerInteractListener implements Listener{
 					
 				} else if(sql.existSignAtLocation( signLoc )){
 					if(sql.getSignType( signLoc).equals( SignType.ARENAJOIN)){
-						if(player.hasPermission("Arena.join")){
-							String ArenaName = plugin.wg.getArenaManager().getArenaAt( signLoc).getName();
-							AutoArena autoArena = plugin.loadedArenen.get( ArenaName);
-							if(autoArena.getMode() == AutoArenaMode.NORMAL){
-								autoArena.joinArena( player );
-							} else {
-								player.sendMessage(plugin.prefix + "Du kannst im Moment nicht joinen!");
-							}
-						} else {
-							player.sendMessage(plugin.noPerms);
-						}
+						this.plugin.getArenaCommands().autowgkArenaJoin( player );
 					}
 				}
 				event.setCancelled( true );

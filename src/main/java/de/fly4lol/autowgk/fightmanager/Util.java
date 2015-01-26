@@ -22,6 +22,7 @@ import de.pro_crafting.wg.arena.Arena;
 
 public class Util {
 	private Main plugin;
+	@SuppressWarnings("unused")
 	private Config config;
 	
 	public Util(Main plugin) {
@@ -44,10 +45,10 @@ public class Util {
 		for(AutoArena arena : autoArenen){
 			Team team1 = plugin.loadedArenen.get(arena.getName()).getTeam1();
 			Team team2 = plugin.loadedArenen.get(arena.getName()).getTeam2();
-			if(team1 == null || team1.getLeader() == player){
+			if(team1 != null && team1.getLeader() == player){
 				return team1;
 			}
-			if(team2 == null || team2.getLeader() ==player ){
+			if(team2 != null && team2.getLeader() ==player ){
 				return team2;
 			}
 		}
