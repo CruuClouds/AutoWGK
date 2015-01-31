@@ -59,8 +59,7 @@ public class ArenaCommands {
 		}
 		
 		if(args.getArgs().length != 2){
-			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
-			Bukkit.broadcastMessage("1");
+			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
 			return;
 		}
 		
@@ -71,7 +70,7 @@ public class ArenaCommands {
 			if(!team.equalsIgnoreCase("team2")){
 				if(!team.equalsIgnoreCase("1")){
 					if(!team.equalsIgnoreCase("2")){
-						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
+						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
 						return;
 					}
 				}
@@ -84,7 +83,7 @@ public class ArenaCommands {
 			if(!direction.equalsIgnoreCase("north")){
 				if(!direction.equalsIgnoreCase("s")){
 					if(!direction.equalsIgnoreCase("n")){
-						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/nouth>");
+						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
 						return;
 					}
 				}
