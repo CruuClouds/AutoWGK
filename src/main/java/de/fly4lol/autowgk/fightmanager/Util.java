@@ -77,7 +77,7 @@ public class Util {
             }
             File schematicFile = new File(dir, schematicDir);
 
-            EditSession es = we.getEditSessionFactory().getEditSession(BukkitUtil.getLocalWorld(location.getWorld()),120000);
+            EditSession es = we.getEditSessionFactory().getEditSession(BukkitUtil.getLocalWorld(location.getWorld()),320000);
             CuboidClipboard cc = MCEditSchematicFormat.MCEDIT.load(schematicFile);
             
             if(rotate){
