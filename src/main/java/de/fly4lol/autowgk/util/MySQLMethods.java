@@ -190,8 +190,8 @@ public class MySQLMethods {
 	}
 	
 	public List<Schematic> getSchematisByOwner(OfflinePlayer player){
+		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			List<Schematic> schematics = new ArrayList<Schematic>();
 			PreparedStatement prep = conn.prepare("Select * From schematics Where uuid=?");
 			prep.setString( 1, player.getUniqueId().toString());
 			ResultSet res = prep.executeQuery();
@@ -210,12 +210,12 @@ public class MySQLMethods {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return schematics;
 	}
 	
 	public List<Schematic> getPublicSchematics(){
+		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			List<Schematic> schematics = new ArrayList<Schematic>();
 			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=?");
 			prep.setInt( 1 , 1);
 			ResultSet res = prep.executeQuery();
@@ -234,7 +234,7 @@ public class MySQLMethods {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return schematics;
 	}
 	
 	
