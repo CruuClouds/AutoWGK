@@ -76,11 +76,7 @@ public class Config {
 			team = "Team1";
 		}
 		String location = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".Direction");
-		if(location.equalsIgnoreCase("north")){
-			return true;
-		} else {
-			return false;
-		}
+		return location.equalsIgnoreCase("north");
 	}
 	
 	public List<AutoArena> getAutoArenen(){
