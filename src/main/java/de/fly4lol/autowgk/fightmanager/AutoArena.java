@@ -140,22 +140,11 @@ public class AutoArena {
 	
 		Arena arena = plugin.wg.getArenaManager().getArena(this.getName());
 		State state = arena.getState();
-		if (arena != null) {
-			if (state == State.Idle || state == State.Resetting || state == State.Spectate) {
-				if (this.getTeam1() == null || this.getTeam2() == null) {
-					return true;
-				}
-			} else if (state == State.Setup && (this.getTeam1() == null || this.getTeam2() == null)) {
-				return true;
-			}
-		}
-		return false;
+		return arena != null && (this.getTeam1() == null || this.getTeam2() == null) && state != State.PreRunning && state != State.Running;
 	}
 	
 	public Team joinArena(Player player) {
-	
-		Team team = new Team();
-		team.setLeader(player).setAutoArena(this);
+		Team team = new Team(player, this);
 		if (this.getTeam1() == null) {
 			this.setTeam1(team);
 		} else {

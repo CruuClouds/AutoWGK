@@ -25,8 +25,6 @@ public class Schematic {
 		this.state = state;
 		this.isPublic = isPublic;
 	}
-	
-	
 
 	public Direction getDirection() {
 		return direction;

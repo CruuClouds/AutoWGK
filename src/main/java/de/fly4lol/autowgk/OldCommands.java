@@ -140,7 +140,7 @@ public class OldCommands {
 					} else {
 						otherTeam = arena.getTeam1();
 					}
-					if (otherTeam.isFinish() && arena.getWgkArena().getState() == State.Idle) {
+					if (otherTeam.isReady() && arena.getWgkArena().getState() == State.Idle) {
 						arena.startGame();
 					} else if (arena.getWgkArena().getState() == State.Setup) {
 						team.pasteSchematic();

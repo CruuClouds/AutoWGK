@@ -13,28 +13,18 @@ public class Team {
 	private Player		leader;
 	private Schematic	schematic;
 	private AutoArena	arena		= null;
-	private boolean		isFinish	= false;
+	private boolean		isReady	= false;
 	
-	public Team(Player leader, Schematic schematic, boolean isReady) {
+	public Team(Player leader, AutoArena arena) {
 	
 		this.leader = leader;
-		this.schematic = schematic;
-		this.isFinish = isFinish;
-	}
-	
-	public Team() {
-	
+		this.isReady = isReady;
+		this.arena = arena;
 	}
 	
 	public AutoArena getAutoArena() {
 	
 		return arena;
-	}
-	
-	public Team setAutoArena(AutoArena arena) {
-	
-		this.arena = arena;
-		return this;
 	}
 	
 	public Player getLeader() {
@@ -59,14 +49,14 @@ public class Team {
 		return this;
 	}
 	
-	public boolean isFinish() {
+	public boolean isReady() {
 	
-		return isFinish;
+		return isReady;
 	}
 	
-	public Team setReady(boolean isFinish) {
+	public Team setReady(boolean isReady) {
 	
-		this.isFinish = isFinish;
+		this.isReady = isReady;
 		return this;
 	}
 	

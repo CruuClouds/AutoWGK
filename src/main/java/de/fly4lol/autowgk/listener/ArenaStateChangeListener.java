@@ -57,9 +57,9 @@ public class ArenaStateChangeListener implements Listener{
 		if(event.getTo().equals(State.Idle)){
 			AutoArena arena = plugin.loadedArenen.get( event.getArena().getName());
 			if(arena.getTeam1() != null){
-				if(arena.getTeam1().isFinish() ){
+				if(arena.getTeam1().isReady() ){
 					if(arena.getTeam2() != null){
-						if(arena.getTeam2().isFinish()){
+						if(arena.getTeam2().isReady()){
 							arena.startGame();
 						}
 					}

@@ -31,27 +31,25 @@ public class SchematicCommands {
 
 
 	@Command(name = "AutoWGK.schematic.private", usage = "/AutoWGK", permission = "autowgk.schematic.private" , aliases = {"awgk.create" , "awgk.arena.create"})
-	public boolean autowgkArenaCreate(CommandArgs args) {
+	public void autowgkArenaCreate(CommandArgs args) {
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
 		if(arena == null){
 			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena oder sie existiert nicht!");
-			return false;
+			return;
 		}
 		
 		if(args.getArgs().length >= 2){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK schematic private");
-			return false;
+			return;
 		}
 		
 		if(plugin.loadedArenen.get( arena.getName() ).getMode() == AutoArenaMode.DISABLED){
 			player.sendMessage(plugin.prefix + "Du kannst im Moment nicht in dieser Arena spielen!");
-			return false;
+			return;
 		}
 		
 		config.creatArena( arena.getName());
 		player.sendMessage(plugin.prefix + "Du hast die Arena §e" + arena.getName()+ " §3erstellt!");
-		return true;
-		
 	}
 }
