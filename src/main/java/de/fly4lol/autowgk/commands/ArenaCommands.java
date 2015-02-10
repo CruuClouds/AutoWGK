@@ -153,8 +153,7 @@ public class ArenaCommands {
 		}
 		
 		if(autoArena.getMode() == AutoArenaMode.DISABLED){
-			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
-			Bukkit.broadcastMessage("1");
+			player.sendMessage(plugin.prefix + "Du kannst momentan nicht joinen!");
 			return;
 		}
 		
@@ -165,7 +164,6 @@ public class ArenaCommands {
 		
 		if(plugin.wg.getArenaManager().getGroup( player ).getArena() != null){
 			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
-			Bukkit.broadcastMessage("2");
 			return;
 		}
 		
