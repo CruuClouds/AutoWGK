@@ -7,6 +7,7 @@ import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.group.Group;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class Team {
 	
@@ -14,12 +15,14 @@ public class Team {
 	private Schematic	schematic;
 	private AutoArena	arena		= null;
 	private boolean		isReady	= false;
+	private PlayerRole role;
 	
-	public Team(Player leader, AutoArena arena) {
+	public Team(Player leader, AutoArena arena, PlayerRole role) {
 	
 		this.leader = leader;
-		this.isReady = isReady;
+		this.isReady = false;
 		this.arena = arena;
+		this.role = role;
 	}
 	
 	public AutoArena getAutoArena() {
@@ -58,6 +61,10 @@ public class Team {
 	
 		this.isReady = isReady;
 		return this;
+	}
+	
+	public PlayerRole getRole() {
+		return this.role;
 	}
 	
 	public Team startGame(boolean isTeam1) {

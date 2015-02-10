@@ -7,6 +7,7 @@ import de.fly4lol.autowgk.Main;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class AutoArena {
 	
@@ -144,10 +145,11 @@ public class AutoArena {
 	}
 	
 	public Team joinArena(Player player) {
-		Team team = new Team(player, this);
+		Team team = new Team(player, this, PlayerRole.Team1);
 		if (this.getTeam1() == null) {
 			this.setTeam1(team);
 		} else {
+			team = new Team(player, this, PlayerRole.Team2);
 			this.setTeam2(team);
 		}
 		return team;

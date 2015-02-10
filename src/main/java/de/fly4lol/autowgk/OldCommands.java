@@ -20,6 +20,7 @@ import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.State;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class OldCommands {
 	
@@ -107,57 +108,48 @@ public class OldCommands {
 	
 		Player player = args.getPlayer();
 		Team team = this.plugin.getUtil().getTeamByPlayer(player);
-		Bukkit.broadcastMessage("info3" + team.getLeader().getName());
 		AutoArena arena = team.getAutoArena();
 		Team otherTeam = null;
-		if (args.getArgs().length == 1) {
-			if (plugin.getUtil().getTeamByPlayer(player) != null) {
-				int id = 0;
-				try {
-					id = Integer.parseInt(args.getArgs()[0]);
-				} catch (Exception e) {
-					player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
-				}
-				if (!team.equals(null)) {
-					Schematic schematic = plugin.getSQL().getSchematicByID(id);
-					String direction = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
-					
-					Direction northSouth = Direction.south;
-					if (direction.equalsIgnoreCase("_n")) {
-						northSouth = Direction.north;
-					} else if (direction.equalsIgnoreCase("_s")) {
-						northSouth = Direction.south;
-					} else {
-						player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht geladen werden!");
-					}
-					
-					schematic.setDirection(northSouth);
-					team.setSchematic(schematic).setReady(true);
-					player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
-					
-					if (arena.getTeam1().equals(team)) {
-						otherTeam = arena.getTeam2();
-					} else {
-						otherTeam = arena.getTeam1();
-					}
-					if (otherTeam.isReady() && arena.getWgkArena().getState() == State.Idle) {
-						arena.startGame();
-					} else if (arena.getWgkArena().getState() == State.Setup) {
-						team.pasteSchematic();
-						if (arena.getTeam1() == team) {
-							team.startGame(true);
-						} else {
-							team.startGame(false);
-						}
-						
-					}
-				} else {
-					player.sendMessage(plugin.prefix + "Du bist von keinem Team der Leader!");
-				}
-			} else {
-				player.sendMessage(plugin.prefix + "Du bist in keinem Team!");
-			}
+		if (args.getArgs().length != 1) {
+			player.sendMessage(plugin.prefix + "Du musst eine Schematic angeben!");
+			return;
+		}
+		if (team == null) {
+			player.sendMessage(plugin.prefix + "Du bist in keinem Team!");
+			return;
+		}
+		int id = 0;
+		try {
+			id = Integer.parseInt(args.getArgs()[0]);
+		} catch (Exception e) {
+			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
+		}
+		Schematic schematic = plugin.getSQL().getSchematicByID(id);
+		String direction = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
+		
+		Direction northSouth = Direction.south;
+		if (direction.equalsIgnoreCase("_n")) {
+			northSouth = Direction.north;
+		} else if (direction.equalsIgnoreCase("_s")) {
+			northSouth = Direction.south;
+		} else {
+			player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht geladen werden!");
 		}
 		
+		schematic.setDirection(northSouth);
+		team.setSchematic(schematic).setReady(true);
+		player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
+		
+		if (team.getRole() == PlayerRole.Team1) {
+			otherTeam = arena.getTeam2();
+		} else {
+			otherTeam = arena.getTeam1();
+		}
+		if (otherTeam != null && otherTeam.isReady() && arena.getWgkArena().getState() == State.Idle) {
+			arena.startGame();
+		} else if (arena.getWgkArena().getState() == State.Setup) {
+			team.pasteSchematic();
+			team.startGame(arena.getTeam1().equals(team));
+		}
 	}
 }
