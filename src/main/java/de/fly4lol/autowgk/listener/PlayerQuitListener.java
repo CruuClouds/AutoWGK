@@ -23,6 +23,16 @@ public class PlayerQuitListener implements Listener{
 		Arena wgkArena = null;
 		if(team != null){
 			wgkArena = team.getAutoArena().getWgkArena();
+			if(team.getAutoArena().getTeam1() == team){
+				team.getAutoArena().setTeam1( null);
+				return;
+			}
+			
+			if(team.getAutoArena().getTeam2() == team){
+				team.getAutoArena().setTeam2( null);
+				return;
+			}
+			
 		}
 		if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
 			if( team != null ) {	
