@@ -1,7 +1,7 @@
 name: autowgk
 version: ${project.build.version}
 description: Wgk Fight Manager without Supporter 
-website: fly4lol.de
-author: fly4lol
+website: myplayplanet.net
+authors: [Luki110998, Postremus, fly4lol]
 main: de.fly4lol.autowgk.Main
 depend: [SQLApi, WarGear, WorldEdit]
