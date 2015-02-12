@@ -160,9 +160,9 @@ public class AutoArena {
 		if (this.getWgkArena().getState() == State.Idle) {
 			this.getWgkArena().updateState(State.Setup);
 		}
-		this.getTeam1().startGame(true);
+		this.getTeam1().startGame();
 		this.team1.pasteSchematic();
-		this.getTeam2().startGame(false);
+		this.getTeam2().startGame();
 		this.team2.pasteSchematic();
 		
 	}

@@ -149,7 +149,7 @@ public class OldCommands {
 			arena.startGame();
 		} else if (arena.getWgkArena().getState() == State.Setup) {
 			team.pasteSchematic();
-			team.startGame(arena.getTeam1().equals(team));
+			team.startGame();
 		}
 	}
 }

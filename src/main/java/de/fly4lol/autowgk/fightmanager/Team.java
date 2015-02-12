@@ -67,14 +67,11 @@ public class Team {
 		return this.role;
 	}
 	
-	public Team startGame(boolean isTeam1) {
-	
+	public Team startGame() {
+			
 		Arena wgkArena = this.getAutoArena().getWgkArena();
 		Player player = this.getLeader();
-		Group group = wgkArena.getGroupManager().getGroup2();
-		if (isTeam1) {
-			group = wgkArena.getGroupManager().getGroup1();
-		}
+		Group group = wgkArena.getGroupManager().getTeamOfGroup(this.role);
 		group.add(player, true);
 		player.teleport(wgkArena.getGroupManager().getGroupSpawn(group.getRole()));
 		player.sendMessage("§7Mit §B\"/wgk team invite <spieler>\" §7lädst du Spieler zu deinem Team ein.");
