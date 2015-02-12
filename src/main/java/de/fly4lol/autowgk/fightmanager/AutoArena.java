@@ -163,10 +163,7 @@ public class AutoArena {
 			this.getWgkArena().updateState(State.Setup);
 		}
 		this.getTeam1().startGame();
-		this.team1.pasteSchematic();
-		this.getTeam2().startGame();
-		this.team2.pasteSchematic();
-		
+		this.getTeam2().startGame();	
 	}
 	
 }

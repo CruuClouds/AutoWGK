@@ -126,7 +126,6 @@ public class OldCommands {
 		if (otherTeam != null && otherTeam.isReady() && arena.getWgkArena().getState() == State.Idle) {
 			arena.startGame();
 		} else if (arena.getWgkArena().getState() == State.Setup) {
-			team.pasteSchematic();
 			team.startGame();
 		}
 	}

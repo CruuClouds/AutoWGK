@@ -74,11 +74,12 @@ public class Team {
 		Group group = wgkArena.getGroupManager().getTeamOfGroup(this.role);
 		group.add(player, true);
 		player.teleport(wgkArena.getGroupManager().getGroupSpawn(group.getRole()));
+		this.getAutoArena().getPlugin().wg.getScoreboard().addTeamMember(wgkArena, group.getMember(player), group.getRole());
 		player.sendMessage("§7Mit §B\"/wgk team invite <spieler>\" §7lädst du Spieler zu deinem Team ein.");
 		player.sendMessage("§7Mit §B\"/wgk team remove <spieler>\" §7entfernst du Spieler aus deinem Team.");
 		player.sendMessage("§7Mit §B\"/wgk team ready\" §7schaltest du dein Team bereit.");
-		this.getAutoArena().getPlugin().wg.getScoreboard().addTeamMember(wgkArena, group.getMember(player), group.getRole());
 		
+		pasteSchematic();
 		return this;
 	}
 	
