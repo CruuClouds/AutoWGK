@@ -32,10 +32,11 @@ public class AutoArena {
 	
 	public AutoArena(Main plugin, String name) {
 		this.name = name;
+		this.plugin = plugin;
 		this.team1Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team1);
-		this.team1Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team2);
+		this.team2Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team2);
 		this.team1Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team1);
-		this.team1Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team2);
+		this.team2Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team2);
 		this.mode = this.plugin.getAutoWGKConfig().getMode(name);
 	}
 	
