@@ -26,19 +26,15 @@ public class Config {
 		plugin.getConfig().set("Arenen." + Arena, "");
 	}
 	
-	public void addTeam(String Arena, boolean team1, Direction direction, int X, int Y, int Z, String World){
-		String team = "Team2";
-		if(team1){
-			team = "Team1";
-		}
-		plugin.getConfig().set("Arenen." + Arena + "."+ team, "");
+	public void addTeam(String Arena,PlayerRole role, Direction direction, int X, int Y, int Z, String World){
+		plugin.getConfig().set("Arenen." + Arena + "."+ role.name(), "");
 		plugin.getConfig().set("Arenen." + Arena + ".Mode" , AutoArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Direction", direction.getName() );
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".World", World);
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".X", X);
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Y", Y);
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Z", Z);
+		plugin.getConfig().set("Arenen." + Arena + "." + role.name() + ".Direction", direction.getName() );
+		plugin.getConfig().set("Arenen." + Arena + "." + role.name() + ".World", World);
+		plugin.getConfig().set("Arenen." + Arena + "." + role.name() + ".X", X);
+		plugin.getConfig().set("Arenen." + Arena + "." + role.name() + ".Y", Y);
+		plugin.getConfig().set("Arenen." + Arena + "." + role.name() + ".Z", Z);
 		plugin.saveConfig();
 	}
 	
@@ -54,14 +50,10 @@ public class Config {
 	}
 	
 	public Location getPastingLocation(String Arena, PlayerRole role){
-		String team = "Team2";
-		if(role == PlayerRole.Team1){
-			team = "Team1";
-		}
-		String world = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".World");
-		double x = plugin.getConfig().getDouble("Arenen." + Arena + "." + team + ".X");
-		double y = plugin.getConfig().getDouble("Arenen." + Arena + "." + team + ".Y");
-		double z = plugin.getConfig().getDouble("Arenen." + Arena + "." + team + ".Z");
+		String world = plugin.getConfig().getString("Arenen." + Arena + "." + role.name() + ".World");
+		double x = plugin.getConfig().getDouble("Arenen." + Arena + "." + role.name() + ".X");
+		double y = plugin.getConfig().getDouble("Arenen." + Arena + "." + role.name() + ".Y");
+		double z = plugin.getConfig().getDouble("Arenen." + Arena + "." + role.name() + ".Z");
 		World World = Bukkit.getWorld(world);
 		
 		Location loc = new Location(World, x, y, z);
@@ -69,11 +61,7 @@ public class Config {
 	}
 	
 	public Direction getDirection(String arena, PlayerRole role) {
-		String team = "Team2";
-		if(role == PlayerRole.Team1){
-			team = "Team1";
-		}
-		String direction = plugin.getConfig().getString("Arenen." + arena + "." + team + ".Direction");
+		String direction = plugin.getConfig().getString("Arenen." + arena + "." + role.name() + ".Direction");
 		return direction.equalsIgnoreCase("north") ? Direction.North : Direction.South;
 	}
 	

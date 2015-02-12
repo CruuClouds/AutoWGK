@@ -38,7 +38,7 @@ public class PlayerQuitListener implements Listener{
 			if( team != null ) {	
 				if(wgkArena.getState() == State.Idle){
 					if(team.getAutoArena().getTeam1() == team){
-						team.getAutoArena().setTeam1( team);;
+						team.getAutoArena().setTeam1( team);
 					} else if(team.getAutoArena().getTeam2() == team ){
 						team.getAutoArena().setTeam2( team );
 					}

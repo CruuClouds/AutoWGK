@@ -141,7 +141,7 @@ public class AutoArena {
 	
 	public boolean isJoinable() {
 	
-		Arena arena = plugin.wg.getArenaManager().getArena(this.getName());
+		Arena arena = this.getWgkArena();
 		State state = arena.getState();
 		return arena != null && (this.getTeam1() == null || this.getTeam2() == null) && state != State.PreRunning && state != State.Running;
 	}

@@ -17,6 +17,7 @@ import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 import de.pro_crafting.wg.arena.Arena;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class ArenaCommands {
 	private Main plugin;
@@ -92,7 +93,7 @@ public class ArenaCommands {
 		}
 		
 		Location loc = player.getLocation();
-		config.addTeam( arena.getName() , team1, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
+		config.addTeam( arena.getName() , team1 ? PlayerRole.Team1 : PlayerRole.Team2, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
 		player.sendMessage(plugin.prefix + "Du hast das §e" + team + " §3hinzugefügt");
 		return;
 		
