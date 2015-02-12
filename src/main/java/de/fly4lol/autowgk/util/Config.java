@@ -78,24 +78,13 @@ public class Config {
 	}
 	
 	public List<AutoArena> getAutoArenen(){
-		List<AutoArena> liste = new ArrayList<AutoArena>();
+		List<AutoArena> ret = new ArrayList<AutoArena>();
 		Set<String> arenen= plugin.getConfig().getConfigurationSection("Arenen").getKeys(false);
 		
-		for(String arena1 : arenen){
-			
-			AutoArena arena = new AutoArena();
-			Direction directionTeam1 = this.getDirection(arena1, PlayerRole.Team1);
-			Direction directionTeam2 = this.getDirection(arena1, PlayerRole.Team2);
-
-			arena.setName(arena1);
-			arena.setTeam1Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team1));
-			arena.setTeam2Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team2));
-			arena.setTeam1Direction(directionTeam1);
-			arena.setTeam2Direction(directionTeam2);
-			arena.setMode( this.getMode( arena.getName()));
-			liste.add( arena );
+		for(String arena : arenen){
+			ret.add(new AutoArena(plugin, arena));
 		}
-		return liste;
+		return ret;
 	}
 
 }

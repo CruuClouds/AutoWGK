@@ -10,10 +10,7 @@ import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
 
 public class AutoArena {
-	
-	private Messenger		messager;
 	private Main			plugin;
-	private Util			util;
 	private String			name;
 	private Location		team1Loc;
 	private Location		team2Loc;
@@ -22,7 +19,7 @@ public class AutoArena {
 	private Direction			team2Direction;
 	private Team			team1;
 	private Team			team2;
-	private Arena			arena	= null;
+	private Arena			arena;
 	
 	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, Direction team1Direction, Direction team2Direction, Team team1, Team team2) {
 	
@@ -33,8 +30,13 @@ public class AutoArena {
 		this.team2Direction = team2Direction;
 	}
 	
-	public AutoArena() {
-	
+	public AutoArena(Main plugin, String name) {
+		this.name = name;
+		this.team1Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team1);
+		this.team1Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team2);
+		this.team1Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team1);
+		this.team1Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team2);
+		this.mode = this.plugin.getAutoWGKConfig().getMode(name);
 	}
 	
 	public Arena getWgkArena() {
