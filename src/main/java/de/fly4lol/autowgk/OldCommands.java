@@ -26,12 +26,10 @@ public class OldCommands {
 	
 	private final Main			plugin;
 	private final MySQLMethods	sql;
-	private final Config		config;
 	
 	public OldCommands(Main plugin) {
 	
 		this.plugin = plugin;
-		this.config = plugin.getAutoWGKConfig();
 		this.sql = plugin.getSQL();
 	}
 	
@@ -42,45 +40,29 @@ public class OldCommands {
 	
 	@Command(name = "AutoWGK.schematic.list", usage = "/AutoWGK", permission = "autowgk.schematic.list", aliases = { "awgk.schem.list", "awgk.schematic.list", "Autowgk.schem.list" })
 	public void autowgkSchematicList(CommandArgs args) {
-	
 		Player player = args.getPlayer();
-		if (args.getArgs().length == 0) {
-			List<Schematic> schematics = this.sql.getSchematisByOwner(player);
-			Message message = new Message();
-			message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
-			for (Schematic schematic : schematics) {
-				if (schematic.isWarGear()) {
-					String prefix = "§8[§6Private§8] §b";
-					if (schematic.isPublic()) {
-						prefix = "§8[§6Public§8] §b";
-					}
-					FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§eHier klicken").command("/AutoWGK schematic load " + schematic.getId());
-					message.addLine(wargearMessage);
-				}
-			}
-			new Messenger().addPlayer(player).setMessage(message).send();
-		} else if (args.getArgs().length == 1) {
-			if (player.hasPermission("autowgk.schematic.list.other")) {
-				@SuppressWarnings("deprecation")
-				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs()[0]);
-				List<Schematic> schematics = this.sql.getSchematisByOwner(offlinePlayer);
-				Message message = new Message();
-				message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
-				for (Schematic schematic : schematics) {
-					if (schematic.isWarGear()) {
-						if (schematic.getState().equals(SchematicState.Checked)) {
-							String prefix = "§8[§6Private§8] §b";
-							if (schematic.isPublic()) {
-								prefix = "§8[§6Public§8] §b";
-							}
-							FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§eHier klicken").command("/AutoWGK schematic load " + schematic.getId());
-							message.addLine(wargearMessage);
-						}
-					}
-				}
-				new Messenger().addPlayer(player).setMessage(message).send();
+		OfflinePlayer schematicsOf = player;
+		if (args.length() == 1 && player.hasPermission("autowgk.schematic.list.other")) {
+			schematicsOf = Bukkit.getOfflinePlayer(args.getArgs()[0]);
+			if (schematicsOf == null) {
+				return;
 			}
 		}
+		
+		List<Schematic> schematics = this.sql.getSchematisByOwner(schematicsOf);
+		Message message = new Message();
+		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+		for (Schematic schematic : schematics) {
+			if (schematic.isWarGear() && schematic.getState() == SchematicState.Checked) {
+				String prefix = "§8[§6Private§8] §b";
+				if (schematic.isPublic()) {
+					prefix = "§8[§6Public§8] §b";
+				}
+				FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§eHier klicken").command("/AutoWGK schematic load " + schematic.getId());
+				message.addLine(wargearMessage);
+			}
+		}
+		new Messenger().addPlayer(player).setMessage(message).send();
 	}
 	
 	@Command(name = "AutoWGK.schematic.public", usage = "/AutoWGK", permission = "autowgk.schematic.public", aliases = { "awgk.schem.public", "awgk.schematic.public", "Autowgk.schem.public" })
@@ -91,12 +73,10 @@ public class OldCommands {
 		Message message = new Message();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
-			if (schematic.isWarGear()) {
-				if (schematic.getState().equals(SchematicState.Checked)) {
-					String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
-					FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
-					message.addLine(wargearMessage);
-				}
+			if (schematic.isWarGear()  && schematic.getState() == SchematicState.Checked) {
+				String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
+				FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
+				message.addLine(wargearMessage);
 			}
 		}
 		new Messenger().addPlayer(player).setMessage(message).send();
