@@ -38,7 +38,7 @@ public class Util {
 		if (arena == null) {
 			return null;
 		} else {
-			String arenaName = arena.getName();
+			String arenaName = arena.getName();		
 			return plugin.loadedArenen.get(arenaName);
 		}
 	}

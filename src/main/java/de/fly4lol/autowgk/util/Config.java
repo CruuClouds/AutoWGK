@@ -11,6 +11,7 @@ import org.bukkit.World;
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class Config {
 	
@@ -55,9 +56,9 @@ public class Config {
 		
 	}
 	
-	public Location getPastingLocation(String Arena, boolean Team1){
+	public Location getPastingLocation(String Arena, PlayerRole role){
 		String team = "Team2";
-		if(Team1){
+		if(role == PlayerRole.Team1){
 			team = "Team1";
 		}
 		String world = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".World");
@@ -70,9 +71,9 @@ public class Config {
 		return loc;
 	}
 	
-	public boolean isNorth(String Arena, boolean team1){
+	public boolean isNorth(String Arena, PlayerRole role){
 		String team = "Team2";
-		if(team1){
+		if(role == PlayerRole.Team1){
 			team = "Team1";
 		}
 		String location = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".Direction");
@@ -89,17 +90,17 @@ public class Config {
 			String directionTeam1 = "south";
 			String directionTeam2 = "south";
 			
-			if(this.isNorth( arena1, true)){
+			if(this.isNorth( arena1, PlayerRole.Team1)){
 				directionTeam1= "north";
 			}
 			
-			if(this.isNorth( arena1, false)){
+			if(this.isNorth( arena1, PlayerRole.Team2)){
 				directionTeam2= "north";
 			}
 			
 			arena.setName(arena1);
-			arena.setTeam1Loc(this.getPastingLocation( arena.getName(), true));
-			arena.setTeam2Loc(this.getPastingLocation( arena.getName(), false));
+			arena.setTeam1Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team1));
+			arena.setTeam2Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team2));
 			arena.setTeam1Direction( directionTeam1);
 			arena.setTeam2Direction( directionTeam2);
 			arena.setMode( this.getMode( arena.getName()));

@@ -88,29 +88,17 @@ public class Team {
 		Config config = this.getAutoArena().getPlugin().getAutoWGKConfig();
 		String arenaName = this.getAutoArena().getName();
 		Direction direction = Direction.south;
-		Location location = null;
+		Location location = config.getPastingLocation(arenaName, this.role);
 		
 		/*
 		 * 
 		 * Direction and Location
 		 */
 		
-		if (this.getAutoArena().getTeam1() == this) {
-			location = config.getPastingLocation(arenaName, true);
-			
-			if (config.isNorth(arenaName, true)) {
-				direction = Direction.north;
-			}
-			
-		} else if (this.getAutoArena().getTeam2() == this) {
-			location = config.getPastingLocation(arenaName, false);
-			
-			if (config.isNorth(arenaName, false)) {
-				direction = Direction.north;
-			}
-			
-		} else {
-			System.out.println("Team ist in keiner Arena! [PasteSchematic] Class: Team");
+		location = config.getPastingLocation(arenaName, this.role);
+		
+		if (config.isNorth(arenaName, this.role)) {
+			direction = Direction.north;
 		}
 		
 		/*
