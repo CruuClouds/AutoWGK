@@ -4,4 +4,4 @@ description: Wgk Fight Manager without Supporter
 website: fly4lol.de
 author: fly4lol
 main: de.fly4lol.autowgk.Main
-depend: [SQLApi, WarGear]
+depend: [SQLApi, WarGear, WorldEdit]
