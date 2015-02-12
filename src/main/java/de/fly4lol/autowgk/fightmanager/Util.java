@@ -62,25 +62,16 @@ public class Util {
 	public void pasteSchematic(Schematic schematic, Direction direction, Location location, Player player) {
 	
 		try {
-			String schematicName = schematic.getName();
 			String directionString = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
-			boolean rotate;
+			boolean rotate = true;
 			if ((direction == Direction.north && directionString.equalsIgnoreCase("_n")) || (direction == Direction.south && directionString.equalsIgnoreCase("_s"))) {
 				rotate = false;
-			} else {
-				rotate = true;
 			}
 			WorldEdit we = ((WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit")).getWorldEdit();
 			LocalConfiguration config = we.getConfiguration();
 			
 			File dir = we.getWorkingDirectoryFile(config.saveDir);
-			String schematicDir;
-			if (!schematicName.contains(".schematic")) {
-				schematicDir = schematic.getOwner() + "/" + schematicName + ".schematic";
-			} else {
-				schematicDir = schematic.getOwner() + "/" + schematicName;
-			}
-			File schematicFile = new File(dir, schematicDir);
+			File schematicFile = new File(dir, schematic.getPath());
 			
 			EditSession es = we.getEditSessionFactory().getEditSession(BukkitUtil.getLocalWorld(location.getWorld()), 32000000);
 			CuboidClipboard cc = MCEditSchematicFormat.MCEDIT.load(schematicFile);

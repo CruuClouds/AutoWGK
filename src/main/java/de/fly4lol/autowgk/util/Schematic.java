@@ -24,6 +24,10 @@ public class Schematic {
 		this.isWarGear = isWarGear;
 		this.state = state;
 		this.isPublic = isPublic;
+		
+		if (!this.name.endsWith(".schematic")) {
+			this.name += ".schematic";
+		}
 	}
 
 	public Direction getDirection() {
