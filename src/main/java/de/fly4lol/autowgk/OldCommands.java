@@ -107,12 +107,10 @@ public class OldCommands {
 		Schematic schematic = plugin.getSQL().getSchematicByID(id);
 		String direction = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
 		
-		Direction northSouth = Direction.south;
+		Direction northSouth = Direction.South;
 		if (direction.equalsIgnoreCase("_n")) {
-			northSouth = Direction.north;
-		} else if (direction.equalsIgnoreCase("_s")) {
-			northSouth = Direction.south;
-		} else {
+			northSouth = Direction.North;
+		} else if (!direction.equalsIgnoreCase("_s")) {
 			player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht geladen werden!");
 		}
 		

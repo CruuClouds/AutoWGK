@@ -87,24 +87,9 @@ public class Team {
 		Util util = this.getAutoArena().getPlugin().getUtil();
 		Config config = this.getAutoArena().getPlugin().getAutoWGKConfig();
 		String arenaName = this.getAutoArena().getName();
-		Direction direction = Direction.south;
+		
+		Direction direction = config.getDirection(arenaName, this.role);
 		Location location = config.getPastingLocation(arenaName, this.role);
-		
-		/*
-		 * 
-		 * Direction and Location
-		 */
-		
-		location = config.getPastingLocation(arenaName, this.role);
-		
-		if (config.isNorth(arenaName, this.role)) {
-			direction = Direction.north;
-		}
-		
-		/*
-		 * 
-		 * Pasting
-		 */
 		
 		util.pasteSchematic(this.schematic, direction, location, this.leader);
 		

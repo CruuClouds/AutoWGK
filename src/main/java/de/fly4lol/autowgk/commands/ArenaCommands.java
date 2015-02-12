@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.messenger.Message;
 import de.fly4lol.messenger.Messenger;
@@ -64,8 +65,7 @@ public class ArenaCommands {
 		}
 		
 		String team = args.getArgs()[0];
-		String direction = args.getArgs()[1];
-		
+
 		if(!team.equalsIgnoreCase("team1")){
 			if(!team.equalsIgnoreCase("team2")){
 				if(!team.equalsIgnoreCase("1")){
@@ -79,21 +79,10 @@ public class ArenaCommands {
 			
 		}
 		
-		if(direction.equalsIgnoreCase("south")){
-			if(!direction.equalsIgnoreCase("north")){
-				if(!direction.equalsIgnoreCase("s")){
-					if(!direction.equalsIgnoreCase("n")){
-						player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
-						return;
-					}
-				}
-			}
-		}
-		
-		boolean north = false;
-		
-		if(direction.equalsIgnoreCase("north") ||  (direction.equalsIgnoreCase("n") )){
-			north = true;
+		Direction direction = Direction.parse(args.getArgs(1));
+		if (direction == null) {
+			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
+			return;
 		}
 		
 		boolean team1 = false;
@@ -103,7 +92,7 @@ public class ArenaCommands {
 		}
 		
 		Location loc = player.getLocation();
-		config.addTeam( arena.getName() , team1, north, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
+		config.addTeam( arena.getName() , team1, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
 		player.sendMessage(plugin.prefix + "Du hast das §e" + team + " §3hinzugefügt");
 		return;
 		

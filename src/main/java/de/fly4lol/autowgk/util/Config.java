@@ -11,6 +11,7 @@ import org.bukkit.World;
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.fightmanager.Direction;
 import de.pro_crafting.wg.group.PlayerRole;
 
 public class Config {
@@ -25,19 +26,15 @@ public class Config {
 		plugin.getConfig().set("Arenen." + Arena, "");
 	}
 	
-	public void addTeam(String Arena, boolean team1, boolean north, int X, int Y, int Z, String World){
+	public void addTeam(String Arena, boolean team1, Direction direction, int X, int Y, int Z, String World){
 		String team = "Team2";
-		String direction = "south";
 		if(team1){
 			team = "Team1";
-		}
-		if(north){
-			direction = "north";
 		}
 		plugin.getConfig().set("Arenen." + Arena + "."+ team, "");
 		plugin.getConfig().set("Arenen." + Arena + ".Mode" , AutoArenaMode.NORMAL.ordinal());
 		plugin.saveConfig();
-		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Direction", direction );
+		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Direction", direction.getName() );
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".World", World);
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".X", X);
 		plugin.getConfig().set("Arenen." + Arena + "." + team + ".Y", Y);
@@ -71,13 +68,13 @@ public class Config {
 		return loc;
 	}
 	
-	public boolean isNorth(String Arena, PlayerRole role){
+	public Direction getDirection(String arena, PlayerRole role) {
 		String team = "Team2";
 		if(role == PlayerRole.Team1){
 			team = "Team1";
 		}
-		String location = plugin.getConfig().getString("Arenen." + Arena + "." + team + ".Direction");
-		return location.equalsIgnoreCase("north");
+		String direction = plugin.getConfig().getString("Arenen." + arena + "." + team + ".Direction");
+		return direction.equalsIgnoreCase("north") ? Direction.North : Direction.South;
 	}
 	
 	public List<AutoArena> getAutoArenen(){
@@ -87,22 +84,14 @@ public class Config {
 		for(String arena1 : arenen){
 			
 			AutoArena arena = new AutoArena();
-			String directionTeam1 = "south";
-			String directionTeam2 = "south";
-			
-			if(this.isNorth( arena1, PlayerRole.Team1)){
-				directionTeam1= "north";
-			}
-			
-			if(this.isNorth( arena1, PlayerRole.Team2)){
-				directionTeam2= "north";
-			}
-			
+			Direction directionTeam1 = this.getDirection(arena1, PlayerRole.Team1);
+			Direction directionTeam2 = this.getDirection(arena1, PlayerRole.Team2);
+
 			arena.setName(arena1);
 			arena.setTeam1Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team1));
 			arena.setTeam2Loc(this.getPastingLocation( arena.getName(), PlayerRole.Team2));
-			arena.setTeam1Direction( directionTeam1);
-			arena.setTeam2Direction( directionTeam2);
+			arena.setTeam1Direction(directionTeam1);
+			arena.setTeam2Direction(directionTeam2);
 			arena.setMode( this.getMode( arena.getName()));
 			liste.add( arena );
 		}

@@ -63,10 +63,8 @@ public class Util {
 	
 		try {
 			String directionString = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
-			boolean rotate = true;
-			if ((direction == Direction.north && directionString.equalsIgnoreCase("_n")) || (direction == Direction.south && directionString.equalsIgnoreCase("_s"))) {
-				rotate = false;
-			}
+			boolean rotate = direction != Direction.parse(directionString);
+
 			WorldEdit we = ((WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit")).getWorldEdit();
 			LocalConfiguration config = we.getConfiguration();
 			
