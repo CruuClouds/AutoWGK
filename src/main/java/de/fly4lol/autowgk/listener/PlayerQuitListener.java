@@ -9,6 +9,7 @@ import de.fly4lol.autowgk.fightmanager.Team;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.GroupSide;
+import de.pro_crafting.wg.group.PlayerRole;
 
 public class PlayerQuitListener implements Listener{
 	private Main plugin;
@@ -37,9 +38,9 @@ public class PlayerQuitListener implements Listener{
 		if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
 			if( team != null ) {	
 				if(wgkArena.getState() == State.Idle){
-					if(team.getAutoArena().getTeam1() == team){
+					if(team.getRole() == PlayerRole.Team1){
 						team.getAutoArena().setTeam1( team);
-					} else if(team.getAutoArena().getTeam2() == team ){
+					} else if(team.getRole() == PlayerRole.Team2){
 						team.getAutoArena().setTeam2( team );
 					}
 				} else if(wgkArena.getState() == State.Setup){
@@ -54,7 +55,7 @@ public class PlayerQuitListener implements Listener{
 					if(wgkArena != null){
 						team.getAutoArena().getWgkArena().getReseter().cleanSide( side );
 						this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
-						wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );;
+						wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );
 					}	
 				}			
 			}
