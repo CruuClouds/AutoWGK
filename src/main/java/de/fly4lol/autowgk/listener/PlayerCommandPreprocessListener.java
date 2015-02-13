@@ -21,9 +21,8 @@ public class PlayerCommandPreprocessListener implements Listener{
 	@EventHandler
 	public void playerCommandHandler(PlayerCommandPreprocessEvent event) {
 		if(event.getMessage().equalsIgnoreCase("/wgk team leave")){
-			Team team = plugin.getUtil().getTeamByPlayer( event.getPlayer() );
-			Arena wgkArena = team.getAutoArena().getWgkArena();
-			if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup && team != null ){
+			Team team = plugin.getUtil().getTeamByPlayer(event.getPlayer());
+			if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
 				GroupSide side = GroupSide.Team2;
 				if(team.getRole() == PlayerRole.Team1){
 					side = GroupSide.Team1;
@@ -33,8 +32,6 @@ public class PlayerCommandPreprocessListener implements Listener{
 					team.getAutoArena().setTeam2( null );
 				}
 				team.getAutoArena().getWgkArena().getReseter().cleanSide( side );
-				this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
-				wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );;
 			}
 		}
 	}
