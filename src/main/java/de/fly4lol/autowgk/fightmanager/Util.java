@@ -16,20 +16,16 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.autowgk.util.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 
 public class Util {
 	
 	private final Main		plugin;
-	@SuppressWarnings("unused")
-	private final Config	config;
 	
 	public Util(Main plugin) {
 	
 		this.plugin = plugin;
-		this.config = plugin.getAutoWGKConfig();
 	}
 	
 	public AutoArena getArenaAt(Location location) {
@@ -45,7 +41,7 @@ public class Util {
 	
 	public Team getTeamByPlayer(Player player) {
 	
-		List<AutoArena> autoArenen = plugin.getAutoWGKConfig().getAutoArenen();
+		List<AutoArena> autoArenen = plugin.getRepo().getAutoArenen();
 		for (AutoArena arena : autoArenen) {
 			Team team1 = plugin.loadedArenen.get(arena.getName()).getTeam1();
 			Team team2 = plugin.loadedArenen.get(arena.getName()).getTeam2();

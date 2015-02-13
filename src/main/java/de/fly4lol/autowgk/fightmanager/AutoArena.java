@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
@@ -33,11 +32,11 @@ public class AutoArena {
 	public AutoArena(Main plugin, String name) {
 		this.name = name;
 		this.plugin = plugin;
-		this.team1Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team1);
-		this.team2Loc = this.plugin.getAutoWGKConfig().getPastingLocation(name, PlayerRole.Team2);
-		this.team1Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team1);
-		this.team2Direction = this.plugin.getAutoWGKConfig().getDirection(name, PlayerRole.Team2);
-		this.mode = this.plugin.getAutoWGKConfig().getMode(name);
+		this.team1Loc = this.plugin.getRepo().getPastingLocation(name, PlayerRole.Team1);
+		this.team2Loc = this.plugin.getRepo().getPastingLocation(name, PlayerRole.Team2);
+		this.team1Direction = this.plugin.getRepo().getDirection(name, PlayerRole.Team1);
+		this.team2Direction = this.plugin.getRepo().getDirection(name, PlayerRole.Team2);
+		this.mode = this.plugin.getRepo().getMode(name);
 	}
 	
 	public Arena getWgkArena() {

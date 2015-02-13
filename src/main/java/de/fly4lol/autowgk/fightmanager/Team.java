@@ -3,7 +3,7 @@ package de.fly4lol.autowgk.fightmanager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import de.fly4lol.autowgk.util.Config;
+import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.util.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.group.Group;
@@ -86,11 +86,11 @@ public class Team {
 	public Team pasteSchematic() {
 	
 		Util util = this.getAutoArena().getPlugin().getUtil();
-		Config config = this.getAutoArena().getPlugin().getAutoWGKConfig();
+		Repository repo = this.getAutoArena().getPlugin().getRepo();
 		String arenaName = this.getAutoArena().getName();
 		
-		Direction direction = config.getDirection(arenaName, this.role);
-		Location location = config.getPastingLocation(arenaName, this.role);
+		Direction direction = repo.getDirection(arenaName, this.role);
+		Location location = repo.getPastingLocation(arenaName, this.role);
 		
 		util.pasteSchematic(this.schematic, direction, location, this.leader);
 		

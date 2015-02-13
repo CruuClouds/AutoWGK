@@ -19,8 +19,6 @@ import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerInteractListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
-import de.fly4lol.autowgk.util.Config;
-import de.fly4lol.autowgk.util.MySQLMethods;
 import de.fly4lol.messenger.Messages;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
@@ -34,13 +32,12 @@ public class Main extends JavaPlugin{
 	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();
 	public String prefix = "§7[§6AutoWGK§7] §3";
 	public String noPerms = "§4Du hast keine Berechtigung!";
-	private MySQLMethods sql;
 	public List<Player> addSign = new ArrayList<Player>();
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
 	public static Connection conn;
 	public WarGear wg;
-	private Config config;
+	private Repository repo;
 	private Util util;
 	private Messages messages;
 	private Messenger messenger;
@@ -52,8 +49,7 @@ public class Main extends JavaPlugin{
 	@Override
 	public void onEnable(){
 		this.load();
-		this.sql = new MySQLMethods(this);
-		this.config = new Config(this);
+		this.repo = new Repository(this);
 		this.util = new Util(this);
 		this.wg = WarGear.getPlugin(WarGear.class);
 		
@@ -99,13 +95,9 @@ public class Main extends JavaPlugin{
 	public AutoArena getAutoArena(){
 		return autoArena;
 	}
-	
-	public Config getAutoWGKConfig() {
-		return config;
-	}
-	
-	public MySQLMethods getSQL() {
-		return this.sql;
+		
+	public Repository getRepo() {
+		return this.repo;
 	}
 	
 	public Util getUtil(){
@@ -121,7 +113,7 @@ public class Main extends JavaPlugin{
 	}
 	
 	public void loadAutoArenas(){
-		List<AutoArena> arenen = config.getAutoArenen();
+		List<AutoArena> arenen = this.repo.getAutoArenen();
 		for(AutoArena arena : arenen){
 			arena.setPlugin( this );
 			arena.setWgkArena( wg.getArenaManager().getArena( arena.getName()));

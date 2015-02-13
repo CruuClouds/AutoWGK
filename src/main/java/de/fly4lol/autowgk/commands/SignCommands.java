@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.autowgk.Repository;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 
@@ -46,7 +46,7 @@ public class SignCommands {
 	@Command(name = "AutoWGK.sign.remove.world", usage = "/AutoWGK", permission = "autowgk.sign.remove.world" , aliases = {"awgk.sign.remove.world"}, inGameOnly=true)
 	public void autowgkSignRemoveWorld(CommandArgs args) {
 		Player player = args.getPlayer();
-		MySQLMethods sql = plugin.getSQL();
+		Repository repo = plugin.getRepo();
 		
 		if(args.getArgs().length != 1){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove world <worldname>");
@@ -59,9 +59,9 @@ public class SignCommands {
 		}
 		
 		List<Location> signs = new ArrayList<Location>();
-		signs = sql.getSignsByWorld(args.getArgs()[0]);
+		signs = repo.getSignsByWorld(args.getArgs()[0]);
 		for (Location sign : signs){
-			sql.removeSign(sign);
+			repo.removeSign(sign);
 		}
 		
 		return;

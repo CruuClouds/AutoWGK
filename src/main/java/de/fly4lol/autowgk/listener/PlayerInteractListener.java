@@ -12,19 +12,17 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
-import de.fly4lol.autowgk.util.MySQLMethods;
+import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.util.SignType;
 
 
 public class PlayerInteractListener implements Listener{
 	private Main plugin;
-	private MySQLMethods sql;
+	private Repository repo;
 	
 	public PlayerInteractListener(Main plugin) {
 		this.plugin = plugin;
-		this.sql = plugin.getSQL();
+		this.repo = plugin.getRepo();
 	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
@@ -43,7 +41,7 @@ public class PlayerInteractListener implements Listener{
 				
 				
 				if(plugin.addSign.contains(player)){
-					if(!sql.existSignAtLocation(signLoc)){
+					if(!repo.existSignAtLocation(signLoc)){
 						BlockState state = signLoc.getBlock().getState();
 						Sign sign = (Sign) state;
 						if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaInfo]")){
@@ -52,16 +50,15 @@ public class PlayerInteractListener implements Listener{
 							sign.setLine( 1, "§9" + sign.getLine( 1) + "§9");
 							sign.setLine( 2, "§2 Loading... ");
 							sign.update();
-							sql.addSign(player, signLoc, SignType.ARENAINFO);
+							repo.addSign(player, signLoc, SignType.ARENAINFO);
 							plugin.addSign.remove(player);
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else if(sign.getLine( 0 ).equalsIgnoreCase("[ArenaJoin]")) {
-							event.setCancelled( true  );
 							sign.setLine( 0 , "§6Arena Join§6" );
 							sign.setLine( 1, "§9Klicke hier ");
 							sign.setLine( 2, "§9um zu Joinen");
 							sign.update();
-							sql.addSign( player , signLoc, SignType.ARENAJOIN);
+							repo.addSign( player , signLoc, SignType.ARENAJOIN);
 							plugin.addSign.remove( player );
 							player.sendMessage(plugin.prefix + "Du hast das Schild hinzugefügt!");
 						} else {
@@ -80,8 +77,8 @@ public class PlayerInteractListener implements Listener{
 				 */
 					
 				} else if(plugin.removeSign.contains(player)){
-					if(sql.existSignAtLocation(signLoc)){
-						sql.removeSign(signLoc);
+					if(repo.existSignAtLocation(signLoc)){
+						repo.removeSign(signLoc);
 						signLoc.getBlock().setType(Material.AIR);
 						plugin.removeSign.remove(player);
 						player.sendMessage(plugin.prefix + "Du hast das Schild entfernt!");
@@ -96,8 +93,8 @@ public class PlayerInteractListener implements Listener{
 				 * 
 				 */		
 					
-				} else if(sql.existSignAtLocation( signLoc )){
-					if(sql.getSignType( signLoc).equals( SignType.ARENAJOIN)){
+				} else if(repo.existSignAtLocation( signLoc )){
+					if(repo.getSignType( signLoc).equals( SignType.ARENAJOIN)){
 						this.plugin.getArenaCommands().autowgkArenaJoin( player );
 					}
 				}

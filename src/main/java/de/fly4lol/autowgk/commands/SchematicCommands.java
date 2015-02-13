@@ -9,12 +9,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.fightmanager.Team;
-import de.fly4lol.autowgk.util.Config;
-import de.fly4lol.autowgk.util.MySQLMethods;
 import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
 import de.fly4lol.messenger.Message;
@@ -27,11 +26,11 @@ import de.pro_crafting.wg.group.PlayerRole;
 
 public class SchematicCommands {
 	private Main plugin;
-	private Config config;
+	private Repository repo;
 	
 	public SchematicCommands(Main plugin){
 		this.plugin = plugin;
-		this.config = plugin.getAutoWGKConfig();
+		this.repo = plugin.getRepo();
 	}
 	
 	@Command(name = "AutoWGK.schematic", usage = "/AutoWGK", permission = "autowgk.schematic" , aliases = {"awgk.schem"  , "AutoWGK.schem" })
@@ -62,7 +61,7 @@ public class SchematicCommands {
 			return;
 		}
 		
-		config.creatArena( arena.getName());
+		repo.creatArena( arena.getName());
 		player.sendMessage(plugin.prefix + "Du hast die Arena §e" + arena.getName()+ " §3erstellt!");
 	}
 	
@@ -77,8 +76,7 @@ public class SchematicCommands {
 			}
 		}
 		
-		MySQLMethods sql = plugin.getSQL();
-		List<Schematic> schematics = sql.getSchematisByOwner(schematicsOf);
+		List<Schematic> schematics = this.repo.getSchematisByOwner(schematicsOf);
 		Message message = new Message();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
@@ -98,8 +96,7 @@ public class SchematicCommands {
 	public void autowgkSchematicPublic(CommandArgs args) {
 	
 		Player player = args.getPlayer();
-		MySQLMethods sql = plugin.getSQL();
-		List<Schematic> schematics = sql.getPublicSchematics();
+		List<Schematic> schematics = this.repo.getPublicSchematics();
 		Message message = new Message();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
@@ -135,7 +132,7 @@ public class SchematicCommands {
 		} catch (Exception e) {
 			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
 		}
-		Schematic schematic = plugin.getSQL().getSchematicByID(id);
+		Schematic schematic = this.repo.getSchematicByID(id);
 		String direction = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
 		
 		Direction northSouth = Direction.South;

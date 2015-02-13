@@ -2,16 +2,15 @@ package de.fly4lol.autowgk.commands;
 
 import mkremins.fanciful.FancyMessage;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
-import de.fly4lol.autowgk.util.Config;
 import de.fly4lol.messenger.Message;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
@@ -21,10 +20,10 @@ import de.pro_crafting.wg.group.PlayerRole;
 
 public class ArenaCommands {
 	private Main plugin;
-	private Config config;
+	private Repository repo;
 	public ArenaCommands(Main plugin){
 		this.plugin = plugin;
-		this.config = plugin.getAutoWGKConfig();
+		this.repo = plugin.getRepo();
 	}
 	
 	@Command(name = "AutoWGK.arena", usage = "/AutoWGK", permission = "autowgk.arena" , aliases = {"awgk.arena"})
@@ -45,7 +44,7 @@ public class ArenaCommands {
 			return;
 		}
 		
-		config.creatArena( arena.getName());
+		repo.creatArena( arena.getName());
 		player.sendMessage(plugin.prefix + "Du hast die Arena §e" + arena.getName()+ " §3erstellt!");
 		return;
 		
@@ -93,7 +92,7 @@ public class ArenaCommands {
 		}
 		
 		Location loc = player.getLocation();
-		config.addTeam( arena.getName() , team1 ? PlayerRole.Team1 : PlayerRole.Team2, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
+		repo.addTeam( arena.getName() , team1 ? PlayerRole.Team1 : PlayerRole.Team2, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
 		player.sendMessage(plugin.prefix + "Du hast das §e" + team + " §3hinzugefügt");
 		return;
 		
