@@ -24,10 +24,6 @@ public class Schematic {
 		this.isWarGear = isWarGear;
 		this.state = state;
 		this.isPublic = isPublic;
-		
-		if (!this.name.endsWith(".schematic")) {
-			this.name += ".schematic";
-		}
 	}
 
 	public Direction getDirection() {
@@ -87,7 +83,11 @@ public class Schematic {
 	}
 	
 	public String getPath() {
-		return this.owner + "/"+ this.name;
+		String base = this.owner + "/"+ this.name;
+		if (!base.endsWith(".schematic")) {
+			return base + ".schematic";
+		}
+		return base;
 	}
 
 	public int getId() {
