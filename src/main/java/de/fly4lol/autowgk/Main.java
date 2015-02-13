@@ -36,7 +36,6 @@ public class Main extends JavaPlugin{
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
 	public static Connection conn;
-	public WarGear wg;
 	private Repository repo;
 	private Util util;
 	private Messages messages;
@@ -51,7 +50,6 @@ public class Main extends JavaPlugin{
 		this.load();
 		this.repo = new Repository(this);
 		this.util = new Util(this);
-		this.wg = WarGear.getPlugin(WarGear.class);
 		
 		this.registerListener();
 		
@@ -116,7 +114,7 @@ public class Main extends JavaPlugin{
 		List<AutoArena> arenen = this.repo.getAutoArenen();
 		for(AutoArena arena : arenen){
 			arena.setPlugin( this );
-			arena.setWgkArena( wg.getArenaManager().getArena( arena.getName()));
+			arena.setWgkArena( repo.getWarGear().getArenaManager().getArena( arena.getName()));
 			this.loadedArenen.put( arena.getName() , arena );
 			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");

@@ -53,7 +53,7 @@ public class PlayerQuitListener implements Listener{
 					}
 					if(wgkArena != null){
 						team.getAutoArena().getWgkArena().getReseter().cleanSide( side );
-						this.plugin.wg.getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
+						this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena  , wgkArena.getGroupManager().getGroupMember( event.getPlayer()), wgkArena.getGroupManager().getRole( event.getPlayer()));
 						wgkArena.getGroupManager().getGroupOfPlayer( event.getPlayer() ).remove( event.getPlayer() );;
 					}	
 				}			

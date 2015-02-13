@@ -38,7 +38,7 @@ public class ArenaCommands {
 	@Command(name = "AutoWGK.arena.create", usage = "/AutoWGK", permission = "autowgk.arena.create" , aliases = {"awgk.create" , "awgk.arena.create"}, inGameOnly=true)
 	public void autowgkArenaCreate(CommandArgs args) {
 		Player player = args.getPlayer();
-		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
+		Arena arena = repo.getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		if(arena == null){
 			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena oder sie existiert nicht!");
 			return;
@@ -53,7 +53,7 @@ public class ArenaCommands {
 	@Command(name = "AutoWGK.arena.addTeam", usage = "/AutoWGK", permission = "autowgk.arena.addTeam" , aliases = {"awgk.addTeam" , "awgk.arena.addTeam"}, inGameOnly=true)
 	public void autowgkArenaAddteam(CommandArgs args) {
 		Player player = args.getPlayer();
-		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
+		Arena arena = repo.getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		if(arena == null){
 			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena oder sie existiert nicht!");
 			return;
@@ -101,7 +101,7 @@ public class ArenaCommands {
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"}, inGameOnly=true)
 	public void autowgkArenaSetmode(CommandArgs args) {
 		Player player = args.getPlayer();
-		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
+		Arena arena = plugin.getRepo().getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		AutoArenaMode mode = AutoArenaMode.NORMAL;
 		if(args.getArgs().length !=  1){
 			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");
@@ -151,7 +151,7 @@ public class ArenaCommands {
 			return;
 		}
 		
-		if(plugin.wg.getArenaManager().getGroup( player ).getArena() != null){
+		if(plugin.getRepo().getWarGear().getArenaManager().getGroup( player ).getArena() != null){
 			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
 			return;
 		}

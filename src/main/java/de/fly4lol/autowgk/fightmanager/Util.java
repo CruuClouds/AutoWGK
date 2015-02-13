@@ -30,7 +30,7 @@ public class Util {
 	
 	public AutoArena getArenaAt(Location location) {
 	
-		Arena arena = plugin.wg.getArenaManager().getArenaAt(location);
+		Arena arena = this.plugin.getRepo().getWarGear().getArenaManager().getArenaAt(location);
 		if (arena == null) {
 			return null;
 		} else {
@@ -61,7 +61,7 @@ public class Util {
 			String directionString = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
 			boolean rotate = direction != Direction.parse(directionString);
 
-			WorldEdit we = ((WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit")).getWorldEdit();
+			WorldEdit we = this.plugin.getRepo().getWorldEdit();
 			LocalConfiguration config = we.getConfiguration();
 			
 			File dir = we.getWorkingDirectoryFile(config.saveDir);

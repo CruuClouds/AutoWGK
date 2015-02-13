@@ -14,6 +14,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.WorldEdit;
+
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
@@ -21,15 +23,26 @@ import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
 import de.fly4lol.autowgk.util.SignType;
 import de.pro_crafting.sql.api.Connection;
+import de.pro_crafting.wg.WarGear;
 import de.pro_crafting.wg.group.PlayerRole;
 
 public class Repository {
 	
 	static Connection conn = Main.conn;
 	private Main plugin;
+	private WarGear wgPlugin;
 	
 	public Repository(Main plugin){
 		this.plugin = plugin;
+		this.wgPlugin = WarGear.getPlugin(WarGear.class);
+	}
+	
+	public WorldEdit getWorldEdit() {
+		return WorldEdit.getInstance();
+	}
+	
+	public WarGear getWarGear() {
+		return this.wgPlugin;
 	}
 	
 	public void creatArena(String Arena){

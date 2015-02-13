@@ -45,7 +45,7 @@ public class SchematicCommands {
 	@Command(name = "AutoWGK.schematic.private", usage = "/AutoWGK", permission = "autowgk.schematic.private" , aliases = {"awgk.create" , "awgk.arena.create"}, inGameOnly=true)
 	public void autowgkArenaCreate(CommandArgs args) {
 		Player player = args.getPlayer();
-		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
+		Arena arena = plugin.getRepo().getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		if(arena == null){
 			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena oder sie existiert nicht!");
 			return;
