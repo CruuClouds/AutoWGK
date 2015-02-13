@@ -36,7 +36,7 @@ public class ArenaCommands {
 		sender.sendMessage(plugin.prefix + "§e/AutoWGK arena setmode");
 	}
 	
-	@Command(name = "AutoWGK.arena.create", usage = "/AutoWGK", permission = "autowgk.arena.create" , aliases = {"awgk.create" , "awgk.arena.create"})
+	@Command(name = "AutoWGK.arena.create", usage = "/AutoWGK", permission = "autowgk.arena.create" , aliases = {"awgk.create" , "awgk.arena.create"}, inGameOnly=true)
 	public void autowgkArenaCreate(CommandArgs args) {
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
@@ -51,7 +51,7 @@ public class ArenaCommands {
 		
 	}
 	
-	@Command(name = "AutoWGK.arena.addTeam", usage = "/AutoWGK", permission = "autowgk.arena.addTeam" , aliases = {"awgk.addTeam" , "awgk.arena.addTeam"})
+	@Command(name = "AutoWGK.arena.addTeam", usage = "/AutoWGK", permission = "autowgk.arena.addTeam" , aliases = {"awgk.addTeam" , "awgk.arena.addTeam"}, inGameOnly=true)
 	public void autowgkArenaAddteam(CommandArgs args) {
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
@@ -99,7 +99,7 @@ public class ArenaCommands {
 		
 	}
 	
-	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"})
+	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"}, inGameOnly=true)
 	public void autowgkArenaSetmode(CommandArgs args) {
 		Player player = args.getPlayer();
 		Arena arena = plugin.wg.getArenaManager().getArenaAt(player.getLocation());
@@ -189,13 +189,4 @@ public class ArenaCommands {
 		new Messenger().setMessage(message).addPlayer( player ).send();
 		
 	}
-	
-	@Command(name = "test2", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"test"})
-	public void test(CommandArgs args) {
-		Player player = args.getPlayer();
-		String name = plugin.getUtil().getTeamByPlayer( player ).getAutoArena().getName();
-		Bukkit.broadcastMessage(name);
-	}
-	
-
 }

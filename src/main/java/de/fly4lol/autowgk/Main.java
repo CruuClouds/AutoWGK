@@ -62,13 +62,12 @@ public class Main extends JavaPlugin{
 		this.loadAutoArenas();
 		this.arenaCommands = new ArenaCommands(this);
 		this.framework = new CommandFramework(this);
-		this.framework.registerCommands(new OldCommands(this));
 		this.framework.registerCommands( this.arenaCommands);
 		this.framework.registerCommands(new SchematicCommands(this));
 		this.framework.registerCommands(new SignCommands(this));
 		this.framework.registerCommands(new Commands(this));
 		this.framework.registerHelp();
-		this.framework.setInGameOnlyMessage("Der Command muss von einem Spieler ausgeführt werden.");
+		this.framework.setInGameOnlyMessage(prefix+"Der Command muss von einem Spieler ausgeführt werden.");
 	}
 
 	@Override

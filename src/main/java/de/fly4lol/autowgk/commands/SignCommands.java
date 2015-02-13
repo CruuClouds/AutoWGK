@@ -28,14 +28,14 @@ public class SignCommands {
 		sender.sendMessage(plugin.prefix + "§e/AutoWGK sign remove");
 	}
 	
-	@Command(name = "AutoWGK.sign.add", usage = "/AutoWGK", permission = "autowgk.sign.add" , aliases = {"awgk.sign.add"})
+	@Command(name = "AutoWGK.sign.add", usage = "/AutoWGK", permission = "autowgk.sign.add" , aliases = {"awgk.sign.add"}, inGameOnly=true)
 	public void autowgkSignAdd(CommandArgs args) {
 		Player player = args.getPlayer();
 		plugin.addSign.add(player);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu adden.");
 	}
 	
-	@Command(name = "AutoWGK.sign.remove", usage = "/AutoWGK", permission = "autowgk.sign.remove" , aliases = {"awgk.sign.remove"})
+	@Command(name = "AutoWGK.sign.remove", usage = "/AutoWGK", permission = "autowgk.sign.remove" , aliases = {"awgk.sign.remove"}, inGameOnly=true)
 	public void autowgkSignRemove(CommandArgs args) {
 		Player player = args.getPlayer();
 		plugin.removeSign.add(player);
@@ -43,19 +43,19 @@ public class SignCommands {
 		
 	}
 	
-	@Command(name = "AutoWGK.sign.remove.world", usage = "/AutoWGK", permission = "autowgk.sign.remove.world" , aliases = {"awgk.sign.remove.world"})
-	public boolean autowgkSignRemoveWorld(CommandArgs args) {
+	@Command(name = "AutoWGK.sign.remove.world", usage = "/AutoWGK", permission = "autowgk.sign.remove.world" , aliases = {"awgk.sign.remove.world"}, inGameOnly=true)
+	public void autowgkSignRemoveWorld(CommandArgs args) {
 		Player player = args.getPlayer();
 		MySQLMethods sql = plugin.getSQL();
 		
 		if(args.getArgs().length != 1){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove world <worldname>");
-			return false;
+			return;
 		}
 		
 		if(Bukkit.getWorld(args.getArgs()[0]) == null){
 			player.sendMessage(plugin.prefix + "Diese Welt existiert nicht!");
-			return false;
+			return;
 		}
 		
 		List<Location> signs = new ArrayList<Location>();
@@ -64,6 +64,6 @@ public class SignCommands {
 			sql.removeSign(sign);
 		}
 		
-		return true;
+		return;
 	}
 }
