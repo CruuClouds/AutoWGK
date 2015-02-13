@@ -26,7 +26,6 @@ import de.pro_crafting.sql.api.Connection;
 import de.pro_crafting.sql.api.ConnectionManager;
 import de.pro_crafting.sql.api.Credentials;
 import de.pro_crafting.sql.bukkit.BukkitCredentials;
-import de.pro_crafting.wg.WarGear;
 
 public class Main extends JavaPlugin{
 	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();

@@ -6,7 +6,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.fightmanager.Team;
-import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.GroupSide;
 import de.pro_crafting.wg.group.PlayerRole;

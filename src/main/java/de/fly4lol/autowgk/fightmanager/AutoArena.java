@@ -20,15 +20,6 @@ public class AutoArena {
 	private Team			team2;
 	private Arena			arena;
 	
-	public AutoArena(String name, Location team1Loc, Location team2Loc, AutoArenaMode mode, Direction team1Direction, Direction team2Direction, Team team1, Team team2) {
-	
-		this.team1Loc = team1Loc;
-		this.team2Loc = team2Loc;
-		this.mode = mode;
-		this.team1Direction = team1Direction;
-		this.team2Direction = team2Direction;
-	}
-	
 	public AutoArena(Main plugin, String name) {
 		this.name = name;
 		this.plugin = plugin;

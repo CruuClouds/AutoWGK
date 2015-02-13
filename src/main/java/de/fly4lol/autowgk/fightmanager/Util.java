@@ -3,7 +3,6 @@ package de.fly4lol.autowgk.fightmanager;
 import java.io.File;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -12,7 +11,6 @@ import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalConfiguration;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
 
 import de.fly4lol.autowgk.Main;
