@@ -120,11 +120,6 @@ public class AutoArena {
 		this.team2 = team2;
 	}
 	
-	public void setPlugin(Main plugin) {
-	
-		this.plugin = plugin;
-	}
-	
 	public Main getPlugin() {
 	
 		return this.plugin;
