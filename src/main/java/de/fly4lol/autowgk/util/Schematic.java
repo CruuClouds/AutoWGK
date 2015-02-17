@@ -12,50 +12,20 @@ public class Schematic {
 	private SchematicState state;
 	private boolean isPublic;
 	private Direction direction;
-	
-	public Schematic(){
-		
-	}
-	
-	public Schematic(int id, String name, UUID owner, boolean isWarGear, SchematicState state, boolean isPublic) {
+
+	public Schematic(int id, String name, UUID owner, boolean isWarGear, boolean isPublic, SchematicState state) {
 		this.id = id;
 		this.name = name;
 		this.owner = owner;
 		this.isWarGear = isWarGear;
 		this.state = state;
 		this.isPublic = isPublic;
+		
+		this.direction = Direction.parse(name.substring(name.length() - 2, name.length()));
 	}
 
 	public Direction getDirection() {
 		return direction;
-	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setOwner(UUID owner) {
-		this.owner = owner;
-	}
-
-	public void setWarGear(boolean isWarGear) {
-		this.isWarGear = isWarGear;
-	}
-
-	public void setState(SchematicState state) {
-		this.state = state;
-	}
-
-	public void setPublic(boolean isPublic) {
-		this.isPublic = isPublic;
 	}
 
 	public String getName() {

@@ -262,13 +262,7 @@ public class Repository {
 			prep.setInt( 1, id);
 			ResultSet res = prep.executeQuery();
 			if(res.next()){
-				Schematic schematic = new Schematic();
-				schematic.setId( id);
-				schematic.setName( res.getString("schematic"));
-				schematic.setOwner( UUID.fromString( res.getString("uuid")));
-				schematic.setWarGear( res.getBoolean("isWarGear"));
-				schematic.setPublic( res.getBoolean("isPublic"));
-				schematic.setState( SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(id, res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
 				return schematic;
 			}
 		} catch (SQLException e) {
@@ -284,13 +278,7 @@ public class Repository {
 			prep.setString( 1, player.getUniqueId().toString());
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				Schematic schematic = new Schematic();
-				schematic.setId( res.getInt("id"));
-				schematic.setName( res.getString("schematic"));
-				schematic.setOwner( UUID.fromString( res.getString("uuid")));
-				schematic.setWarGear( res.getBoolean("isWarGear"));
-				schematic.setPublic( res.getBoolean("isPublic"));
-				schematic.setState( SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
 				schematics.add(schematic);
 			}
 			return schematics;
@@ -308,13 +296,7 @@ public class Repository {
 			prep.setInt( 1 , 1);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				Schematic schematic = new Schematic();
-				schematic.setId( res.getInt("id"));
-				schematic.setName( res.getString("schematic"));
-				schematic.setOwner( UUID.fromString( res.getString("uuid")));
-				schematic.setWarGear( res.getBoolean("isWarGear"));
-				schematic.setPublic( res.getBoolean("isPublic"));
-				schematic.setState( SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
 				schematics.add(schematic);
 			}
 			return schematics;

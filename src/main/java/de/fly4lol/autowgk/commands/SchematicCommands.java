@@ -133,16 +133,12 @@ public class SchematicCommands {
 			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
 		}
 		Schematic schematic = this.repo.getSchematicByID(id);
-		String direction = schematic.getName().substring(schematic.getName().length() - 2, schematic.getName().length());
 		
-		Direction northSouth = Direction.South;
-		if (direction.equalsIgnoreCase("_n")) {
-			northSouth = Direction.North;
-		} else if (!direction.equalsIgnoreCase("_s")) {
+		if (schematic.getDirection() == null) {
 			player.sendMessage(plugin.prefix + "Dein WarGear konnte nicht geladen werden!");
+			return;
 		}
 		
-		schematic.setDirection(northSouth);
 		team.setSchematic(schematic).setReady(true);
 		player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
 		
