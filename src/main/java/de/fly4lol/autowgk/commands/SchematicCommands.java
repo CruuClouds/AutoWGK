@@ -120,12 +120,12 @@ public class SchematicCommands {
 		}
 
 		Team team = this.plugin.getUtil().getTeamByPlayer(player);
-		AutoArena arena = team.getAutoArena();
-		Team otherTeam = null;
 		if (team == null) {
 			player.sendMessage(plugin.prefix + "Du bist in keinem Team!");
 			return;
 		}
+		AutoArena arena = team.getAutoArena();
+		Team otherTeam = null;
 		int id = 0;
 		try {
 			id = Integer.parseInt(args.getArgs()[0]);
