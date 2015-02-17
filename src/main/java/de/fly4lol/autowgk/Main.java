@@ -34,7 +34,6 @@ public class Main extends JavaPlugin{
 	private Util util;
 	private Messages messages;
 	private Messenger messenger;
-	private AutoArena autoArena;
 	private ArenaCommands arenaCommands;
 	
 
@@ -74,10 +73,6 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
-	}
-	
-	public AutoArena getAutoArena(){
-		return autoArena;
 	}
 		
 	public Repository getRepo() {
