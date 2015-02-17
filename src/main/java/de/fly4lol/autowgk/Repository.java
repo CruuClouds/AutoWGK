@@ -23,18 +23,33 @@ import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
 import de.fly4lol.autowgk.util.SignType;
 import de.pro_crafting.sql.api.Connection;
+import de.pro_crafting.sql.api.ConnectionManager;
+import de.pro_crafting.sql.api.Credentials;
+import de.pro_crafting.sql.bukkit.BukkitCredentials;
 import de.pro_crafting.wg.WarGear;
 import de.pro_crafting.wg.group.PlayerRole;
 
 public class Repository {
 	
-	static Connection conn = Main.conn;
+	private Connection conn;
 	private Main plugin;
 	private WarGear wgPlugin;
 	
 	public Repository(Main plugin){
 		this.plugin = plugin;
 		this.wgPlugin = WarGear.getPlugin(WarGear.class);
+		connect();
+	}
+	
+	private void connect() {
+		if (!this.plugin.getConfig().isSet("database")) {
+			this.plugin.getConfig().set("database", new BukkitCredentials().serialize());
+			this.plugin.saveConfig();
+		} else {
+			Credentials cred = new BukkitCredentials(this.plugin.getConfig().getConfigurationSection("database").getValues(false));
+			ConnectionManager.getInstance().addConnectionData(cred);
+			conn = ConnectionManager.getInstance().get(cred.getName());
+		}
 	}
 	
 	public WorldEdit getWorldEdit() {

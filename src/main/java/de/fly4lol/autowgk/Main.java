@@ -22,10 +22,6 @@ import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.messenger.Messages;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
-import de.pro_crafting.sql.api.Connection;
-import de.pro_crafting.sql.api.ConnectionManager;
-import de.pro_crafting.sql.api.Credentials;
-import de.pro_crafting.sql.bukkit.BukkitCredentials;
 
 public class Main extends JavaPlugin{
 	public HashMap<String, AutoArena> loadedArenen = new HashMap<String, AutoArena>();
@@ -34,7 +30,6 @@ public class Main extends JavaPlugin{
 	public List<Player> addSign = new ArrayList<Player>();
 	public List<Player> removeSign = new ArrayList<Player>();
 	private CommandFramework framework;
-	public static Connection conn;
 	private Repository repo;
 	private Util util;
 	private Messages messages;
@@ -71,14 +66,6 @@ public class Main extends JavaPlugin{
 
 	private void load() {
 		this.saveDefaultConfig();
-		if (!this.getConfig().isSet("database")) {
-			this.getConfig().set("database", new BukkitCredentials().serialize());
-			this.saveConfig();
-		} else {
-			Credentials cred = new BukkitCredentials(this.getConfig().getConfigurationSection("database").getValues(false));
-			ConnectionManager.getInstance().addConnectionData(cred);
-			conn = ConnectionManager.getInstance().get(cred.getName());
-		}
 	}
 
 	private void registerListener(){
