@@ -13,7 +13,6 @@ import de.fly4lol.autowgk.commands.SignCommands;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
-import de.fly4lol.autowgk.listener.BlockBreakListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.autowgk.sign.SignManager;
@@ -66,7 +65,6 @@ public class Main extends JavaPlugin{
 
 	private void registerListener(){
 		Bukkit.getPluginManager().registerEvents(this.signManager, this);
-		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);

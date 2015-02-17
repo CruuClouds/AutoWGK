@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
@@ -31,6 +32,7 @@ public class SignManager implements Listener {
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void playerInteractHandler(PlayerInteractEvent event) {
+		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if (!event.hasBlock()) {
 			return;
@@ -40,13 +42,17 @@ public class SignManager implements Listener {
 			return;
 		}
 		
-		Location signLoc = event.getClickedBlock().getLocation();
+		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+			if(this.plugin.getRepo().existSignAtLocation(event.getClickedBlock().getLocation())){
+				player.sendMessage(plugin.prefix + "Du darfst dieses Schild nicht zerstören!");
+				if(player.hasPermission("autowgk.sign.remove")){
+					player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove");
+				}
+			}
+			return;
+		}
 		
-		/*
-		 * 
-		 * Add Signs
-		 * 
-		 */
+		Location signLoc = event.getClickedBlock().getLocation();
 		
 		if(repo.existSignAtLocation( signLoc )){
 			if(repo.getSignType( signLoc).equals( SignType.ARENAJOIN)){
@@ -83,7 +89,7 @@ public class SignManager implements Listener {
 			}
 			this.signPlayers.remove(player.getUniqueId());
 		
-		} else
+		} else {
 			if(repo.existSignAtLocation(signLoc)){
 				repo.removeSign(signLoc);
 				signLoc.getBlock().setType(Material.AIR);
@@ -94,7 +100,6 @@ public class SignManager implements Listener {
 			this.signPlayers.remove(player.getUniqueId());
 			
 		}
-		event.setCancelled( true );
 	}
 	
 	public void add(Player player, PlayerSignType type) {
