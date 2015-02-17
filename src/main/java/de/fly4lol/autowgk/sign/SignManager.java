@@ -32,7 +32,6 @@ public class SignManager implements Listener {
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void playerInteractHandler(PlayerInteractEvent event) {
-		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if (!event.hasBlock()) {
 			return;
@@ -41,7 +40,6 @@ public class SignManager implements Listener {
 		if(!type.equals(Material.SIGN ) && !type.equals(Material.SIGN_POST)){
 			return;
 		}
-		
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if(this.plugin.getRepo().existSignAtLocation(event.getClickedBlock().getLocation())){
 				player.sendMessage(plugin.prefix + "Du darfst dieses Schild nicht zerstören!");
@@ -87,8 +85,6 @@ public class SignManager implements Listener {
 			} else {
 				player.sendMessage(plugin.prefix + "Dieses Schild ist bereits eingetragen!");
 			}
-			this.signPlayers.remove(player.getUniqueId());
-		
 		} else {
 			if(repo.existSignAtLocation(signLoc)){
 				repo.removeSign(signLoc);
@@ -97,9 +93,9 @@ public class SignManager implements Listener {
 			} else {
 				player.sendMessage(plugin.prefix + "Dieses Schild ist nicht eingetragen!");
 			}
-			this.signPlayers.remove(player.getUniqueId());
-			
 		}
+		this.signPlayers.remove(player.getUniqueId());
+		event.setCancelled(true);
 	}
 	
 	public void add(Player player, PlayerSignType type) {
