@@ -12,7 +12,6 @@ import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.fightmanager.AutoArena;
 import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
-import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.fightmanager.Team;
 import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
@@ -131,6 +130,7 @@ public class SchematicCommands {
 			id = Integer.parseInt(args.getArgs()[0]);
 		} catch (Exception e) {
 			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
+			return;
 		}
 		Schematic schematic = this.repo.getSchematicByID(id);
 		
@@ -139,7 +139,6 @@ public class SchematicCommands {
 			return;
 		}
 		
-		team.setSchematic(schematic).setReady(true);
 		player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
 		
 		if (team.getRole() == PlayerRole.Team1) {

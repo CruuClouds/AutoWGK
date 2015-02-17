@@ -13,14 +13,12 @@ public class Team {
 	
 	private Player		leader;
 	private Schematic	schematic;
-	private AutoArena	arena		= null;
-	private boolean		isReady	= false;
+	private AutoArena	arena;
 	private PlayerRole role;
 	
 	public Team(Player leader, AutoArena arena, PlayerRole role) {
 	
 		this.leader = leader;
-		this.isReady = false;
 		this.arena = arena;
 		this.role = role;
 	}
@@ -54,14 +52,10 @@ public class Team {
 	
 	public boolean isReady() {
 	
-		return isReady;
+		return this.schematic != null;
 	}
 	
-	public Team setReady(boolean isReady) {
-	
-		this.isReady = isReady;
-		return this;
-	}
+
 	
 	public PlayerRole getRole() {
 		return this.role;
