@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
+import de.fly4lol.autowgk.sign.PlayerSignType;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
 
@@ -31,14 +32,14 @@ public class SignCommands {
 	@Command(name = "AutoWGK.sign.add", usage = "/AutoWGK", permission = "autowgk.sign.add" , aliases = {"awgk.sign.add"}, inGameOnly=true)
 	public void autowgkSignAdd(CommandArgs args) {
 		Player player = args.getPlayer();
-		plugin.addSign.add(player);
+		plugin.getSignManager().add(player, PlayerSignType.Add);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu adden.");
 	}
 	
 	@Command(name = "AutoWGK.sign.remove", usage = "/AutoWGK", permission = "autowgk.sign.remove" , aliases = {"awgk.sign.remove"}, inGameOnly=true)
 	public void autowgkSignRemove(CommandArgs args) {
 		Player player = args.getPlayer();
-		plugin.removeSign.add(player);
+		plugin.getSignManager().add(player, PlayerSignType.Remove);
 		player.sendMessage(plugin.prefix + "Klicke auf ein Schild um dieses zu removen.");
 		
 	}
