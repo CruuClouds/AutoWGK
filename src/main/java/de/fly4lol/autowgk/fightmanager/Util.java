@@ -53,7 +53,7 @@ public class Util {
 		return null;
 	}
 	
-	public void pasteSchematic(Schematic schematic, Direction direction, Location location, Player player) {
+	public void pasteSchematic(Schematic schematic, Direction direction, Location location) {
 		if (schematic.getDirection() == null) {
 			return;
 		}

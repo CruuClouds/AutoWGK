@@ -86,7 +86,7 @@ public class Team {
 		Direction direction = repo.getDirection(arenaName, this.role);
 		Location location = repo.getPastingLocation(arenaName, this.role);
 		
-		util.pasteSchematic(this.schematic, direction, location, this.leader);
+		util.pasteSchematic(this.schematic, direction, location);
 		
 		return this;
 	}
