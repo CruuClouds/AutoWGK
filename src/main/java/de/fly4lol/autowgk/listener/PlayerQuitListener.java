@@ -20,7 +20,7 @@ public class PlayerQuitListener implements Listener{
 	
 	@EventHandler
 	public void playerQuitHandler(PlayerQuitEvent event) {
-		Team team = plugin.getUtil().getTeamByPlayer( event.getPlayer() );
+		Team team = plugin.getArenenManager().getTeamByPlayer( event.getPlayer() );
 		if (team == null) {
 			return;
 		}

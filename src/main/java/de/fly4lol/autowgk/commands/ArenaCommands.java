@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
-import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.arena.AutoArena;
+import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.messenger.Message;
 import de.fly4lol.messenger.Messenger;
@@ -112,14 +112,14 @@ public class ArenaCommands {
 		
 		if(stringMode.equalsIgnoreCase("normal")){
 			mode = AutoArenaMode.NORMAL;
-			plugin.loadedArenen.get( arena.getName() ).setMode( mode );
+			plugin.getArenenManager().getArena(arena.getName()).setMode( mode );
 			player.sendMessage(plugin.prefix + "Du hast den Modus der Arena in§e " + mode.toString() + " §3geändert!");
 			return;
 		}
 		
 		if(stringMode.equalsIgnoreCase("closed") || stringMode.equalsIgnoreCase("off") || stringMode.equalsIgnoreCase("disabled")){
 			mode = AutoArenaMode.DISABLED;
-			plugin.loadedArenen.get( arena.getName() ).setMode( mode );
+			plugin.getArenenManager().getArena(arena.getName()).setMode( mode );
 			player.sendMessage(plugin.prefix + "Du hast den modus der Arena in §e" + mode.toString() + " §3geändert!");
 			return;
 		}
@@ -129,24 +129,22 @@ public class ArenaCommands {
 	}
 	
 	public void autowgkArenaJoin(Player player){
-		
-		if(this.plugin.getUtil().getArenaAt( player.getLocation()) == null){
+		AutoArena arena = this.plugin.getArenenManager().getArenaAt(player.getLocation());
+		if(arena == null){
 			player.sendMessage(plugin.prefix + "Die stehst in keiner Arena oder sie Existiert nicht!");
 			return;
 		}
-		AutoArena autoArena = this.plugin.getUtil().getArenaAt( player.getLocation());
-		
 		if(!player.hasPermission("autowgk.arena.join")){
 			player.sendMessage(plugin.noPerms);
 			return;
 		}
 		
-		if(autoArena.getMode() == AutoArenaMode.DISABLED){
+		if(arena.getMode() == AutoArenaMode.DISABLED){
 			player.sendMessage(plugin.prefix + "Du kannst momentan nicht joinen!");
 			return;
 		}
 		
-		if(plugin.getUtil().getTeamByPlayer( player ) != null){
+		if(plugin.getArenenManager().getTeamByPlayer( player ) != null){
 			player.sendMessage(plugin.prefix + "Du bist schon in einem Team!");
 			return;
 		}
@@ -156,12 +154,12 @@ public class ArenaCommands {
 			return;
 		}
 		
-		if(!autoArena.isJoinable()){
+		if(!arena.isJoinable()){
 			player.sendMessage(plugin.prefix + "Beide Teams haben Bereits einen Leader!");
 			return;
 		}
 		
-		autoArena.joinArena( player );
+		arena.joinArena( player );
 		
 
 		FancyMessage privateMessage = new FancyMessage( this.plugin.prefix)

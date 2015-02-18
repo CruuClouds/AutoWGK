@@ -20,7 +20,7 @@ public class PlayerCommandPreprocessListener implements Listener{
 	@EventHandler
 	public void playerCommandHandler(PlayerCommandPreprocessEvent event) {
 		if(event.getMessage().equalsIgnoreCase("/wgk team leave")){
-			Team team = plugin.getUtil().getTeamByPlayer(event.getPlayer());
+			Team team = plugin.getArenenManager().getTeamByPlayer(event.getPlayer());
 			if(team != null && team.getAutoArena().getWgkArena().getState() == State.Setup){
 				GroupSide side = GroupSide.Team2;
 				if(team.getRole() == PlayerRole.Team1){

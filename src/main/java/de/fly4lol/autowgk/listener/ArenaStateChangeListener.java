@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.fightmanager.AutoArena;
+import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.util.SignType;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.event.ArenaStateChangeEvent;
@@ -51,7 +51,7 @@ public class ArenaStateChangeListener implements Listener{
 		}
 		
 		if(event.getTo().equals(State.Idle)){
-			AutoArena arena = plugin.loadedArenen.get( event.getArena().getName());
+			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName());
 			if(arena.getTeam1() != null){
 				if(arena.getTeam1().isReady() ){
 					if(arena.getTeam2() != null){
@@ -64,9 +64,9 @@ public class ArenaStateChangeListener implements Listener{
 		}
 		
 		if(event.getTo().equals( State.Spectate)){
-			AutoArena arena = plugin.loadedArenen.get( event.getArena().getName() );
-			arena.setTeam1( null);
-			arena.setTeam2( null);
+			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName() );
+			arena.setTeam1(null);
+			arena.setTeam2(null);
 		}
 	}
 }

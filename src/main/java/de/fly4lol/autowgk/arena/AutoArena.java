@@ -1,9 +1,12 @@
-package de.fly4lol.autowgk.fightmanager;
+package de.fly4lol.autowgk.arena;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.fightmanager.Direction;
+import de.fly4lol.autowgk.fightmanager.Team;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
@@ -148,4 +151,12 @@ public class AutoArena {
 		this.getTeam2().startGame();	
 	}
 	
+	public Team getTeam(OfflinePlayer player) {
+		if (team1 != null && team1.getLeader().equals(player)){
+			return team1;
+		} else if (team2 != null && team2.getLeader().equals(player)){
+			return team2;
+		}
+		return null;
+	}
 }

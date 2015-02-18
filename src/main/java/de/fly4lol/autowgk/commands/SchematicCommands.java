@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
-import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.arena.AutoArena;
+import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Team;
 import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
@@ -55,7 +55,7 @@ public class SchematicCommands {
 			return;
 		}
 		
-		if(plugin.loadedArenen.get( arena.getName() ).getMode() == AutoArenaMode.DISABLED){
+		if(plugin.getArenenManager().getArena(arena.getName()).getMode() == AutoArenaMode.DISABLED){
 			player.sendMessage(plugin.prefix + "Du kannst im Moment nicht in dieser Arena spielen!");
 			return;
 		}
@@ -118,7 +118,7 @@ public class SchematicCommands {
 			return;
 		}
 
-		Team team = this.plugin.getUtil().getTeamByPlayer(player);
+		Team team = this.plugin.getArenenManager().getTeamByPlayer(player);
 		if (team == null) {
 			player.sendMessage(plugin.prefix + "Du bist in keinem Team!");
 			return;

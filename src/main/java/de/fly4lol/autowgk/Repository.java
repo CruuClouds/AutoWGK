@@ -16,8 +16,7 @@ import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.WorldEdit;
 
-import de.fly4lol.autowgk.fightmanager.AutoArena;
-import de.fly4lol.autowgk.fightmanager.AutoArenaMode;
+import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.fightmanager.Direction;
 import de.fly4lol.autowgk.util.Schematic;
 import de.fly4lol.autowgk.util.SchematicState;
@@ -103,14 +102,9 @@ public class Repository {
 		return direction.equalsIgnoreCase("north") ? Direction.North : Direction.South;
 	}
 	
-	public List<AutoArena> getAutoArenen(){
-		List<AutoArena> ret = new ArrayList<AutoArena>();
+	public List<String> getArenaNames(){
 		Set<String> arenen= plugin.getConfig().getConfigurationSection("Arenen").getKeys(false);
-		
-		for(String arena : arenen){
-			ret.add(new AutoArena(plugin, arena));
-		}
-		return ret;
+		return new ArrayList<String>(arenen);
 	}
 	
 	/*
