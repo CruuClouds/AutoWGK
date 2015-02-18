@@ -93,9 +93,7 @@ public class Main extends JavaPlugin{
 	public void loadAutoArenas(){
 		List<AutoArena> arenen = this.repo.getAutoArenen();
 		for(AutoArena arena : arenen){
-			arena.setWgkArena( repo.getWarGear().getArenaManager().getArena( arena.getName()));
 			this.loadedArenen.put( arena.getName() , arena );
-			
 			this.getLogger().info("Arena \"" + arena.getName() + "\" geladen!");
 		}
 	}

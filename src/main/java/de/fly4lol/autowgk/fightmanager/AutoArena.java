@@ -28,16 +28,12 @@ public class AutoArena {
 		this.team1Direction = this.plugin.getRepo().getDirection(name, PlayerRole.Team1);
 		this.team2Direction = this.plugin.getRepo().getDirection(name, PlayerRole.Team2);
 		this.mode = this.plugin.getRepo().getMode(name);
+		this.arena = this.plugin.getRepo().getWarGear().getArenaManager().getArena(name);
 	}
 	
 	public Arena getWgkArena() {
 	
 		return arena;
-	}
-	
-	public void setWgkArena(Arena arena) {
-	
-		this.arena = arena;
 	}
 	
 	public String getName() {
