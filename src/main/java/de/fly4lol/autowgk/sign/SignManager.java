@@ -61,6 +61,9 @@ public class SignManager implements Listener {
 		}
 		
 		PlayerSignType signType = this.signPlayers.get(player.getUniqueId());
+		if (signType == null) {
+			return;
+		}
 		if (signType == PlayerSignType.Add) {
 			if(!repo.existSignAtLocation(signLoc)){
 				BlockState state = signLoc.getBlock().getState();
