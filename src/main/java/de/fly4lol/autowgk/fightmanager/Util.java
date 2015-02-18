@@ -1,7 +1,6 @@
 package de.fly4lol.autowgk.fightmanager;
 
 import java.io.File;
-import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -38,11 +37,9 @@ public class Util {
 	}
 	
 	public Team getTeamByPlayer(Player player) {
-	
-		List<AutoArena> autoArenen = plugin.getRepo().getAutoArenen();
-		for (AutoArena arena : autoArenen) {
-			Team team1 = plugin.loadedArenen.get(arena.getName()).getTeam1();
-			Team team2 = plugin.loadedArenen.get(arena.getName()).getTeam2();
+		for (AutoArena arena : plugin.loadedArenen.values()) {
+			Team team1 = arena.getTeam1();
+			Team team2 = arena.getTeam2();
 			if (team1 != null && team1.getLeader() == player) {
 				return team1;
 			}
