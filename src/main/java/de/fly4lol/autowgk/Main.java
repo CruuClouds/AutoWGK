@@ -8,7 +8,6 @@ import de.fly4lol.autowgk.commands.ArenaCommands;
 import de.fly4lol.autowgk.commands.Commands;
 import de.fly4lol.autowgk.commands.SchematicCommands;
 import de.fly4lol.autowgk.commands.SignCommands;
-import de.fly4lol.autowgk.fightmanager.Util;
 import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
@@ -23,7 +22,6 @@ public class Main extends JavaPlugin{
 	public String noPerms = "§4Du hast keine Berechtigung!";
 	private CommandFramework framework;
 	private Repository repo;
-	private Util util;
 	private Messages messages;
 	private Messenger messenger;
 	private ArenaCommands arenaCommands;
@@ -34,7 +32,6 @@ public class Main extends JavaPlugin{
 	public void onEnable(){
 		this.load();
 		this.repo = new Repository(this);
-		this.util = new Util(this);
 		this.signManager = new SignManager(this);
 		this.arenenManager = new AutoArenaManager(this);
 		
@@ -73,10 +70,6 @@ public class Main extends JavaPlugin{
 
 	public Repository getRepo() {
 		return this.repo;
-	}
-	
-	public Util getUtil(){
-		return this.util;
 	}
 	
 	public Messages getMessages(){

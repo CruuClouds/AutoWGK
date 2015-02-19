@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 import com.sk89q.worldedit.WorldEdit;
 
 import de.fly4lol.autowgk.arena.AutoArenaMode;
-import de.fly4lol.autowgk.fightmanager.Direction;
+import de.fly4lol.autowgk.arena.Direction;
 import de.fly4lol.autowgk.schematic.Schematic;
 import de.fly4lol.autowgk.schematic.SchematicState;
 import de.fly4lol.autowgk.sign.SignType;

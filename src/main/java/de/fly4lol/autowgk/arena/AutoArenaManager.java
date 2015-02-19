@@ -10,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.fightmanager.Team;
 import de.pro_crafting.wg.arena.Arena;
 
 public class AutoArenaManager {

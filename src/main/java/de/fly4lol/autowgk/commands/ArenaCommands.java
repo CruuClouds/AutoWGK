@@ -10,7 +10,7 @@ import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.arena.AutoArenaMode;
-import de.fly4lol.autowgk.fightmanager.Direction;
+import de.fly4lol.autowgk.arena.Direction;
 import de.fly4lol.messenger.Message;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;

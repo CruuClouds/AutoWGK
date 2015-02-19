@@ -2,7 +2,7 @@ package de.fly4lol.autowgk.schematic;
 
 import java.util.UUID;
 
-import de.fly4lol.autowgk.fightmanager.Direction;
+import de.fly4lol.autowgk.arena.Direction;
 
 public class Schematic {
 	private int id;

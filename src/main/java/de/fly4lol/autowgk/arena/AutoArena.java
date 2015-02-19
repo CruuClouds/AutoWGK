@@ -1,12 +1,20 @@
 package de.fly4lol.autowgk.arena;
 
+import java.io.File;
+
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.CuboidClipboard;
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.LocalConfiguration;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitUtil;
+import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
+
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.fightmanager.Direction;
-import de.fly4lol.autowgk.fightmanager.Team;
+import de.fly4lol.autowgk.schematic.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
@@ -158,5 +166,32 @@ public class AutoArena {
 			return team2;
 		}
 		return null;
+	}
+	
+	public void pasteSchematic(Schematic schematic, Direction direction, Location location) {
+		if (schematic.getDirection() == null) {
+			return;
+		}
+		WorldEdit we = this.plugin.getRepo().getWorldEdit();
+		LocalConfiguration config = we.getConfiguration();
+		
+		File dir = we.getWorkingDirectoryFile(config.saveDir);
+		File schematicFile = new File(dir, schematic.getPath());
+		
+		
+		try {
+			EditSession es = we.getEditSessionFactory().getEditSession(BukkitUtil.getLocalWorld(location.getWorld()), 32000000);
+			CuboidClipboard cc = MCEditSchematicFormat.MCEDIT.load(schematicFile);
+			
+			if (direction != schematic.getDirection()) {
+				cc.rotate2D(180);
+			}
+			
+			es.enableQueue();
+			cc.paste(es, BukkitUtil.toVector(location), false);
+			es.flushQueue();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

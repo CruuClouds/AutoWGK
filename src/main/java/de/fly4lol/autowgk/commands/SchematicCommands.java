@@ -12,7 +12,7 @@ import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.arena.AutoArenaMode;
-import de.fly4lol.autowgk.fightmanager.Team;
+import de.fly4lol.autowgk.arena.Team;
 import de.fly4lol.autowgk.schematic.Schematic;
 import de.fly4lol.autowgk.schematic.SchematicState;
 import de.fly4lol.messenger.Message;
