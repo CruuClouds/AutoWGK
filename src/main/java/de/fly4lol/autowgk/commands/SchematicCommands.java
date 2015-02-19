@@ -140,6 +140,7 @@ public class SchematicCommands {
 		}
 		
 		player.sendMessage(plugin.prefix + "Du hast das WarGear §e" + schematic.getName() + " §3ausgewählt!");
+		team.setSchematic(schematic);
 		
 		if (team.getRole() == PlayerRole.Team1) {
 			otherTeam = arena.getTeam2();
