@@ -98,29 +98,19 @@ public class ArenaCommands {
 	public void autowgkArenaSetmode(CommandArgs args) {
 		Player player = args.getPlayer();
 		Arena arena = plugin.getRepo().getWarGear().getArenaManager().getArenaAt(player.getLocation());
-		AutoArenaMode mode = AutoArenaMode.NORMAL;
 		if(args.length() !=  1){
 			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");
 			return;
 		}
 		
-		String stringMode = args.getArgs(0);
+		AutoArenaMode mode = AutoArenaMode.parse(args.getArgs(0));
 		
-		if(stringMode.equalsIgnoreCase("normal")){
-			mode = AutoArenaMode.NORMAL;
-			plugin.getArenenManager().getArena(arena.getName()).setMode( mode );
-			player.sendMessage(plugin.prefix + "Du hast den Modus der Arena in§e " + mode.toString() + " §3geändert!");
-			return;
+		if (mode == null) {
+			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");		return;
 		}
 		
-		if(stringMode.equalsIgnoreCase("closed") || stringMode.equalsIgnoreCase("off") || stringMode.equalsIgnoreCase("disabled")){
-			mode = AutoArenaMode.DISABLED;
-			plugin.getArenenManager().getArena(arena.getName()).setMode( mode );
-			player.sendMessage(plugin.prefix + "Du hast den modus der Arena in §e" + mode.toString() + " §3geändert!");
-			return;
-		}
-		
-		player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");		return;
+		plugin.getArenenManager().getArena(arena.getName()).setMode( mode );
+		player.sendMessage(plugin.prefix + "Du hast den Modus der Arena in§e " + mode.toString() + " §3geändert!");	
 	}
 	
 	public void autowgkArenaJoin(Player player){
