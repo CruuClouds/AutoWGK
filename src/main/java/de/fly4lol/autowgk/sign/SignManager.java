@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.Repository;
-import de.fly4lol.autowgk.util.SignType;
 
 public class SignManager implements Listener {
 	private Map<UUID, PlayerSignType> signPlayers;

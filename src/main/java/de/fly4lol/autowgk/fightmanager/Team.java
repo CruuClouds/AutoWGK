@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.arena.AutoArena;
-import de.fly4lol.autowgk.util.Schematic;
+import de.fly4lol.autowgk.schematic.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.group.Group;
 import de.pro_crafting.wg.group.PlayerRole;

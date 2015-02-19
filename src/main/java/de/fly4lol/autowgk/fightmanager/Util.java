@@ -12,7 +12,7 @@ import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
 
 import de.fly4lol.autowgk.Main;
-import de.fly4lol.autowgk.util.Schematic;
+import de.fly4lol.autowgk.schematic.Schematic;
 
 public class Util {
 	
