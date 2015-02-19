@@ -6,6 +6,7 @@ import mkremins.fanciful.FancyMessage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.fly4lol.autowgk.Main;
@@ -34,11 +35,11 @@ public class SchematicCommands {
 	
 	@Command(name = "AutoWGK.schematic", usage = "/AutoWGK", permission = "autowgk.schematic" , aliases = {"awgk.schem"  , "AutoWGK.schem" })
 	public void autowgkSchematic(CommandArgs args) {
-		Player player = args.getPlayer();
-		player.sendMessage(plugin.prefix + "Nutze einen der folgenden Commands.");
-		player.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic load");
-		player.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic list");
-		player.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic public");
+		CommandSender sender = args.getSender();
+		sender.sendMessage(plugin.prefix + "Nutze einen der folgenden Commands.");
+		sender.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic load");
+		sender.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic list");
+		sender.sendMessage(this.plugin.prefix + "§eNutze: /AutoWgk schematic public");
 	}
 
 	@Command(name = "AutoWGK.schematic.private", usage = "/AutoWGK", permission = "autowgk.schematic.private" , aliases = {"awgk.create" , "awgk.arena.create"}, inGameOnly=true)
@@ -50,7 +51,7 @@ public class SchematicCommands {
 			return;
 		}
 		
-		if(args.getArgs().length >= 2){
+		if(args.length() >= 2){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK schematic private");
 			return;
 		}
@@ -69,7 +70,7 @@ public class SchematicCommands {
 		Player player = args.getPlayer();
 		OfflinePlayer schematicsOf = player;
 		if (args.length() == 1 && player.hasPermission("autowgk.schematic.list.other")) {
-			schematicsOf = Bukkit.getOfflinePlayer(args.getArgs()[0]);
+			schematicsOf = Bukkit.getOfflinePlayer(args.getArgs(0));
 			if (schematicsOf == null) {
 				return;
 			}
@@ -113,7 +114,7 @@ public class SchematicCommands {
 	public void autowgkSchematicLoad(CommandArgs args) {
 		
 		Player player = args.getPlayer();
-		if (args.getArgs().length != 1) {
+		if (args.length() != 1) {
 			player.sendMessage(plugin.prefix + "Du musst eine Schematic angeben!");
 			return;
 		}
@@ -127,7 +128,7 @@ public class SchematicCommands {
 		Team otherTeam = null;
 		int id = 0;
 		try {
-			id = Integer.parseInt(args.getArgs()[0]);
+			id = Integer.parseInt(args.getArgs(0));
 		} catch (Exception e) {
 			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
 			return;

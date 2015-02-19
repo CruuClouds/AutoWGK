@@ -12,8 +12,6 @@ import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.autowgk.sign.SignManager;
-import de.fly4lol.messenger.Messages;
-import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
 
 public class Main extends JavaPlugin{
@@ -22,8 +20,6 @@ public class Main extends JavaPlugin{
 	public String noPerms = "§4Du hast keine Berechtigung!";
 	private CommandFramework framework;
 	private Repository repo;
-	private Messages messages;
-	private Messenger messenger;
 	private ArenaCommands arenaCommands;
 	private SignManager signManager;
 
@@ -47,12 +43,6 @@ public class Main extends JavaPlugin{
 		this.framework.setInGameOnlyMessage(prefix+"Der Command muss von einem Spieler ausgeführt werden.");
 	}
 
-	@Override
-	public void onDisable(){
-
-	}
-
-
 	private void load() {
 		this.saveDefaultConfig();
 	}
@@ -70,14 +60,6 @@ public class Main extends JavaPlugin{
 
 	public Repository getRepo() {
 		return this.repo;
-	}
-	
-	public Messages getMessages(){
-		return this.messages;
-	}
-	
-	public Messenger getMessenger(){
-		return this.messenger;
 	}
 	
 	public ArenaCommands getArenaCommands(){

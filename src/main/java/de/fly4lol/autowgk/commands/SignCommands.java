@@ -49,18 +49,18 @@ public class SignCommands {
 		Player player = args.getPlayer();
 		Repository repo = plugin.getRepo();
 		
-		if(args.getArgs().length != 1){
+		if(args.length() != 1){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK sign remove world <worldname>");
 			return;
 		}
 		
-		if(Bukkit.getWorld(args.getArgs()[0]) == null){
+		if(Bukkit.getWorld(args.getArgs(0)) == null){
 			player.sendMessage(plugin.prefix + "Diese Welt existiert nicht!");
 			return;
 		}
 		
 		List<Location> signs = new ArrayList<Location>();
-		signs = repo.getSignsByWorld(args.getArgs()[0]);
+		signs = repo.getSignsByWorld(args.getArgs(0));
 		for (Location sign : signs){
 			repo.removeSign(sign);
 		}

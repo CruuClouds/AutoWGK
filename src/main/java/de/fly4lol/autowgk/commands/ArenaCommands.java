@@ -46,8 +46,6 @@ public class ArenaCommands {
 		
 		repo.creatArena( arena.getName());
 		player.sendMessage(plugin.prefix + "Du hast die Arena §e" + arena.getName()+ " §3erstellt!");
-		return;
-		
 	}
 	
 	@Command(name = "AutoWGK.arena.addTeam", usage = "/AutoWGK", permission = "autowgk.arena.addTeam" , aliases = {"awgk.addTeam" , "awgk.arena.addTeam"}, inGameOnly=true)
@@ -59,12 +57,12 @@ public class ArenaCommands {
 			return;
 		}
 		
-		if(args.getArgs().length != 2){
+		if(args.length() != 2){
 			player.sendMessage(plugin.prefix + "Nutze: §e/AutoWGK arena addteam <team1/team2> <north/south>");
 			return;
 		}
 		
-		String team = args.getArgs()[0];
+		String team = args.getArgs(0);
 
 		if(!team.equalsIgnoreCase("team1")){
 			if(!team.equalsIgnoreCase("team2")){
@@ -94,8 +92,6 @@ public class ArenaCommands {
 		Location loc = player.getLocation();
 		repo.addTeam( arena.getName() , team1 ? PlayerRole.Team1 : PlayerRole.Team2, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
 		player.sendMessage(plugin.prefix + "Du hast das §e" + team + " §3hinzugefügt");
-		return;
-		
 	}
 	
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"}, inGameOnly=true)
@@ -103,12 +99,12 @@ public class ArenaCommands {
 		Player player = args.getPlayer();
 		Arena arena = plugin.getRepo().getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		AutoArenaMode mode = AutoArenaMode.NORMAL;
-		if(args.getArgs().length !=  1){
+		if(args.length() !=  1){
 			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");
 			return;
 		}
 		
-		String stringMode = args.getArgs()[0];
+		String stringMode = args.getArgs(0);
 		
 		if(stringMode.equalsIgnoreCase("normal")){
 			mode = AutoArenaMode.NORMAL;
@@ -124,8 +120,7 @@ public class ArenaCommands {
 			return;
 		}
 		
-		player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");
-		return;
+		player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");		return;
 	}
 	
 	public void autowgkArenaJoin(Player player){
