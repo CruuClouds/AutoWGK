@@ -28,6 +28,6 @@ public class Commands {
 	@Command(name = "AutoWGK.showlast", usage = "/AutoWGK", permission = "autowgk.showlast" , aliases = {"awgk.last" , "AutoWGK.last" }, inGameOnly=true)
 	public void autowgkShowlast(CommandArgs args) {
 		Player player = args.getPlayer();
-		new Messenger().addPlayer( player ).sendLast();
+		Messenger.getInstance().sendLast(player);
 	}
 }

@@ -11,7 +11,7 @@ import de.fly4lol.autowgk.Repository;
 import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.arena.Direction;
-import de.fly4lol.messenger.Message;
+import de.fly4lol.messenger.MessageHolder;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
@@ -157,9 +157,8 @@ public class ArenaCommands {
 		.tooltip("§eHier klicken")
 		.command("/AutoWGK schematic public");
 		
-		Message message = new Message();
-		message
-		.addLine("")
+		MessageHolder msg = new MessageHolder();
+		msg.addLine("")
 		.addLine("")
 		.addLine("            §eWähle Zwischen Public und Private ")
 		.addLine("")
@@ -168,7 +167,7 @@ public class ArenaCommands {
 		.addLine(privateMessage)
 		.addLine("");
 		
-		new Messenger().setMessage(message).addPlayer( player ).send();
+		Messenger.getInstance().send(player, msg);
 		
 	}
 }

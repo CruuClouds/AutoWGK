@@ -16,7 +16,7 @@ import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.arena.Team;
 import de.fly4lol.autowgk.schematic.Schematic;
 import de.fly4lol.autowgk.schematic.SchematicState;
-import de.fly4lol.messenger.Message;
+import de.fly4lol.messenger.MessageHolder;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
@@ -77,7 +77,7 @@ public class SchematicCommands {
 		}
 		
 		List<Schematic> schematics = this.repo.getSchematisByOwner(schematicsOf);
-		Message message = new Message();
+		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
 			if (schematic.isWarGear() && schematic.getState() == SchematicState.Checked) {
@@ -89,7 +89,7 @@ public class SchematicCommands {
 				message.addLine(wargearMessage);
 			}
 		}
-		new Messenger().addPlayer(player).setMessage(message).send();
+		Messenger.getInstance().send(player, message);
 	}
 	
 	@Command(name = "AutoWGK.schematic.public", usage = "/AutoWGK", permission = "autowgk.schematic.public", aliases = { "awgk.schem.public", "awgk.schematic.public", "Autowgk.schem.public" }, inGameOnly=true)
@@ -97,7 +97,7 @@ public class SchematicCommands {
 	
 		Player player = args.getPlayer();
 		List<Schematic> schematics = this.repo.getPublicSchematics();
-		Message message = new Message();
+		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
 			if (schematic.isWarGear()  && schematic.getState() == SchematicState.Checked) {
@@ -106,7 +106,7 @@ public class SchematicCommands {
 				message.addLine(wargearMessage);
 			}
 		}
-		new Messenger().addPlayer(player).setMessage(message).send();
+		Messenger.getInstance().send(player, message);
 		
 	}
 	
