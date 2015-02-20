@@ -51,15 +51,6 @@
 
 	<repositories>
 		<repository>
-		  <id>fanciful-mvn-repo</id>
-		  <url>https://raw.github.com/mkremins/fanciful/mvn-repo/</url>
-		  <snapshots>
-		    <enabled>true</enabled>
-		    <updatePolicy>always</updatePolicy>
-		  </snapshots>
-		</repository>
-		
-		<repository>
 			<id>sk89q-repo</id>
 			<name>sk89q Repo</name>
 			<url>http://maven.sk89q.com/repo/</url>
