@@ -12,6 +12,7 @@ import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
 import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.autowgk.sign.SignManager;
+import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
 
 public class Main extends JavaPlugin{
@@ -33,6 +34,12 @@ public class Main extends JavaPlugin{
 		
 		this.registerListener();
 		
+		Messenger.getInstance().setNoLastMessage("§2Du hast noch keine Nachrichten bekommen!");
+		
+		registerCommands();
+	}
+	
+	private void registerCommands() {
 		this.arenaCommands = new ArenaCommands(this);
 		this.framework = new CommandFramework(this);
 		this.framework.registerCommands( this.arenaCommands);
@@ -42,7 +49,7 @@ public class Main extends JavaPlugin{
 		this.framework.registerHelp();
 		this.framework.setInGameOnlyMessage(prefix+"Der Command muss von einem Spieler ausgeführt werden.");
 	}
-
+	
 	private void load() {
 		this.saveDefaultConfig();
 	}
