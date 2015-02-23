@@ -26,22 +26,15 @@ public class PlayerQuitListener implements Listener{
 		}
 		Arena wgkArena = team.getAutoArena().getWgkArena();
 		
-		if(wgkArena.getState() == State.Idle){
+		if(wgkArena.getState() == State.Idle || wgkArena.getState() == State.Setup){
 			if(team.getRole() == PlayerRole.Team1){
-				team.getAutoArena().setTeam1( team);
+				team.getAutoArena().setTeam1(null);
 			} else if(team.getRole() == PlayerRole.Team2){
-				team.getAutoArena().setTeam2( team );
+				team.getAutoArena().setTeam2(null);
 			}
-		} else if(wgkArena.getState() == State.Setup){
-			GroupSide side = GroupSide.Team2;
-			if(team.getAutoArena().getTeam1() == team){
-				side = GroupSide.Team1;
-				team.getAutoArena().setTeam1( null);
-				
-			} else {
-				team.getAutoArena().setTeam2( null );
-			}
-			
+		} 
+		if (wgkArena.getState() == State.Setup) {
+			GroupSide side = team.getRole() == PlayerRole.Team1 ? GroupSide.Team1 : GroupSide.Team2;
 			team.getAutoArena().getWgkArena().getReseter().cleanSide(side);
 			this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena, wgkArena.getGroupManager().getGroupMember(event.getPlayer()), team.getRole());
 			wgkArena.getGroupManager().getGroupOfPlayer(event.getPlayer()).remove(event.getPlayer());
