@@ -80,14 +80,12 @@ public class SchematicCommands {
 		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
-			if (schematic.isWarGear() && schematic.getState() == SchematicState.Checked) {
-				String prefix = "§8[§6Private§8] §b";
-				if (schematic.isPublic()) {
-					prefix = "§8[§6Public§8] §b";
-				}
-				FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§eHier klicken").command("/AutoWGK schematic load " + schematic.getId());
-				message.addLine(wargearMessage);
+			String prefix = "§8[§6Private§8] §b";
+			if (schematic.isPublic()) {
+				prefix = "§8[§6Public§8] §b";
 			}
+			FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§eHier klicken").command("/AutoWGK schematic load " + schematic.getId());
+			message.addLine(wargearMessage);
 		}
 		Messenger.getInstance().send(player, message);
 	}
@@ -100,11 +98,9 @@ public class SchematicCommands {
 		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
-			if (schematic.isWarGear()  && schematic.getState() == SchematicState.Checked) {
-				String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
-				FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
-				message.addLine(wargearMessage);
-			}
+			String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
+			FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
+			message.addLine(wargearMessage);
 		}
 		Messenger.getInstance().send(player, message);
 		

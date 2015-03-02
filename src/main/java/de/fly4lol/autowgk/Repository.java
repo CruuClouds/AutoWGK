@@ -19,7 +19,6 @@ import com.sk89q.worldedit.WorldEdit;
 import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.arena.Direction;
 import de.fly4lol.autowgk.schematic.Schematic;
-import de.fly4lol.autowgk.schematic.SchematicState;
 import de.fly4lol.autowgk.sign.SignType;
 import de.pro_crafting.sql.api.Connection;
 import de.pro_crafting.sql.api.ConnectionManager;
@@ -252,11 +251,13 @@ public class Repository {
 	
 	public Schematic getSchematicByID(int id){
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where id=?");
-			prep.setInt( 1, id);
+			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And isWarGear=? And state=?");
+			prep.setInt(1, id);
+			prep.setInt(2, 1);
+			prep.setInt(3, 1);
 			ResultSet res = prep.executeQuery();
 			if(res.next()){
-				Schematic schematic = new Schematic(id, res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(id, res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
 				return schematic;
 			}
 		} catch (SQLException e) {
@@ -268,11 +269,13 @@ public class Repository {
 	public List<Schematic> getSchematisByOwner(OfflinePlayer player){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where uuid=?");
-			prep.setString( 1, player.getUniqueId().toString());
+			PreparedStatement prep = conn.prepare("Select * From schematics Where uuid=? And isWarGear=? And state=?");
+			prep.setString(1, player.getUniqueId().toString());
+			prep.setInt(2, 1);
+			prep.setInt(3, 1);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
 				schematics.add(schematic);
 			}
 			return schematics;
@@ -286,11 +289,13 @@ public class Repository {
 	public List<Schematic> getPublicSchematics(){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=?");
-			prep.setInt( 1 , 1);
+			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=? And isWarGear=? And state=?");
+			prep.setInt(1 , 1);
+			prep.setInt(2, 1);
+			prep.setInt(3, 1);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
-				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isWarGear"), res.getBoolean("isPublic"), SchematicState.values()[ res.getInt("state")]);
+				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
 				schematics.add(schematic);
 			}
 			return schematics;
