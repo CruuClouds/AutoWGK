@@ -309,9 +309,9 @@ public class Repository {
 	
 	public boolean hasRights(int schematicId, UUID player) {
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And (isPublic=? OR uuid=?)"+
-												"UNION" +
-												"Select * From permission_player Where schematicid=? AND uuid=?");
+			PreparedStatement prep = conn.prepare("Select id From schematics Where id=? And (isPublic=? OR uuid=?)"+
+												"UNION ALL " +
+												"Select id From permission_player Where schematicid=? AND uuid=?");
 			prep.setInt(1, schematicId);
 			prep.setInt(2, 1);
 			prep.setString(3, player.toString());
