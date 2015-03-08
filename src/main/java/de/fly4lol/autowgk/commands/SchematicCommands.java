@@ -129,6 +129,10 @@ public class SchematicCommands {
 			player.sendMessage(plugin.prefix + "Du musst eine Id angeben!");
 			return;
 		}
+		if (!this.repo.hasRights(id, player.getUniqueId())) {
+			player.sendMessage(plugin.prefix + "Du hast keine Rechte für diese Schematic!");
+			return;
+		}
 		Schematic schematic = this.repo.getSchematicByID(id);
 		
 		if (schematic.getDirection() == null) {

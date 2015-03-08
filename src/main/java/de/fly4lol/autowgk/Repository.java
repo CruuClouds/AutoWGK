@@ -307,5 +307,22 @@ public class Repository {
 	}
 	
 	
-
+	public boolean hasRights(int schematicId, UUID player) {
+		try {
+			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And (isPublic=? OR uuid=?)"+
+												"UNION" +
+												"Select * From permission_player Where schematicid=? AND uuid=?");
+			prep.setInt(1, schematicId);
+			prep.setInt(2, 1);
+			prep.setString(3, player.toString());
+			prep.setInt(4, schematicId);
+			prep.setString(5, player.toString());
+			ResultSet res = prep.executeQuery();
+			return res.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
