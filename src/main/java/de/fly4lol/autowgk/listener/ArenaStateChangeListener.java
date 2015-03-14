@@ -26,12 +26,10 @@ public class ArenaStateChangeListener implements Listener{
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void ArenaStateChangedHandler(ArenaStateChangeEvent event) {
-		
-		
 		List<Location> signs = plugin.getRepo().getSignsByType(SignType.ARENAINFO);
 		for(Location sign : signs){
-			Material Type = sign.getBlock().getType();
-			if(Type.equals( Material.SIGN_POST) ||Type.equals( Material.SIGN)){
+			Material type = sign.getBlock().getType();
+			if(type == Material.SIGN_POST || type == Material.SIGN){
 				BlockState state = sign.getBlock().getState();
 				Sign s = (Sign) state;
 				String arenaName = s.getLine( 1).replaceAll("§9", "");
@@ -50,7 +48,7 @@ public class ArenaStateChangeListener implements Listener{
 			}
 		}
 		
-		if(event.getTo().equals(State.Idle)){
+		if(event.getTo() == State.Idle){
 			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName());
 			if(arena.getTeam1() != null){
 				if(arena.getTeam1().isReady() ){
@@ -63,8 +61,8 @@ public class ArenaStateChangeListener implements Listener{
 			}
 		}
 		
-		if(event.getTo().equals( State.Spectate)){
-			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName() );
+		if(event.getTo() == State.Spectate){
+			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName());
 			arena.setTeam1(null);
 			arena.setTeam2(null);
 		}

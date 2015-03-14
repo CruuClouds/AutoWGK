@@ -1,5 +1,7 @@
 package de.fly4lol.autowgk.listener;
 
+import java.util.Arrays;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -37,7 +39,7 @@ public class PlayerCommandPreprocessListener implements Listener{
 			} 
 			if (wgkArena.getState() == State.Setup) {
 				GroupSide side = team.getRole() == PlayerRole.Team1 ? GroupSide.Team1 : GroupSide.Team2;
-				team.getAutoArena().getWgkArena().getReseter().cleanSide(side);
+				team.getAutoArena().getWgkArena().getReseter().cleanSide(side);	
 				this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena, wgkArena.getGroupManager().getGroupMember(event.getPlayer()), team.getRole());
 				wgkArena.getGroupManager().getGroupOfPlayer(event.getPlayer()).remove(event.getPlayer());
 				
