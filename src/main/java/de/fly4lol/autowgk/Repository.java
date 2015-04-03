@@ -266,19 +266,23 @@ public class Repository {
 		return null;
 	}
 	
-	public List<Schematic> getSchematisByOwner(OfflinePlayer player){
+	public List<Schematic> getSchematicsOf(OfflinePlayer player){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where uuid=? And isWarGear=? And state=?");
+			PreparedStatement prep = conn.prepare("(SELECT id FROM schematics WHERE uuid=? and isWarGear=1 and state=1)" +
+				"UNION ALL "+
+				"(Select schematicid as id From permission_player Where uuid=? and schematicid in (SELECT id FROM schematics WHERE isWarGear=1 and state=1))");
 			prep.setString(1, player.getUniqueId().toString());
-			prep.setInt(2, 1);
-			prep.setInt(3, 1);
+			prep.setString(2, player.getUniqueId().toString());
 			ResultSet res = prep.executeQuery();
+			
 			while(res.next()){
-				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
-				schematics.add(schematic);
+				int id = res.getInt("id");
+				Schematic schematic = this.getSchematicByID(id);
+				if (schematic != null) {
+					schematics.add(schematic);
+				}
 			}
-			return schematics;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

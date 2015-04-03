@@ -76,7 +76,7 @@ public class SchematicCommands {
 			}
 		}
 		
-		List<Schematic> schematics = this.repo.getSchematisByOwner(schematicsOf);
+		List<Schematic> schematics = this.repo.getSchematicsOf(schematicsOf);
 		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
 		for (Schematic schematic : schematics) {
