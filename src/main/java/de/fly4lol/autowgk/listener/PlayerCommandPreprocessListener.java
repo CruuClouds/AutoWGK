@@ -1,12 +1,11 @@
 package de.fly4lol.autowgk.listener;
 
-import java.util.Arrays;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import de.fly4lol.autowgk.Main;
+import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.arena.Team;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
@@ -43,6 +42,17 @@ public class PlayerCommandPreprocessListener implements Listener{
 				this.plugin.getRepo().getWarGear().getScoreboard().removeTeamMember(wgkArena, wgkArena.getGroupManager().getGroupMember(event.getPlayer()), team.getRole());
 				wgkArena.getGroupManager().getGroupOfPlayer(event.getPlayer()).remove(event.getPlayer());
 				
+			}
+		} else if (event.getMessage().equalsIgnoreCase("/wgk team accept")) {
+			Team team = plugin.getArenenManager().getTeamByPlayer(event.getPlayer());
+			if (team == null) {
+				return;
+			}
+			AutoArena arena = team.getAutoArena();
+			if (team.getRole() == PlayerRole.Team1) {
+				arena.setTeam1(null);
+			} else {
+				arena.setTeam2(null);
 			}
 		}
 	}
