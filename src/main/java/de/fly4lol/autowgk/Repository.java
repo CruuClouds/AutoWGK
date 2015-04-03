@@ -269,9 +269,9 @@ public class Repository {
 	public List<Schematic> getSchematicsOf(OfflinePlayer player){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("(SELECT id FROM schematics WHERE uuid=? and isWarGear=1 and state=1)" +
+			PreparedStatement prep = conn.prepare("(SELECT id FROM schematics WHERE uuid=? and isWarGear > 0 and state=1)" +
 				"UNION ALL "+
-				"(Select schematicid as id From permission_player Where uuid=? and schematicid in (SELECT id FROM schematics WHERE isWarGear=1 and state=1))");
+				"(Select schematicid as id From permission_player Where uuid=? and schematicid in (SELECT id FROM schematics WHERE isWarGear > 0 and state=1))");
 			prep.setString(1, player.getUniqueId().toString());
 			prep.setString(2, player.getUniqueId().toString());
 			ResultSet res = prep.executeQuery();
