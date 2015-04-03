@@ -15,6 +15,7 @@ import de.fly4lol.messenger.MessageHolder;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.Command;
 import de.pro_crafting.commandframework.CommandArgs;
+import de.pro_crafting.wg.Util;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.group.PlayerRole;
 
@@ -92,6 +93,24 @@ public class ArenaCommands {
 		Location loc = player.getLocation();
 		repo.addTeam( arena.getName() , team1 ? PlayerRole.Team1 : PlayerRole.Team2, direction, loc.getBlockX() , loc.getBlockY() , loc.getBlockZ() ,  loc.getWorld().getName() );
 		player.sendMessage(plugin.prefix + "Du hast das §e" + team + " §3hinzugefügt");
+	}
+	
+	@Command(name = "AutoWGK.arena.info", usage = "/AutoWGK arena info", permission = "autowgk.arena.info")
+	public void autowgkArenaInfo(CommandArgs args) {
+		Arena arena = Util.getArenaFromSender(this.plugin.getRepo().getWarGear(), args.getSender(), args.getArgs());
+		if (arena == null) {
+			args.getSender().sendMessage("§cDu stehst in keiner Arena, oder Sie existiert nicht.");
+			return;
+		}
+		
+		AutoArena autoArena = this.plugin.getArenenManager().getArena(arena.getName());
+		CommandSender sender = args.getSender();
+		sender.sendMessage("§a---Arena Info---");
+		sender.sendMessage("§7Arena Name: §B" + arena.getName());
+		String team1 = autoArena.getTeam1() == null ? "-" : autoArena.getTeam1().getLeader().getName();
+		String team2 = autoArena.getTeam2() == null ? "-" : autoArena.getTeam2().getLeader().getName();
+		sender.sendMessage("§7Team1 Leader: §B" + team1);
+		sender.sendMessage("§7Team2 Leader: §B" + team2);
 	}
 	
 	@Command(name = "AutoWGK.arena.setmode", usage = "/AutoWGK", permission = "autowgk.arena.setmode" , aliases = {"awgk.arena.setmode"}, inGameOnly=true)
