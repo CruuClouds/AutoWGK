@@ -118,7 +118,7 @@ public class ArenaCommands {
 		Player player = args.getPlayer();
 		Arena arena = plugin.getRepo().getWarGear().getArenaManager().getArenaAt(player.getLocation());
 		if(args.length() !=  1){
-			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL>");
+			player.sendMessage( plugin.prefix + "Nutze: §e/AutoWGK arena setmode <DISABLED/NORMAL/PRO>");
 			return;
 		}
 		
