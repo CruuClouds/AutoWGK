@@ -135,7 +135,7 @@ public class ArenaCommands {
 	public void autowgkArenaJoin(Player player){
 		AutoArena arena = this.plugin.getArenenManager().getArenaAt(player.getLocation());
 		if(arena == null){
-			player.sendMessage(plugin.prefix + "Die stehst in keiner Arena oder sie Existiert nicht!");
+			player.sendMessage(plugin.prefix + "Du stehst in keiner Arena!");
 			return;
 		}
 		if(!player.hasPermission("autowgk.arena.join")){
@@ -154,12 +154,12 @@ public class ArenaCommands {
 		}
 		
 		if(plugin.getRepo().getWarGear().getArenaManager().getGroup( player ).getArena() != null){
-			player.sendMessage(plugin.prefix + "Du kannst hier Immoment nich Joinen!");
+			player.sendMessage(plugin.prefix + "Du kannst hier momentan nich joinen!");
 			return;
 		}
 		
 		if(!arena.isJoinable()){
-			player.sendMessage(plugin.prefix + "Beide Teams haben Bereits einen Leader!");
+			player.sendMessage(plugin.prefix + "Beide Teams haben bereits einen Leader!");
 			return;
 		}
 		
