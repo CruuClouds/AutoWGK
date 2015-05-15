@@ -2,6 +2,7 @@ package de.fly4lol.autowgk.listener;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
@@ -49,16 +50,20 @@ public class ArenaStateChangeListener implements Listener{
 		}
 		
 		if(event.getTo() == State.Idle){
-			AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName());
-			if(arena.getTeam1() != null){
-				if(arena.getTeam1().isReady() ){
-					if(arena.getTeam2() != null){
-						if(arena.getTeam2().isReady()){
-							arena.startGame();
+			final AutoArena arena = plugin.getArenenManager().getArena(event.getArena().getName());
+			Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
+				public void run() {
+					if(arena.getTeam1() != null){
+						if(arena.getTeam1().isReady() ){
+							if(arena.getTeam2() != null){
+								if(arena.getTeam2().isReady()){
+									arena.startGame();
+								}
+							}
 						}
 					}
 				}
-			}
+			}, 10);
 		}
 		
 		if(event.getTo() == State.Spectate){
