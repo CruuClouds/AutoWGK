@@ -23,6 +23,7 @@ public class Main extends JavaPlugin{
 	private Repository repo;
 	private ArenaCommands arenaCommands;
 	private SignManager signManager;
+	private static Main instance;
 
 	
 	@Override
@@ -31,6 +32,10 @@ public class Main extends JavaPlugin{
 		this.repo = new Repository(this);
 		this.signManager = new SignManager(this);
 		this.arenenManager = new AutoArenaManager(this);
+		
+		this.repo.startRepeatingTask();
+		
+		Main.instance = this;
 		
 		this.registerListener();
 		
@@ -52,6 +57,10 @@ public class Main extends JavaPlugin{
 	
 	private void load() {
 		this.saveDefaultConfig();
+	}
+	
+	public static Main getInstance(){
+		return instance;
 	}
 
 	private void registerListener(){
