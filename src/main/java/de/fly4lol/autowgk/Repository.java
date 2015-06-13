@@ -333,7 +333,7 @@ public class Repository {
 	
 	public Schematic getSchematicByID(int id){
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And isWarGear=? And state=?");
+			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And state=?");
 			prep.setInt(1, id);
 			prep.setInt(2, 1);
 			prep.setInt(3, 1);
@@ -351,7 +351,7 @@ public class Repository {
 	public List<Schematic> getSchematicsOf(OfflinePlayer player){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("(SELECT id FROM schematics WHERE uuid=? and isWarGear > 0 and state=1)" +
+			PreparedStatement prep = conn.prepare("(SELECT id FROM schematics WHERE uuid=? and isWarGear > 0 and state=1 )" +
 				"UNION ALL "+
 				"(Select schematicid as id From permission_player Where uuid=? and schematicid in (SELECT id FROM schematics WHERE isWarGear > 0 and state=1))");
 			prep.setString(1, player.getUniqueId().toString());
