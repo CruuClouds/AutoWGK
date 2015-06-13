@@ -97,6 +97,7 @@ public class SchematicCommands {
 		List<Schematic> schematics = this.repo.getPublicSchematics();
 		MessageHolder message = new MessageHolder();
 		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+		
 		for (Schematic schematic : schematics) {
 			String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
 			FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
