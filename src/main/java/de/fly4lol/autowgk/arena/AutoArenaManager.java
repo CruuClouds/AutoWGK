@@ -93,12 +93,15 @@ public class AutoArenaManager {
 	
 public void removeAFKPlayers(AutoArena arena){
 		
-		for(Player player : this.afkPlayers){
+	List<Player> players =this.afkPlayers;
+	
+		for(int i=0;i<players.size();i++){
+			Player player = players.get( i );
 			AutoArena arena2 =this.plugin.getArenenManager().getArenaOfTeamMember( player );
 			if(arena2 == null){
-				this.afkPlayers.remove( player );
+				players.remove( player );
 			} else if(this.isFightRunning( arena2.getWgkArena())){
-				this.afkPlayers.remove( player );
+				players.remove( player );
 			}
 		}
 		
@@ -119,17 +122,17 @@ public void removeAFKPlayers(AutoArena arena){
 			
 			if(arena.getTeam1() != null){
 				Player player = arena.getTeam1().getLeader();
-				if(this.afkPlayers.contains( player )){
+				if(players.contains( player )){
 					arena.setTeam1( null);
 				} else {
-					this.afkPlayers.add( player );
+					players.add( player );
 				}
 			}
 
 			
 			if(arena.getTeam2() != null){
 				Player player = arena.getTeam2().getLeader();
-				if(this.afkPlayers.contains( player )){
+				if(players.contains( player )){
 					arena.setTeam2( null);
 				} else {
 					this.afkPlayers.add( player );
@@ -137,6 +140,7 @@ public void removeAFKPlayers(AutoArena arena){
 			}
 			
 		}
+		this.afkPlayers = players;
 	}
 	
 	public boolean isFightRunning(Arena arena ){
