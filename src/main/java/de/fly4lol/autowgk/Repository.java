@@ -36,7 +36,6 @@ public class Repository {
 	private Connection conn;
 	private Main plugin;
 	private WarGear wgPlugin;
-	private List<Player> afkPlayers = new ArrayList<Player>();
 	
 	public Repository(Main plugin){
 		this.plugin = plugin;
@@ -90,82 +89,6 @@ public class Repository {
 		
 	}
 	
-	public void startRepeatingTask(){
-		
-		plugin.getServer().getScheduler().scheduleSyncRepeatingTask( plugin , new Runnable() {
-			
-			public void run() {
-				for(AutoArena arena : Main.getInstance().getArenenManager().getArenas()){
-					Main.getInstance().getRepo().removeAFKPlayers( arena);
-				}
-				
-			}
-		}, 20*60, 20*60);
-	}
-	
-	public void removeAFKPlayers(AutoArena arena){
-		
-		for(Player player : this.afkPlayers){
-			AutoArena arena2 =this.plugin.getArenenManager().getArenaOfTeamMember( player );
-			if(arena2 == null){
-				this.afkPlayers.remove( player );
-			} else if(this.isFightRunning( arena2.getWgkArena())){
-				this.afkPlayers.remove( player );
-			}
-		}
-		
-		if(arena.getTeam1() != null){
-			if(!arena.getTeam1().getLeader().isOnline()){
-				arena.setTeam1( null );
-			}
-		}
-
-		
-		if(arena.getTeam2() != null){
-			if(!arena.getTeam2().getLeader().isOnline()){
-				arena.setTeam2( null );
-			}
-		}
-		
-		if(! this.isFightRunning( arena.getWgkArena())){
-			
-			if(arena.getTeam1() != null){
-				Player player = arena.getTeam1().getLeader();
-				if(this.afkPlayers.contains( player )){
-					arena.setTeam1( null);
-				} else {
-					this.afkPlayers.add( player );
-				}
-			}
-
-			
-			if(arena.getTeam2() != null){
-				Player player = arena.getTeam2().getLeader();
-				if(this.afkPlayers.contains( player )){
-					arena.setTeam2( null);
-				} else {
-					this.afkPlayers.add( player );
-				}
-			}
-			
-		}
-	}
-	
-	public boolean isFightRunning(Arena arena ){
-		if(arena.getState() == State.PreRunning){
-			return true;
-		}
-		
-		if(arena.getState() == State.Running){
-			return true;
-		}
-		
-		if(arena.getState() == State.Setup){
-			return true;
-		}
-		
-		return false;
-	}
 	
 	public Location getPastingLocation(String Arena, PlayerRole role){
 		String world = plugin.getConfig().getString("Arenen." + Arena + "." + role.name() + ".World");

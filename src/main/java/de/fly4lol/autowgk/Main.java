@@ -3,6 +3,7 @@ package de.fly4lol.autowgk;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.fly4lol.autowgk.arena.AutoArena;
 import de.fly4lol.autowgk.arena.AutoArenaManager;
 import de.fly4lol.autowgk.commands.ArenaCommands;
 import de.fly4lol.autowgk.commands.Commands;
@@ -33,7 +34,7 @@ public class Main extends JavaPlugin{
 		this.signManager = new SignManager(this);
 		this.arenenManager = new AutoArenaManager(this);
 		
-		this.repo.startRepeatingTask();
+		this.startRepeatingTask();
 		
 		Main.instance = this;
 		
@@ -84,5 +85,18 @@ public class Main extends JavaPlugin{
 	
 	public AutoArenaManager getArenenManager() {
 		return arenenManager;
+	}
+	
+	public void startRepeatingTask(){
+		
+		this.getServer().getScheduler().scheduleSyncRepeatingTask( this , new Runnable() {
+			
+			public void run() {
+				for(AutoArena arena : Main.getInstance().getArenenManager().getArenas()){
+					Main.getInstance().getArenenManager().removeAFKPlayers( arena);
+				}
+				
+			}
+		}, 20*60, 20*60);
 	}
 }
