@@ -336,7 +336,6 @@ public class Repository {
 			PreparedStatement prep = conn.prepare("Select * From schematics Where id=? And state=?");
 			prep.setInt(1, id);
 			prep.setInt(2, 1);
-			prep.setInt(3, 1);
 			ResultSet res = prep.executeQuery();
 			if(res.next()){
 				Schematic schematic = new Schematic(id, res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
