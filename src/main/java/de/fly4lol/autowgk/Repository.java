@@ -297,10 +297,9 @@ public class Repository {
 	public List<Schematic> getPublicSchematics(){
 		List<Schematic> schematics = new ArrayList<Schematic>();
 		try {
-			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=? And isWarGear=? And state=?");
+			PreparedStatement prep = conn.prepare("Select * From schematics Where isPublic=? And isWarGear > 1 And state=?");
 			prep.setInt(1 , 1);
 			prep.setInt(2, 1);
-			prep.setInt(3, 1);
 			ResultSet res = prep.executeQuery();
 			while(res.next()){
 				Schematic schematic = new Schematic(res.getInt("id"), res.getString("schematic"), UUID.fromString( res.getString("uuid")), res.getBoolean("isPublic"));
