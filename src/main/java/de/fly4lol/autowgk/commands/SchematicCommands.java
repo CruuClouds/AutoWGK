@@ -57,7 +57,7 @@ public class SchematicCommands {
 		}
 		
 		if(plugin.getArenenManager().getArena(arena.getName()).getMode() == AutoArenaMode.DISABLED){
-			player.sendMessage(plugin.prefix + "Du kannst im Moment nicht in dieser Arena spielen!");
+			player.sendMessage(plugin.prefix + "Diese Arena ist zurzeit gesperrt!");
 			return;
 		}
 		
@@ -78,7 +78,7 @@ public class SchematicCommands {
 		
 		List<Schematic> schematics = this.repo.getSchematicsOf(schematicsOf);
 		MessageHolder message = new MessageHolder();
-		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
+		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um es zu laden!");
 		for (Schematic schematic : schematics) {
 			String prefix = "§8[§6Private§8] §b";
 			if (schematic.isPublic()) {
@@ -96,8 +96,8 @@ public class SchematicCommands {
 		Player player = args.getPlayer();
 		List<Schematic> schematics = this.repo.getPublicSchematics();
 		MessageHolder message = new MessageHolder();
-		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um dies zu laden!");
-		
+
+		message.addLine(this.plugin.prefix + "Klicke auf ein WarGear um es zu laden!");
 		for (Schematic schematic : schematics) {
 			String prefix = "§8[§6" + Bukkit.getOfflinePlayer(schematic.getOwner()).getName() + "§8] §b";
 			FancyMessage wargearMessage = new FancyMessage("").then("§9#" + schematic.getId() + " " + prefix + schematic.getName()).tooltip("§e Hier klicken").command("/AutoWGK schematic load " + schematic.getId());
