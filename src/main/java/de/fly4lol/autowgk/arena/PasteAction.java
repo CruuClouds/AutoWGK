@@ -1,6 +1,8 @@
 package de.fly4lol.autowgk.arena;
 
-import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.MaxChangedBlocksException;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
@@ -11,11 +13,8 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.transform.AffineTransform;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.registry.WorldData;
-import de.fly4lol.autowgk.Main;
 import de.fly4lol.autowgk.schematic.Schematic;
 import org.bukkit.Location;
-import org.primesoft.asyncworldedit.api.playerManager.IPlayerEntry;
-import org.primesoft.asyncworldedit.api.taskdispatcher.ITaskDispatcher;
 import org.primesoft.asyncworldedit.api.utils.IFuncParamEx;
 import org.primesoft.asyncworldedit.api.worldedit.ICancelabeEditSession;
 
@@ -45,22 +44,19 @@ public class PasteAction implements IFuncParamEx<Integer, ICancelabeEditSession,
 
             WorldData worldData = world.getWorldData();
             Clipboard clipboard = reader.read(worldData);
-            ClipboardHolder holder = new ClipboardHolder(clipboard, worldData);
+            ClipboardHolder holder  = new ClipboardHolder(clipboard, worldData);
 
             if (direction != schematic.getDirection()) {
                 AffineTransform transform = new AffineTransform();
                 transform = transform.rotateY(180);
-                holder.setTransform(holder.getTransform().combine(transform));
+                holder.setTransform(transform);
             }
-
-            editSession.enableQueue();
             final Operation operation = holder
                     .createPaste(editSession, worldData)
                     .to(to)
                     .ignoreAirBlocks(false)
                     .build();
             Operations.complete(operation);
-            editSession.flushQueue();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WorldEditException e) {
