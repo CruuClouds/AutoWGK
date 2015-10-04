@@ -2,14 +2,13 @@ package de.fly4lol.autowgk.arena;
 
 import java.io.File;
 
+import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.CuboidClipboard;
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.LocalConfiguration;
-import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
 
@@ -18,6 +17,13 @@ import de.fly4lol.autowgk.schematic.Schematic;
 import de.pro_crafting.wg.arena.Arena;
 import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
+import org.primesoft.asyncworldedit.api.IAsyncWorldEdit;
+import org.primesoft.asyncworldedit.api.blockPlacer.entries.IJobEntry;
+import org.primesoft.asyncworldedit.api.playerManager.IPlayerEntry;
+import org.primesoft.asyncworldedit.api.utils.IFuncParamEx;
+import org.primesoft.asyncworldedit.api.worldedit.IAsyncEditSessionFactory;
+import org.primesoft.asyncworldedit.api.worldedit.ICancelabeEditSession;
+import org.primesoft.asyncworldedit.api.worldedit.IThreadSafeEditSession;
 
 public class AutoArena {
 	private Main			plugin;
@@ -172,26 +178,19 @@ public class AutoArena {
 		if (schematic.getDirection() == null) {
 			return;
 		}
+
+		IAsyncWorldEdit awe = (IAsyncWorldEdit)Bukkit.getPluginManager().getPlugin("AsyncWorldEdit");
 		WorldEdit we = this.plugin.getRepo().getWorldEdit();
 		LocalConfiguration config = we.getConfiguration();
 		
 		File dir = we.getWorkingDirectoryFile(config.saveDir);
 		File schematicFile = new File(dir, schematic.getPath());
-		
-		
-		try {
-			EditSession es = we.getEditSessionFactory().getEditSession(BukkitUtil.getLocalWorld(location.getWorld()), 32000000);
-			CuboidClipboard cc = MCEditSchematicFormat.MCEDIT.load(schematicFile);
-			
-			if (direction != schematic.getDirection()) {
-				cc.rotate2D(180);
-			}
-			
-			es.enableQueue();
-			cc.paste(es, BukkitUtil.toVector(location), false);
-			es.flushQueue();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+
+		int maxBlocks = 150000;
+		IPlayerEntry player = awe.getPlayerManager().getConsolePlayer();
+		IThreadSafeEditSession tsSession = ((IAsyncEditSessionFactory)WorldEdit.getInstance().getEditSessionFactory()).
+				getThreadSafeEditSession(new BukkitWorld(location.getWorld()), maxBlocks, null, player);
+		IFuncParamEx<Integer, ICancelabeEditSession, MaxChangedBlocksException> action = new PasteAction(schematic, schematicFile, location, direction);
+		awe.getBlockPlacer().performAsAsyncJob(tsSession, player, "loadWarGear:" + schematic.getName(), action);
 	}
 }
