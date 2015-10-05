@@ -1,23 +1,6 @@
 package de.fly4lol.autowgk;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-
 import com.sk89q.worldedit.WorldEdit;
-
-import de.fly4lol.autowgk.arena.AutoArena;
-import de.fly4lol.autowgk.arena.AutoArenaManager;
 import de.fly4lol.autowgk.arena.AutoArenaMode;
 import de.fly4lol.autowgk.arena.Direction;
 import de.fly4lol.autowgk.schematic.Schematic;
@@ -27,9 +10,21 @@ import de.pro_crafting.sql.api.ConnectionManager;
 import de.pro_crafting.sql.api.Credentials;
 import de.pro_crafting.sql.bukkit.BukkitCredentials;
 import de.pro_crafting.wg.WarGear;
-import de.pro_crafting.wg.arena.Arena;
-import de.pro_crafting.wg.arena.State;
 import de.pro_crafting.wg.group.PlayerRole;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.primesoft.asyncworldedit.api.IAsyncWorldEdit;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public class Repository {
 	
@@ -57,7 +52,11 @@ public class Repository {
 	public WorldEdit getWorldEdit() {
 		return WorldEdit.getInstance();
 	}
-	
+
+	public IAsyncWorldEdit getAWE() {
+		return (IAsyncWorldEdit)Bukkit.getPluginManager().getPlugin("AsyncWorldEdit");
+	}
+
 	public WarGear getWarGear() {
 		return this.wgPlugin;
 	}

@@ -179,7 +179,7 @@ public class AutoArena {
 			return;
 		}
 
-		IAsyncWorldEdit awe = (IAsyncWorldEdit)Bukkit.getPluginManager().getPlugin("AsyncWorldEdit");
+		IAsyncWorldEdit awe = this.plugin.getRepo().getAWE();
 		WorldEdit we = this.plugin.getRepo().getWorldEdit();
 		LocalConfiguration config = we.getConfiguration();
 		
@@ -188,9 +188,10 @@ public class AutoArena {
 
 		int maxBlocks = 150000;
 		IPlayerEntry player = awe.getPlayerManager().getConsolePlayer();
+
 		IThreadSafeEditSession tsSession = ((IAsyncEditSessionFactory)WorldEdit.getInstance().getEditSessionFactory()).
 				getThreadSafeEditSession(new BukkitWorld(location.getWorld()), maxBlocks, null, player);
-		IFuncParamEx<Integer, ICancelabeEditSession, MaxChangedBlocksException> action = new PasteAction(schematic, schematicFile, location, direction);
+		PasteAction action = new PasteAction(schematic, schematicFile, location, direction);
 		awe.getBlockPlacer().performAsAsyncJob(tsSession, player, "loadWarGear:" + schematic.getName(), action);
 	}
 }

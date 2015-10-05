@@ -27,14 +27,17 @@ public class PasteAction implements IFuncParamEx<Integer, ICancelabeEditSession,
     private File schematicFile;
     private Vector to;
     private BukkitWorld world;
-    private Direction direction;
+    private Direction arenaDirection;
+    private AffineTransform transform;
 
-    public PasteAction(Schematic schematic, File schematicFile, Location to, Direction direction) {
+    public PasteAction(Schematic schematic, File schematicFile, Location to, Direction arenaDirection) {
         this.schematic = schematic;
         this.to = BukkitUtil.toVector(to);
         this.world = new BukkitWorld(to.getWorld());
         this.schematicFile = schematicFile;
-        this.direction = direction;
+        this.arenaDirection = arenaDirection;
+        this.transform = new AffineTransform();
+        transform = transform.rotateY(180);
     }
 
     public Integer execute(ICancelabeEditSession editSession) throws MaxChangedBlocksException {
@@ -46,9 +49,7 @@ public class PasteAction implements IFuncParamEx<Integer, ICancelabeEditSession,
             Clipboard clipboard = reader.read(worldData);
             ClipboardHolder holder  = new ClipboardHolder(clipboard, worldData);
 
-            if (direction != schematic.getDirection()) {
-                AffineTransform transform = new AffineTransform();
-                transform = transform.rotateY(180);
+            if (arenaDirection != schematic.getDirection()) {
                 holder.setTransform(transform);
             }
             final Operation operation = holder
