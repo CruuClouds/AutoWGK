@@ -1,5 +1,6 @@
 package de.fly4lol.autowgk;
 
+import de.fly4lol.autowgk.listener.PlayerArenaChangeListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,7 +12,6 @@ import de.fly4lol.autowgk.commands.SchematicCommands;
 import de.fly4lol.autowgk.commands.SignCommands;
 import de.fly4lol.autowgk.listener.ArenaStateChangeListener;
 import de.fly4lol.autowgk.listener.PlayerCommandPreprocessListener;
-import de.fly4lol.autowgk.listener.PlayerQuitListener;
 import de.fly4lol.autowgk.sign.SignManager;
 import de.fly4lol.messenger.Messenger;
 import de.pro_crafting.commandframework.CommandFramework;
@@ -68,7 +68,7 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(this.signManager, this);
 		Bukkit.getPluginManager().registerEvents(new ArenaStateChangeListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerArenaChangeListener(this), this);
 	}
 		
 	public SignManager getSignManager() {
