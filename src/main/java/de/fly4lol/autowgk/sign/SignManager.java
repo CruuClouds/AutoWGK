@@ -36,7 +36,7 @@ public class SignManager implements Listener {
 			return;
 		}
 		Material type = event.getClickedBlock().getType();
-		if(!type.equals(Material.SIGN ) && !type.equals(Material.SIGN_POST)){
+		if(!type.equals(Material.SIGN ) && !type.equals(Material.SIGN_POST) && !type.equals(Material.WALL_SIGN)){
 			return;
 		}
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
