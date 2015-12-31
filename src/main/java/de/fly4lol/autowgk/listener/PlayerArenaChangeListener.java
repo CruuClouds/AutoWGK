@@ -24,10 +24,10 @@ public class PlayerArenaChangeListener implements Listener {
 
     @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void playerArenaChangeHandler(PlayerArenaChangeEvent event) {
-        Bukkit.broadcastMessage(event.getFrom().getName()+"|"+event.getTo().getName());
-
-        leaveArena(event.getPlayer());
-        event.setMessage("Du wirst aus deinem Team geworfen, da du die Arena verlassen hast!");
+        if (!event.getFrom().getName().equalsIgnoreCase(event.getTo().getName())) {
+            leaveArena(event.getPlayer());
+            event.setMessage("Du wirst aus deinem Team geworfen, da du die Arena verlassen hast!");
+        }
     }
 
     @EventHandler
